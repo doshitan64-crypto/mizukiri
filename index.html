@@ -438,6 +438,10 @@ input {
 input:focus {
   border-color: var(--cyan);
 }
+input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
 .stone-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -559,12 +563,17 @@ button {
   box-shadow: 0 8px 24px rgba(98, 232, 229, 0.24);
   transition: transform 0.12s ease, filter 0.12s ease;
 }
-.primary:hover {
+.primary:hover:not(:disabled) {
   filter: brightness(1.08);
   transform: translateY(-1px);
 }
-.primary:active {
+.primary:active:not(:disabled) {
   transform: translateY(1px);
+}
+.primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 .secondary {
   background: transparent;
@@ -847,31 +856,157 @@ button {
   justify-content: center;
   pointer-events: auto;
   z-index: 6;
+  padding: 16px;
 }
 .result-card {
-  width: min(400px, calc(100vw - 32px));
+  width: min(410px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
   background: #0b202b;
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 24px;
+  padding: 22px;
   text-align: center;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.65);
 }
 .distance {
-  font: 900 60px 'Barlow Condensed', sans-serif;
+  font: 900 58px 'Barlow Condensed', sans-serif;
   color: var(--mint);
   line-height: 1;
   margin: 4px 0;
 }
 .result-card h2 {
-  font: 800 23px 'Noto Sans JP', sans-serif;
+  font: 800 22px 'Noto Sans JP', sans-serif;
   margin: 6px 0;
 }
 .result-card p {
   font-size: 11px;
   color: #9db8c1;
-  line-height: 1.8;
-  margin: 10px 0 16px;
+  line-height: 1.7;
+  margin: 8px 0 14px;
+}
+.rank-register-box {
+  background: rgba(6, 23, 32, 0.78);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+.rank-register-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--cyan);
+  margin-bottom: 7px;
+  letter-spacing: 0.4px;
+}
+.rank-register-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.rank-view-link {
+  display: inline-block;
+  margin-left: 6px;
+  background: rgba(102, 230, 239, 0.16);
+  border: 1px solid rgba(102, 230, 239, 0.4);
+  color: #e6ffff;
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.rank-view-link:hover {
+  background: rgba(102, 230, 239, 0.3);
+}
+.share-x-btn {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: #0f1419;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.8px;
+  margin-bottom: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.share-x-btn:hover {
+  background: #1c242b;
+  border-color: var(--cyan);
+  transform: translateY(-1px);
+}
+.share-x-btn:active {
+  transform: translateY(1px);
+}
+
+/* Mobile-Friendly Ranking Modal */
+#rankModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 18, 27, 0.84);
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  z-index: 15;
+}
+.rank-modal-card {
+  width: min(400px, calc(100vw - 28px));
+  max-height: calc(100vh - 60px);
+  overflow-y: auto;
+  background: #0b202b;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7);
+}
+.rank-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.rank-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  background: #061720;
+  padding: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  margin-bottom: 12px;
+}
+.rank-tab-btn {
+  border: 0;
+  border-radius: 6px;
+  padding: 7px 6px;
+  background: transparent;
+  color: #93b3bd;
+  font: 700 11px 'Noto Sans JP', sans-serif;
+}
+.rank-tab-btn.active {
+  background: rgba(102, 230, 239, 0.22);
+  color: var(--mint);
+}
+.rank-status-badge {
+  display: inline-block;
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(156, 255, 208, 0.14);
+  border: 1px solid rgba(156, 255, 208, 0.35);
+  color: var(--mint);
+  margin-left: 6px;
 }
 
 /* Leaderboard (Selection screen only) */
@@ -961,6 +1096,7 @@ button {
     <div class="pill accent">DISTANCE <b id="hudDistance">0 m</b></div>
     <div class="pill">COMBO <b id="hudCombo">0</b></div>
     <div class="pill" id="hudSkipsPill" style="display:none">SKIPS <b id="hudSkips">0</b></div>
+    <button type="button" class="hud-btn" id="openRankHudBtn" title="オンラインランキング">🏆 ランキング</button>
     <button type="button" class="hud-btn" id="tuneCharBtn" title="CHAR_CONFIG スライダーを開く">🔧 キャラ調整</button>
     <button type="button" class="hud-btn" id="soundBtn" title="サウンド切替">🔊</button>
     <button type="button" class="hud-btn" id="backTopBtn">← 選択画面</button>
@@ -1027,6 +1163,7 @@ button {
       </div>
       <div class="stone-trait" id="stoneTrait">ゲージ速度：ゆっくり ／ 判定幅：超ワイド ／ 安定型</div>
       <button type="button" class="primary" id="startStoneBtn">この石で水切りを始める　→</button>
+      <button type="button" class="secondary" id="openRankStoneBtn" style="margin-top:8px;width:100%">🏆 オンラインランキングを見る</button>
     </div>
 
     <!-- MODE 2: THROWER VIEW SETUP -->
@@ -1062,6 +1199,7 @@ button {
       </div>
       <div class="stone-trait" id="throwerTrait">バランス型：安定したフォームで記録を伸ばしやすい</div>
       <button type="button" class="primary" id="startThrowerBtn">この人で挑戦する　→</button>
+      <button type="button" class="secondary" id="openRankThrowerBtn" style="margin-top:8px;width:100%">🏆 オンラインランキングを見る</button>
     </div>
   </section>
 
@@ -1106,11 +1244,30 @@ button {
 
   <!-- Leaderboard (Selection Screen Only) -->
   <aside id="ranking">
-    <div class="eyebrow" id="rankHeader">LEADERBOARD · 石視点</div>
+    <div class="eyebrow" id="rankHeader">ONLINE TOP · 石視点</div>
     <h1 style="font-size:20px">TOP DISTANCE</h1>
     <div id="rankRows"></div>
-    <p class="sub" style="margin-top:10px;margin-bottom:0">モード別に記録を端末へ保存します。</p>
+    <p class="sub" id="rankFooterNote" style="margin-top:10px;margin-bottom:0">オンラインランキング（TOP 5）を表示しています。</p>
   </aside>
+
+  <!-- Mobile & Full Ranking Modal -->
+  <div id="rankModal">
+    <div class="rank-modal-card">
+      <div class="rank-modal-header">
+        <div>
+          <div class="eyebrow">GLOBAL LEADERBOARD <span class="rank-status-badge" id="onlineBadge">ONLINE</span></div>
+          <h2 style="margin:2px 0 0;font-size:20px">🏆 オンラインランキング</h2>
+        </div>
+        <button type="button" class="dbg-close" id="closeRankModalBtn">✕ 閉じる</button>
+      </div>
+      <div class="rank-tabs">
+        <button type="button" class="rank-tab-btn active" data-rankmode="STONE_VIEW">🪨 石視点モード</button>
+        <button type="button" class="rank-tab-btn" data-rankmode="THROWER_VIEW">🏃 投げる人モード</button>
+      </div>
+      <div id="modalRankRows"></div>
+      <button type="button" class="secondary" id="closeRankModalBottomBtn" style="margin-top:14px;width:100%">閉じる</button>
+    </div>
+  </div>
 
   <!-- Result Modal -->
   <div id="result">
@@ -1119,6 +1276,18 @@ button {
       <h2 id="resultTitle">水切り終了</h2>
       <div class="distance" id="resultDistance">0 m</div>
       <p id="resultDetails"></p>
+
+      <!-- Manual Online Ranking Registration -->
+      <div class="rank-register-box">
+        <label class="rank-register-label" for="rankPlayerName">🏆 オンラインランキングに登録</label>
+        <div class="rank-register-row">
+          <input id="rankPlayerName" maxlength="14" placeholder="プレイヤー名を入力">
+          <button type="button" id="registerRankBtn" class="primary" style="width:auto;padding:9px 14px;white-space:nowrap;">登録する</button>
+        </div>
+        <div id="rankRegisterStatus" style="font-size:11px;color:var(--mint);margin-top:6px;display:none;"></div>
+      </div>
+
+      <button type="button" class="share-x-btn" id="shareXBtn">𝕏 で結果を共有する</button>
       <button type="button" class="primary" id="retryBtn">もう一度挑戦する　↻</button>
       <button type="button" class="secondary" id="resultBack" style="margin-top:9px;width:100%">選択画面に戻る</button>
     </div>
@@ -1127,6 +1296,9 @@ button {
 
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+import { getAuth, signInAnonymously, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+import { getFirestore, collection, addDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
 // ============================================================================
 // ★ CHAR_CONFIG（キャラクター見た目・顔・髪・服・投擲モーション設定数値まとめ）
@@ -1736,6 +1908,7 @@ const state = {
   maxCombo: 0,
   skips: 0,
   bestJudge: '—',
+  scoreRegisteredThisRun: false,
   throwElapsed: 0,
   throwDuration: 0.45,
   throwReleaseTime: 0.24,
@@ -2249,7 +2422,7 @@ function rebuildCharacterFromConfig() {
   // Bangs (Front Strands)
   const count = Math.max(3, Math.round(h.bangsStrandCount));
   for (let i = 0; i < count; i++) {
-    const norm = count === 1 ? 0 : (i / (count - 1)) * 2 - 1; // -1 .. 1
+    const norm = count === 1 ? 0 : (i / (count - 1)) * 2 - 1;
     const edgeFactor = Math.abs(norm);
     let len = h.bangsCenterLength * (1 - edgeFactor) + h.bangsSideLength * edgeFactor;
     if (h.bangsStyle === 'straight') len = h.bangsLength;
@@ -2881,10 +3054,12 @@ function beginSinking(fromLateFall) {
 
 function finishRun() {
   state.phase = 'RESULT';
+  state.scoreRegisteredThisRun = false;
   $('timing').style.display = 'none';
   $('powerPanel').style.display = 'none';
   $('result').style.display = 'flex';
-  $('resultDistance').textContent = Math.floor(state.distance) + ' m';
+  const distInt = Math.floor(state.distance);
+  $('resultDistance').textContent = distInt + ' m';
 
   if (state.gameMode === 'STONE_VIEW') {
     $('resultEyebrow').textContent = 'STONE VIEW MODE · COMPLETE';
@@ -2897,7 +3072,32 @@ function finishRun() {
     $('resultTitle').textContent = state.distance >= 350 ? '驚異の世界新記録級スロー！' : state.distance >= 180 ? '会心の一投！' : '投擲完了';
     $('resultDetails').textContent = `${t.name} · パワー ${pPct}% · リリース ${state.releaseRating} · 水切り ${state.skips}回`;
   }
-  saveScore();
+
+  // Reset manual ranking registration UI
+  const nameInput = $('rankPlayerName');
+  const regBtn = $('registerRankBtn');
+  const statusEl = $('rankRegisterStatus');
+
+  let savedName = '';
+  try {
+    savedName = localStorage.getItem('infiniteSkip_playerName') || '';
+  } catch (_) {}
+  nameInput.value = savedName;
+
+  if (distInt <= 0) {
+    nameInput.disabled = true;
+    regBtn.disabled = true;
+    regBtn.textContent = '登録不可';
+    statusEl.style.color = '#9db8c1';
+    statusEl.textContent = '1m以上の記録からランキングに登録できます';
+    statusEl.style.display = 'block';
+  } else {
+    nameInput.disabled = false;
+    regBtn.disabled = false;
+    regBtn.textContent = '登録する';
+    statusEl.style.display = 'none';
+    statusEl.innerHTML = '';
+  }
 }
 
 // ============================================================================
@@ -2913,7 +3113,7 @@ function switchGameMode(mode) {
     $('stoneSetupSection').style.display = 'block';
     $('throwerSetupSection').style.display = 'none';
     $('hudModeBadge').textContent = '石視点モード';
-    $('rankHeader').textContent = 'LEADERBOARD · 石視点';
+    $('rankHeader').textContent = 'ONLINE TOP · 石視点';
     charRig.visible = false;
     shoreMesh.visible = false;
     buildStoneMesh(state.selectedStone);
@@ -2922,7 +3122,7 @@ function switchGameMode(mode) {
     $('stoneSetupSection').style.display = 'none';
     $('throwerSetupSection').style.display = 'block';
     $('hudModeBadge').textContent = '投げる人モード';
-    $('rankHeader').textContent = 'LEADERBOARD · 投げる人';
+    $('rankHeader').textContent = 'ONLINE TOP · 投げる人';
     throwArmRig.visible = false;
     shoreMesh.visible = true;
     charRig.visible = true;
@@ -2933,6 +3133,7 @@ function switchGameMode(mode) {
     buildStoneMesh(1);
     attachStoneToSocket(charNodes.stoneSocket);
   }
+  modalRankMode = mode;
   renderRanks();
 }
 
@@ -2977,6 +3178,7 @@ function startSelectedMode() {
   state.maxCombo = 0;
   state.skips = 0;
   state.bestJudge = '—';
+  state.scoreRegisteredThisRun = false;
   updateHUD();
   clearDynamicFX();
 
@@ -3085,23 +3287,171 @@ function backToSelect() {
 }
 
 // ============================================================================
-// 8. LEADERBOARD (PER MODE)
+// 8. ONLINE & LOCAL LEADERBOARD + MANUAL REGISTRATION + X SHARE
 // ============================================================================
-function getStorageKey() {
-  return state.gameMode === 'STONE_VIEW' ? 'infiniteSkip_stoneView_v2' : 'infiniteSkip_throwerView_v2';
+const GAME_SHARE_URL = 'https://doshitan64-crypto.github.io/mizukiri';
+const onlineScores = {
+  STONE_VIEW: [],
+  THROWER_VIEW: []
+};
+let db = null;
+let currentUser = null;
+let isOnlineReady = false;
+let modalRankMode = 'STONE_VIEW';
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'infinite-skip-mizukiri';
+
+async function initOnlineLeaderboard() {
+  try {
+    if (typeof __firebase_config === 'undefined' || !__firebase_config) {
+      updateOnlineStatusBadge(false);
+      return;
+    }
+    const firebaseConfig = JSON.parse(__firebase_config);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    db = getFirestore(app);
+
+    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+      const cred = await signInWithCustomToken(auth, __initial_auth_token);
+      currentUser = cred.user;
+    } else {
+      const cred = await signInAnonymously(auth);
+      currentUser = cred.user;
+    }
+
+    if (!currentUser) {
+      updateOnlineStatusBadge(false);
+      return;
+    }
+
+    isOnlineReady = true;
+    updateOnlineStatusBadge(true);
+
+    ['STONE_VIEW', 'THROWER_VIEW'].forEach(modeKey => {
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', `leaderboard_${modeKey}`);
+      onSnapshot(
+        colRef,
+        snap => {
+          const list = [];
+          snap.forEach(docSnap => {
+            const d = docSnap.data();
+            if (d && typeof d.distance === 'number') {
+              list.push({
+                name: String(d.name || 'PLAYER'),
+                distance: Math.floor(d.distance),
+                skips: Number(d.skips || 0),
+                createdAt: Number(d.createdAt || 0)
+              });
+            }
+          });
+          list.sort((a, b) => b.distance - a.distance || b.skips - a.skips);
+          onlineScores[modeKey] = list.slice(0, 10);
+          renderRanks();
+        },
+        () => {
+          updateOnlineStatusBadge(false);
+        }
+      );
+    });
+  } catch (_) {
+    updateOnlineStatusBadge(false);
+  }
 }
 
-function saveScore() {
-  const key = getStorageKey();
-  let arr = JSON.parse(localStorage.getItem(key) || '[]');
-  const label = state.gameMode === 'STONE_VIEW'
-    ? state.stoneName
-    : `${throwers[state.selectedThrower].shortName} (${state.releaseRating})`;
-  arr.push({ name: label, distance: Math.floor(state.distance) });
+function updateOnlineStatusBadge(online) {
+  const badge = $('onlineBadge');
+  const note = $('rankFooterNote');
+  if (badge) {
+    badge.textContent = online ? 'ONLINE LIVE' : 'LOCAL SAVED';
+  }
+  if (note) {
+    note.textContent = online
+      ? '全プレイヤーのオンライン記録（TOP 5）をリアルタイム表示中。'
+      : '端末に保存された自己ベスト記録（TOP 5）を表示中。';
+  }
+}
+
+function getStorageKey(mode = state.gameMode) {
+  return mode === 'STONE_VIEW' ? 'infiniteSkip_stoneView_v2' : 'infiniteSkip_throwerView_v2';
+}
+
+function getLocalScores(mode) {
+  try {
+    return JSON.parse(localStorage.getItem(getStorageKey(mode)) || '[]');
+  } catch (_) {
+    return [];
+  }
+}
+
+async function registerScoreManually() {
+  if (state.scoreRegisteredThisRun) return;
+  const distInt = Math.floor(state.distance);
+  if (distInt <= 0) return;
+
+  const nameInput = $('rankPlayerName');
+  const regBtn = $('registerRankBtn');
+  const statusEl = $('rankRegisterStatus');
+
+  const rawName = nameInput.value.trim();
+  const playerName = rawName || '名無しの水切り師';
+  nameInput.value = playerName;
+
+  try {
+    localStorage.setItem('infiniteSkip_playerName', playerName);
+  } catch (_) {}
+
+  state.scoreRegisteredThisRun = true;
+  nameInput.disabled = true;
+  regBtn.disabled = true;
+  regBtn.textContent = '登録中...';
+
+  sfx.init();
+  sfx.playClick(740);
+
+  const mode = state.gameMode;
+  const entryLabel = mode === 'STONE_VIEW'
+    ? `${playerName} [${state.stoneName} / ${stones[state.selectedStone].name}]`
+    : `${playerName} [${throwers[state.selectedThrower].shortName} / ${state.releaseRating}]`;
+
+  // Save to local device storage
+  const key = getStorageKey(mode);
+  let arr = getLocalScores(mode);
+  arr.push({ name: entryLabel, distance: distInt, skips: state.skips });
   arr.sort((a, b) => b.distance - a.distance);
-  arr = arr.slice(0, 5);
-  localStorage.setItem(key, JSON.stringify(arr));
+  arr = arr.slice(0, 10);
+  try {
+    localStorage.setItem(key, JSON.stringify(arr));
+  } catch (_) {}
+
+  // Save to online Firestore leaderboard
+  if (isOnlineReady && db && currentUser) {
+    try {
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', `leaderboard_${mode}`);
+      await addDoc(colRef, {
+        name: entryLabel,
+        playerName,
+        distance: distInt,
+        skips: state.skips,
+        uid: currentUser.uid,
+        createdAt: Date.now()
+      });
+    } catch (_) {}
+  }
+
   renderRanks();
+
+  regBtn.textContent = '登録完了 ✓';
+  statusEl.style.color = 'var(--mint)';
+  statusEl.innerHTML = `「${escapeHtml(playerName)}」でランキングに登録しました！ <button type="button" class="rank-view-link" id="openRankAfterRegBtn">ランキングを見る</button>`;
+  statusEl.style.display = 'block';
+
+  const viewBtn = $('openRankAfterRegBtn');
+  if (viewBtn) {
+    viewBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      openRankModal(mode);
+    });
+  }
 }
 
 function escapeHtml(s) {
@@ -3110,11 +3460,62 @@ function escapeHtml(s) {
   }[c]));
 }
 
+function getDisplayScores(mode, limitCount) {
+  const online = onlineScores[mode] || [];
+  if (isOnlineReady && online.length > 0) {
+    return online.slice(0, limitCount);
+  }
+  return getLocalScores(mode).slice(0, limitCount);
+}
+
 function renderRanks() {
-  const arr = JSON.parse(localStorage.getItem(getStorageKey()) || '[]');
-  $('rankRows').innerHTML = arr.length
-    ? arr.map((r, i) => `<div class="rank-row"><span>${i + 1}. ${escapeHtml(r.name)}</span><b>${r.distance} m</b></div>`).join('')
+  const sideArr = getDisplayScores(state.gameMode, 5);
+  $('rankRows').innerHTML = sideArr.length
+    ? sideArr.map((r, i) => `<div class="rank-row"><span>${i + 1}. ${escapeHtml(r.name)}</span><b>${r.distance} m</b></div>`).join('')
     : '<p class="sub" style="margin:6px 0">まだ記録がありません。</p>';
+
+  const modalArr = getDisplayScores(modalRankMode, 10);
+  const modalHost = $('modalRankRows');
+  if (modalHost) {
+    modalHost.innerHTML = modalArr.length
+      ? modalArr.map((r, i) => {
+          const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+          const skipTxt = r.skips ? ` (${r.skips}回)` : '';
+          return `<div class="rank-row"><span>${medal} ${escapeHtml(r.name)}${skipTxt}</span><b>${r.distance} m</b></div>`;
+        }).join('')
+      : '<p class="sub" style="margin:10px 0;text-align:center">まだ記録がありません。最初の記録を残そう！</p>';
+  }
+}
+
+function openRankModal(initialMode = state.gameMode) {
+  modalRankMode = initialMode;
+  document.querySelectorAll('.rank-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.rankmode === modalRankMode);
+  });
+  renderRanks();
+  $('rankModal').style.display = 'flex';
+}
+
+function shareResultOnX() {
+  const distInt = Math.floor(state.distance);
+  const modeLabel = state.gameMode === 'STONE_VIEW' ? '石視点モード' : '投げる人モード';
+  const pickedLabel = state.gameMode === 'STONE_VIEW'
+    ? `選んだ石：${state.stoneName}（${stones[state.selectedStone].name}）`
+    : `選んだ人：${throwers[state.selectedThrower].name}`;
+  const resultLabel = state.gameMode === 'STONE_VIEW'
+    ? `結果：${distInt}m（水切り ${state.skips}回 / 最大コンボ ${state.maxCombo}）`
+    : `結果：${distInt}m（水切り ${state.skips}回 / リリース ${state.releaseRating}）`;
+
+  const tweetText = [
+    `【INFINITE SKIP — 水切り】`,
+    `モード：${modeLabel}`,
+    pickedLabel,
+    resultLabel,
+    `#INFINITESKIP #水切り`
+  ].join('\n');
+
+  const intentUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(GAME_SHARE_URL)}`;
+  window.open(intentUrl, '_blank', 'noopener,noreferrer');
 }
 
 // ============================================================================
@@ -3522,6 +3923,64 @@ $('startThrowerBtn').addEventListener('click', startSelectedMode);
 $('retryBtn').addEventListener('click', startSelectedMode);
 $('backTopBtn').addEventListener('click', backToSelect);
 $('resultBack').addEventListener('click', backToSelect);
+$('shareXBtn').addEventListener('click', () => {
+  sfx.init();
+  sfx.playClick(720);
+  shareResultOnX();
+});
+
+$('registerRankBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  registerScoreManually();
+});
+$('rankPlayerName').addEventListener('keydown', e => {
+  e.stopPropagation();
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    registerScoreManually();
+  }
+});
+
+$('openRankHudBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  sfx.init();
+  sfx.playClick(600);
+  openRankModal(state.gameMode);
+});
+$('openRankStoneBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  sfx.init();
+  sfx.playClick(600);
+  openRankModal('STONE_VIEW');
+});
+$('openRankThrowerBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  sfx.init();
+  sfx.playClick(600);
+  openRankModal('THROWER_VIEW');
+});
+$('closeRankModalBtn').addEventListener('click', () => {
+  $('rankModal').style.display = 'none';
+});
+$('closeRankModalBottomBtn').addEventListener('click', () => {
+  $('rankModal').style.display = 'none';
+});
+$('rankModal').addEventListener('click', e => {
+  if (e.target === $('rankModal')) {
+    $('rankModal').style.display = 'none';
+  }
+});
+document.querySelectorAll('.rank-tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    sfx.init();
+    sfx.playClick(540);
+    modalRankMode = btn.dataset.rankmode;
+    document.querySelectorAll('.rank-tab-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.rankmode === modalRankMode);
+    });
+    renderRanks();
+  });
+});
 
 $('throwBtn').addEventListener('click', e => {
   e.stopPropagation();
@@ -3890,6 +4349,7 @@ function animate(now) {
 chooseStone(0);
 chooseThrower(3);
 renderRanks();
+initOnlineLeaderboard();
 requestAnimationFrame(animate);
 </script>
 </body>
