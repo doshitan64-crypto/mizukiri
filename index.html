@@ -438,10 +438,6 @@ input {
 input:focus {
   border-color: var(--cyan);
 }
-input:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
 .stone-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -563,17 +559,12 @@ button {
   box-shadow: 0 8px 24px rgba(98, 232, 229, 0.24);
   transition: transform 0.12s ease, filter 0.12s ease;
 }
-.primary:hover:not(:disabled) {
+.primary:hover {
   filter: brightness(1.08);
   transform: translateY(-1px);
 }
-.primary:active:not(:disabled) {
+.primary:active {
   transform: translateY(1px);
-}
-.primary:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-  box-shadow: none;
 }
 .secondary {
   background: transparent;
@@ -856,70 +847,31 @@ button {
   justify-content: center;
   pointer-events: auto;
   z-index: 6;
-  padding: 16px;
 }
 .result-card {
-  width: min(410px, calc(100vw - 32px));
-  max-height: calc(100vh - 32px);
-  overflow-y: auto;
+  width: min(400px, calc(100vw - 32px));
   background: #0b202b;
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 22px;
+  padding: 24px;
   text-align: center;
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.65);
 }
 .distance {
-  font: 900 58px 'Barlow Condensed', sans-serif;
+  font: 900 60px 'Barlow Condensed', sans-serif;
   color: var(--mint);
   line-height: 1;
   margin: 4px 0;
 }
 .result-card h2 {
-  font: 800 22px 'Noto Sans JP', sans-serif;
+  font: 800 23px 'Noto Sans JP', sans-serif;
   margin: 6px 0;
 }
 .result-card p {
   font-size: 11px;
   color: #9db8c1;
-  line-height: 1.7;
-  margin: 8px 0 14px;
-}
-.rank-register-box {
-  background: rgba(6, 23, 32, 0.78);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 12px;
-  margin-bottom: 12px;
-  text-align: left;
-}
-.rank-register-label {
-  display: block;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--cyan);
-  margin-bottom: 7px;
-  letter-spacing: 0.4px;
-}
-.rank-register-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.rank-view-link {
-  display: inline-block;
-  margin-left: 6px;
-  background: rgba(102, 230, 239, 0.16);
-  border: 1px solid rgba(102, 230, 239, 0.4);
-  color: #e6ffff;
-  border-radius: 5px;
-  padding: 2px 8px;
-  font-size: 10px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.rank-view-link:hover {
-  background: rgba(102, 230, 239, 0.3);
+  line-height: 1.8;
+  margin: 10px 0 16px;
 }
 .share-x-btn {
   width: 100%;
@@ -946,6 +898,78 @@ button {
 }
 .share-x-btn:active {
   transform: translateY(1px);
+}
+.rank-reg-box {
+  background: rgba(6, 22, 31, 0.85);
+  border: 1px solid rgba(102, 230, 239, 0.35);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 11px;
+  text-align: left;
+}
+.rank-reg-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--cyan);
+  margin-bottom: 6px;
+  display: block;
+}
+.rank-reg-row {
+  display: flex;
+  gap: 6px;
+}
+.rank-reg-row input {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.rank-reg-btn {
+  border: 0;
+  border-radius: 7px;
+  padding: 0 14px;
+  background: linear-gradient(100deg, #ffd966, #ffae42);
+  color: #1c1300;
+  font-weight: 900;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.rank-reg-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.rank-reg-msg {
+  font-size: 10px;
+  color: var(--mint);
+  margin-top: 5px;
+  min-height: 14px;
+}
+
+/* 360° Character Viewer Overlay (Only Back Button Visible) */
+#charViewerOverlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+#exitViewerBtn {
+  pointer-events: auto;
+  position: fixed;
+  top: 20px;
+  right: 22px;
+  background: rgba(5, 22, 31, 0.88);
+  border: 1.5px solid var(--cyan);
+  color: #ffffff;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font: 800 13px 'Noto Sans JP', sans-serif;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+}
+#exitViewerBtn:hover {
+  background: #143f52;
 }
 
 /* Mobile-Friendly Ranking Modal */
@@ -1106,7 +1130,7 @@ button {
 <!-- Real-Time CHAR_CONFIG Tuning Drawer -->
 <aside id="charDebugDrawer">
   <div class="dbg-header">
-    <div class="dbg-title" id="dbgCharLabel">🔧 CHAR_CONFIG 調整：陸上部 レイナ</div>
+    <div class="dbg-title" id="dbgCharLabel">🔧 キャラ調整：陸上部 彩葉</div>
     <button type="button" class="dbg-close" id="closeDebugBtn">✕ 閉じる</button>
   </div>
   <div class="dbg-cam-bar">
@@ -1117,7 +1141,8 @@ button {
   </div>
   <div class="dbg-actions">
     <button type="button" class="dbg-btn" id="previewThrowPoseBtn">🎬 投擲モーション再生</button>
-    <button type="button" class="dbg-btn" id="resetCharCfgBtn">↺ 初期値にリセット</button>
+    <button type="button" class="dbg-btn" id="viewChar360Btn" style="border-color:var(--mint);color:var(--mint);">👁️ キャラを見る</button>
+    <button type="button" class="dbg-btn" id="resetCharCfgBtn" style="grid-column: 1 / -1;">↺ 初期値にリセット</button>
     <button type="button" class="dbg-btn accent" id="copyCharCfgBtn">📋 CHAR_CONFIG をコピー</button>
   </div>
   <div class="dbg-toast" id="dbgSaveStatus" style="display:block;margin-bottom:8px;">💾 端末に自動保存済み</div>
@@ -1188,8 +1213,8 @@ button {
           <div class="thrower-desc">驚異の回転数で水面をどこまでも滑るように跳ねる</div>
         </button>
         <button type="button" class="thrower-card" data-thrower="3">
-          <div class="thrower-role">神速スプリンター（最強）</div>
-          <div class="thrower-name">陸上部 レイナ</div>
+          <div class="thrower-role">神速スプリンター</div>
+          <div class="thrower-name">陸上部 彩葉</div>
           <div class="thrower-desc">超高速初速×最大級スピン×広めの判定で圧倒的記録を狙える最強型</div>
         </button>
       </div>
@@ -1276,17 +1301,14 @@ button {
       <h2 id="resultTitle">水切り終了</h2>
       <div class="distance" id="resultDistance">0 m</div>
       <p id="resultDetails"></p>
-
-      <!-- Manual Online Ranking Registration -->
-      <div class="rank-register-box">
-        <label class="rank-register-label" for="rankPlayerName">🏆 オンラインランキングに登録</label>
-        <div class="rank-register-row">
-          <input id="rankPlayerName" maxlength="14" placeholder="プレイヤー名を入力">
-          <button type="button" id="registerRankBtn" class="primary" style="width:auto;padding:9px 14px;white-space:nowrap;">登録する</button>
+      <div class="rank-reg-box">
+        <label class="rank-reg-label" for="playerRankName">🏆 全世界ランキングに登録（1端末につき最高記録1枠）</label>
+        <div class="rank-reg-row">
+          <input id="playerRankName" maxlength="12" placeholder="プレイヤー名を入力">
+          <button type="button" class="rank-reg-btn" id="registerRankBtn">登録する</button>
         </div>
-        <div id="rankRegisterStatus" style="font-size:11px;color:var(--mint);margin-top:6px;display:none;"></div>
+        <div class="rank-reg-msg" id="rankRegMsg"></div>
       </div>
-
       <button type="button" class="share-x-btn" id="shareXBtn">𝕏 で結果を共有する</button>
       <button type="button" class="primary" id="retryBtn">もう一度挑戦する　↻</button>
       <button type="button" class="secondary" id="resultBack" style="margin-top:9px;width:100%">選択画面に戻る</button>
@@ -1294,16 +1316,17 @@ button {
   </div>
 </main>
 
+<!-- 360° Character Viewer Overlay (Only Back Button) -->
+<div id="charViewerOverlay">
+  <button type="button" id="exitViewerBtn">← 戻る</button>
+</div>
+
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
 import { getAuth, signInAnonymously, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
-import { getFirestore, collection, addDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+import { getFirestore, collection, doc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
-// ============================================================================
-// ★ CHAR_CONFIG（キャラクター見た目・顔・髪・服・投擲モーション設定数値まとめ）
-//   ここを直接書き換えるか、右上の「🔧 キャラ調整」スライダーでリアルタイム調整できます！
-// ============================================================================
 export const CHAR_CONFIG = {
   // ==========================================
   // 1. 全体プロポーション・立ち姿・バスト
@@ -1887,7 +1910,7 @@ const throwers = [
     skinColor: 0xe2b89b
   },
   {
-    name: '陸上部 レイナ', shortName: 'レイナ', role: '神速スプリンター（最強）',
+    name: '陸上部 彩葉', shortName: '彩葉', role: '神速スプリンター',
     powerStars: 5, spinStars: 5, powerGaugeSpeed: 1.55,
     runDuration: 0.90, releaseWindowMult: 1.50, baseVel: 54, spinBonus: 1.75,
     trait: '神速スプリンター：超高速初速×最大級スピン×広めのリリース判定で圧倒的記録を狙える最強型',
@@ -1908,7 +1931,6 @@ const state = {
   maxCombo: 0,
   skips: 0,
   bestJudge: '—',
-  scoreRegisteredThisRun: false,
   throwElapsed: 0,
   throwDuration: 0.45,
   throwReleaseTime: 0.24,
@@ -1938,7 +1960,15 @@ const state = {
   nextBuoyZ: -35,
   debugOpen: false,
   debugCamMode: 'FRONT',
-  debugPreviewTimer: 0
+  debugPreviewTimer: 0,
+  viewer360Active: false,
+  viewerYaw: Math.PI,
+  viewerPitch: 0.12,
+  viewerDist: 3.1,
+  isDraggingViewer: false,
+  dragStartX: 0,
+  dragStartY: 0,
+  scoreRegisteredThisRun: false
 };
 window.__gameState = state;
 
@@ -2241,8 +2271,8 @@ function rebuildCharacterFromConfig() {
   torsoPivot.add(collar);
 
   // Bust
-  charNodes.bustLeft.position.set(-b.bustSpacing, b.torsoHeight * 0.5 + b.bustHeight - b.bustDroop, b.bustForward);
-  charNodes.bustRight.position.set(b.bustSpacing, b.torsoHeight * 0.5 + b.bustHeight - b.bustDroop, b.bustForward);
+  charNodes.bustLeft.position.set(-b.bustSpacing, b.torsoHeight * 0.5 + b.bustHeight - b.bustDroop, -b.bustForward);
+  charNodes.bustRight.position.set(b.bustSpacing, b.torsoHeight * 0.5 + b.bustHeight - b.bustDroop, -b.bustForward);
   torsoPivot.add(charNodes.bustLeft, charNodes.bustRight);
 
   if (b.bustSize > 0.05) {
@@ -2422,7 +2452,7 @@ function rebuildCharacterFromConfig() {
   // Bangs (Front Strands)
   const count = Math.max(3, Math.round(h.bangsStrandCount));
   for (let i = 0; i < count; i++) {
-    const norm = count === 1 ? 0 : (i / (count - 1)) * 2 - 1;
+    const norm = count === 1 ? 0 : (i / (count - 1)) * 2 - 1; // -1 .. 1
     const edgeFactor = Math.abs(norm);
     let len = h.bangsCenterLength * (1 - edgeFactor) + h.bangsSideLength * edgeFactor;
     if (h.bangsStyle === 'straight') len = h.bangsLength;
@@ -2998,7 +3028,7 @@ function resolveThrowerRelease(forcedLate = false) {
   state.autoSkipsRemaining = Math.max(2, Math.round(baseSkips * totalQuality));
 
   $('timing').style.display = 'none';
-  $('bottomHint').textContent = 'ナイススロー！水切りを自動観測中…（操作不要）';
+  $('bottomHint').textContent = 'ナイススロー！石を追尾中…（操作不要）';
   sfx.playThrow(state.lockedPower);
 
   detachStoneToWorld();
@@ -3058,8 +3088,19 @@ function finishRun() {
   $('timing').style.display = 'none';
   $('powerPanel').style.display = 'none';
   $('result').style.display = 'flex';
-  const distInt = Math.floor(state.distance);
-  $('resultDistance').textContent = distInt + ' m';
+  $('resultDistance').textContent = Math.floor(state.distance) + ' m';
+
+  const regBtn = $('registerRankBtn');
+  const regMsg = $('rankRegMsg');
+  const nameInput = $('playerRankName');
+  if (regBtn) regBtn.disabled = false;
+  if (regMsg) regMsg.textContent = '';
+  try {
+    const savedName = localStorage.getItem('infiniteSkip_playerName');
+    if (savedName && nameInput && !nameInput.value) {
+      nameInput.value = savedName;
+    }
+  } catch (_) {}
 
   if (state.gameMode === 'STONE_VIEW') {
     $('resultEyebrow').textContent = 'STONE VIEW MODE · COMPLETE';
@@ -3072,102 +3113,6 @@ function finishRun() {
     $('resultTitle').textContent = state.distance >= 350 ? '驚異の世界新記録級スロー！' : state.distance >= 180 ? '会心の一投！' : '投擲完了';
     $('resultDetails').textContent = `${t.name} · パワー ${pPct}% · リリース ${state.releaseRating} · 水切り ${state.skips}回`;
   }
-
-  // Reset manual ranking registration UI
-  const nameInput = $('rankPlayerName');
-  const regBtn = $('registerRankBtn');
-  const statusEl = $('rankRegisterStatus');
-
-  let savedName = '';
-  try {
-    savedName = localStorage.getItem('infiniteSkip_playerName') || '';
-  } catch (_) {}
-  nameInput.value = savedName;
-
-  if (distInt <= 0) {
-    nameInput.disabled = true;
-    regBtn.disabled = true;
-    regBtn.textContent = '登録不可';
-    statusEl.style.color = '#9db8c1';
-    statusEl.textContent = '1m以上の記録からランキングに登録できます';
-    statusEl.style.display = 'block';
-  } else {
-    nameInput.disabled = false;
-    regBtn.disabled = false;
-    regBtn.textContent = '登録する';
-    statusEl.style.display = 'none';
-    statusEl.innerHTML = '';
-  }
-}
-
-// ============================================================================
-// 7. SELECTION & MODE TRANSITIONS
-// ============================================================================
-function switchGameMode(mode) {
-  state.gameMode = mode;
-  document.querySelectorAll('.mode-tab').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.mode === mode);
-  });
-
-  if (mode === 'STONE_VIEW') {
-    $('stoneSetupSection').style.display = 'block';
-    $('throwerSetupSection').style.display = 'none';
-    $('hudModeBadge').textContent = '石視点モード';
-    $('rankHeader').textContent = 'ONLINE TOP · 石視点';
-    charRig.visible = false;
-    shoreMesh.visible = false;
-    buildStoneMesh(state.selectedStone);
-    stoneMesh.position.set(0, 0.35, 1.5);
-  } else {
-    $('stoneSetupSection').style.display = 'none';
-    $('throwerSetupSection').style.display = 'block';
-    $('hudModeBadge').textContent = '投げる人モード';
-    $('rankHeader').textContent = 'ONLINE TOP · 投げる人';
-    throwArmRig.visible = false;
-    shoreMesh.visible = true;
-    charRig.visible = true;
-    charRig.position.set(0, -0.05, 8.5);
-    loadCharConfigFromStorage(state.selectedThrower);
-    rebuildCharacterFromConfig();
-    setCharacterPose('IDLE', 0);
-    buildStoneMesh(1);
-    attachStoneToSocket(charNodes.stoneSocket);
-  }
-  modalRankMode = mode;
-  renderRanks();
-}
-
-function chooseStone(idx) {
-  state.selectedStone = idx;
-  document.querySelectorAll('.stone-choice').forEach((btn, j) => {
-    btn.classList.toggle('active', j === idx);
-  });
-  const s = stones[idx];
-  buildStoneMesh(idx);
-  $('ease').textContent = '★'.repeat(s.easeStars) + '☆'.repeat(5 - s.easeStars);
-  $('bounce').textContent = '★'.repeat(s.bounceStars) + '☆'.repeat(5 - s.bounceStars);
-  $('stoneTrait').textContent = s.trait;
-  $('stoneIcon').style.transform = `rotate(-12deg) scale(${s.scale[0] / 1.2}, ${s.scale[1] / 0.42})`;
-}
-
-function chooseThrower(idx) {
-  state.selectedThrower = idx;
-  document.querySelectorAll('.thrower-card').forEach((btn, j) => {
-    btn.classList.toggle('active', j === idx);
-  });
-  const t = throwers[idx];
-  $('thPower').textContent = '★'.repeat(t.powerStars) + '☆'.repeat(5 - t.powerStars);
-  $('thSpin').textContent = '★'.repeat(t.spinStars) + '☆'.repeat(5 - t.spinStars);
-  $('throwerTrait').textContent = t.trait;
-  $('dbgCharLabel').textContent = `🔧 CHAR_CONFIG 調整：${t.name}`;
-
-  loadCharConfigFromStorage(idx);
-  if (state.gameMode === 'THROWER_VIEW') {
-    rebuildCharacterFromConfig();
-  }
-  if (state.debugOpen) {
-    renderDebugCategory(currentDebugCat);
-  }
 }
 
 function startSelectedMode() {
@@ -3178,7 +3123,6 @@ function startSelectedMode() {
   state.maxCombo = 0;
   state.skips = 0;
   state.bestJudge = '—';
-  state.scoreRegisteredThisRun = false;
   updateHUD();
   clearDynamicFX();
 
@@ -3287,7 +3231,78 @@ function backToSelect() {
 }
 
 // ============================================================================
-// 8. ONLINE & LOCAL LEADERBOARD + MANUAL REGISTRATION + X SHARE
+// 7. SELECTION & MODE SWITCHING
+// ============================================================================
+function switchGameMode(mode) {
+  state.gameMode = mode;
+  document.querySelectorAll('.mode-tab').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+
+  if (mode === 'STONE_VIEW') {
+    $('stoneSetupSection').style.display = 'block';
+    $('throwerSetupSection').style.display = 'none';
+    $('hudModeBadge').textContent = '石視点モード';
+    $('rankHeader').textContent = 'ONLINE TOP · 石視点';
+    charRig.visible = false;
+    shoreMesh.visible = false;
+    buildStoneMesh(state.selectedStone);
+    stoneMesh.position.set(0, 0.35, 1.5);
+  } else {
+    $('stoneSetupSection').style.display = 'none';
+    $('throwerSetupSection').style.display = 'block';
+    $('hudModeBadge').textContent = '投げる人モード';
+    $('rankHeader').textContent = 'ONLINE TOP · 投げる人';
+    throwArmRig.visible = false;
+    shoreMesh.visible = true;
+    charRig.visible = true;
+    charRig.position.set(0, -0.05, 8.5);
+    loadCharConfigFromStorage(state.selectedThrower);
+    rebuildCharacterFromConfig();
+    setCharacterPose('IDLE', 0);
+    buildStoneMesh(1);
+    attachStoneToSocket(charNodes.stoneSocket);
+  }
+  renderRanks();
+}
+
+function chooseStone(idx) {
+  state.selectedStone = idx;
+  document.querySelectorAll('.stone-choice').forEach((btn, j) => {
+    btn.classList.toggle('active', j === idx);
+  });
+  const s = stones[idx];
+  buildStoneMesh(idx);
+  $('ease').textContent = '★'.repeat(s.easeStars) + '☆'.repeat(5 - s.easeStars);
+  $('bounce').textContent = '★'.repeat(s.bounceStars) + '☆'.repeat(5 - s.bounceStars);
+  $('stoneTrait').textContent = s.trait;
+  $('stoneIcon').style.transform = `rotate(-12deg) scale(${s.scale[0] / 1.2}, ${s.scale[1] / 0.42})`;
+}
+
+function chooseThrower(idx) {
+  state.selectedThrower = idx;
+  document.querySelectorAll('.thrower-card').forEach((btn, j) => {
+    btn.classList.toggle('active', j === idx);
+  });
+  const t = throwers[idx];
+  $('thPower').textContent = '★'.repeat(t.powerStars) + '☆'.repeat(5 - t.powerStars);
+  $('thSpin').textContent = '★'.repeat(t.spinStars) + '☆'.repeat(5 - t.spinStars);
+  $('throwerTrait').textContent = t.trait;
+
+  const dbgLabel = $('dbgCharLabel');
+  if (dbgLabel) dbgLabel.textContent = `🔧 キャラ調整：${t.name}`;
+
+  loadCharConfigFromStorage(idx);
+  if (state.gameMode === 'THROWER_VIEW') {
+    rebuildCharacterFromConfig();
+  }
+  if (state.debugOpen) {
+    renderDebugCategory(currentDebugCat);
+  }
+}
+
+// ============================================================================
+// 8. ONLINE & LOCAL LEADERBOARD + X (TWITTER) SHARE
 // ============================================================================
 const GAME_SHARE_URL = 'https://doshitan64-crypto.github.io/mizukiri';
 const onlineScores = {
@@ -3295,10 +3310,26 @@ const onlineScores = {
   THROWER_VIEW: []
 };
 let db = null;
+let authInstance = null;
 let currentUser = null;
 let isOnlineReady = false;
 let modalRankMode = 'STONE_VIEW';
 const appId = typeof __app_id !== 'undefined' ? __app_id : 'infinite-skip-mizukiri';
+
+function getDeviceId() {
+  try {
+    let id = localStorage.getItem('infiniteSkip_deviceId');
+    if (!id) {
+      id = (typeof crypto !== 'undefined' && crypto.randomUUID)
+        ? crypto.randomUUID()
+        : 'dev_' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem('infiniteSkip_deviceId', id);
+    }
+    return id;
+  } catch (_) {
+    return 'dev_guest';
+  }
+}
 
 async function initOnlineLeaderboard() {
   try {
@@ -3306,16 +3337,18 @@ async function initOnlineLeaderboard() {
       updateOnlineStatusBadge(false);
       return;
     }
-    const firebaseConfig = JSON.parse(__firebase_config);
+    const firebaseConfig = typeof __firebase_config === 'string'
+      ? JSON.parse(__firebase_config)
+      : __firebase_config;
     const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    authInstance = getAuth(app);
     db = getFirestore(app);
 
     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-      const cred = await signInWithCustomToken(auth, __initial_auth_token);
+      const cred = await signInWithCustomToken(authInstance, __initial_auth_token);
       currentUser = cred.user;
     } else {
-      const cred = await signInAnonymously(auth);
+      const cred = await signInAnonymously(authInstance);
       currentUser = cred.user;
     }
 
@@ -3332,20 +3365,29 @@ async function initOnlineLeaderboard() {
       onSnapshot(
         colRef,
         snap => {
-          const list = [];
+          const bestByOwner = new Map();
           snap.forEach(docSnap => {
             const d = docSnap.data();
             if (d && typeof d.distance === 'number') {
-              list.push({
+              const ownerKey = String(d.deviceId || d.uid || docSnap.id);
+              const entry = {
+                id: docSnap.id,
+                ownerKey,
                 name: String(d.name || 'PLAYER'),
+                detail: String(d.detail || ''),
                 distance: Math.floor(d.distance),
                 skips: Number(d.skips || 0),
                 createdAt: Number(d.createdAt || 0)
-              });
+              };
+              const prev = bestByOwner.get(ownerKey);
+              if (!prev || entry.distance > prev.distance || (entry.distance === prev.distance && entry.skips > prev.skips)) {
+                bestByOwner.set(ownerKey, entry);
+              }
             }
           });
+          const list = Array.from(bestByOwner.values());
           list.sort((a, b) => b.distance - a.distance || b.skips - a.skips);
-          onlineScores[modeKey] = list.slice(0, 10);
+          onlineScores[modeKey] = list.slice(0, 30);
           renderRanks();
         },
         () => {
@@ -3362,17 +3404,17 @@ function updateOnlineStatusBadge(online) {
   const badge = $('onlineBadge');
   const note = $('rankFooterNote');
   if (badge) {
-    badge.textContent = online ? 'ONLINE LIVE' : 'LOCAL SAVED';
+    badge.textContent = online ? 'ONLINE WORLDWIDE' : 'LOCAL SAVED';
   }
   if (note) {
     note.textContent = online
-      ? '全プレイヤーのオンライン記録（TOP 5）をリアルタイム表示中。'
-      : '端末に保存された自己ベスト記録（TOP 5）を表示中。';
+      ? '全世界オンラインランキング（1端末につき最高記録1枠）を表示中。'
+      : '端末に保存された自己ベスト記録（1端末1枠）を表示中。';
   }
 }
 
 function getStorageKey(mode = state.gameMode) {
-  return mode === 'STONE_VIEW' ? 'infiniteSkip_stoneView_v2' : 'infiniteSkip_throwerView_v2';
+  return mode === 'STONE_VIEW' ? 'infiniteSkip_stoneView_v3' : 'infiniteSkip_throwerView_v3';
 }
 
 function getLocalScores(mode) {
@@ -3383,75 +3425,102 @@ function getLocalScores(mode) {
   }
 }
 
-async function registerScoreManually() {
+async function registerManualScore() {
   if (state.scoreRegisteredThisRun) return;
   const distInt = Math.floor(state.distance);
-  if (distInt <= 0) return;
+  const msgEl = $('rankRegMsg');
+  const btnEl = $('registerRankBtn');
+  const nameInput = $('playerRankName');
 
-  const nameInput = $('rankPlayerName');
-  const regBtn = $('registerRankBtn');
-  const statusEl = $('rankRegisterStatus');
+  if (distInt <= 0) {
+    if (msgEl) msgEl.textContent = '1m以上の記録で登録できます。';
+    return;
+  }
 
-  const rawName = nameInput.value.trim();
-  const playerName = rawName || '名無しの水切り師';
-  nameInput.value = playerName;
-
+  const rawName = (nameInput ? nameInput.value : '').trim() || '名無しの水切り師';
   try {
-    localStorage.setItem('infiniteSkip_playerName', playerName);
+    localStorage.setItem('infiniteSkip_playerName', rawName);
   } catch (_) {}
-
-  state.scoreRegisteredThisRun = true;
-  nameInput.disabled = true;
-  regBtn.disabled = true;
-  regBtn.textContent = '登録中...';
-
-  sfx.init();
-  sfx.playClick(740);
 
   const mode = state.gameMode;
-  const entryLabel = mode === 'STONE_VIEW'
-    ? `${playerName} [${state.stoneName} / ${stones[state.selectedStone].name}]`
-    : `${playerName} [${throwers[state.selectedThrower].shortName} / ${state.releaseRating}]`;
+  const deviceId = getDeviceId();
+  const detail = mode === 'STONE_VIEW'
+    ? `${stones[state.selectedStone].name}`
+    : `${throwers[state.selectedThrower].shortName}`;
+  const displayName = `${rawName} [${detail}]`;
 
-  // Save to local device storage
+  if (btnEl) btnEl.disabled = true;
+  if (msgEl) msgEl.textContent = '登録中…';
+
+  // 1. Update local single-slot best record for this device
   const key = getStorageKey(mode);
-  let arr = getLocalScores(mode);
-  arr.push({ name: entryLabel, distance: distInt, skips: state.skips });
+  let arr = getLocalScores(mode).filter(item => item.deviceId !== deviceId);
+  const prevLocal = getLocalScores(mode).find(item => item.deviceId === deviceId);
+  const bestLocalDist = prevLocal ? Math.max(prevLocal.distance, distInt) : distInt;
+  const bestLocalSkips = (prevLocal && prevLocal.distance > distInt) ? prevLocal.skips : state.skips;
+  arr.push({
+    deviceId,
+    name: displayName,
+    detail,
+    distance: bestLocalDist,
+    skips: bestLocalSkips
+  });
   arr.sort((a, b) => b.distance - a.distance);
-  arr = arr.slice(0, 10);
   try {
-    localStorage.setItem(key, JSON.stringify(arr));
+    localStorage.setItem(key, JSON.stringify(arr.slice(0, 10)));
   } catch (_) {}
 
-  // Save to online Firestore leaderboard
+  // 2. Register / Overwrite single slot per device in Worldwide Firestore
+  if (!isOnlineReady) {
+    await initOnlineLeaderboard();
+  }
+
+  let savedOnline = false;
   if (isOnlineReady && db && currentUser) {
     try {
-      const colRef = collection(db, 'artifacts', appId, 'public', 'data', `leaderboard_${mode}`);
-      await addDoc(colRef, {
-        name: entryLabel,
-        playerName,
-        distance: distInt,
-        skips: state.skips,
-        uid: currentUser.uid,
-        createdAt: Date.now()
-      });
-    } catch (_) {}
+      const existing = (onlineScores[mode] || []).find(
+        r => r.ownerKey === deviceId || r.ownerKey === currentUser.uid || r.id === deviceId
+      );
+      if (existing && existing.distance > distInt) {
+        // Keep higher distance, just update display name if changed
+        const docRef = doc(db, 'artifacts', appId, 'public', 'data', `leaderboard_${mode}`, existing.id || deviceId);
+        await setDoc(docRef, {
+          name: displayName,
+          detail,
+          distance: existing.distance,
+          skips: existing.skips,
+          deviceId,
+          uid: currentUser.uid,
+          createdAt: Date.now()
+        });
+        savedOnline = true;
+        if (msgEl) msgEl.textContent = `自己ベスト（${existing.distance}m）を保持して名前を更新しました！`;
+      } else {
+        const docId = existing ? (existing.id || deviceId) : deviceId;
+        const docRef = doc(db, 'artifacts', appId, 'public', 'data', `leaderboard_${mode}`, docId);
+        await setDoc(docRef, {
+          name: displayName,
+          detail,
+          distance: distInt,
+          skips: state.skips,
+          deviceId,
+          uid: currentUser.uid,
+          createdAt: Date.now()
+        });
+        savedOnline = true;
+        if (msgEl) msgEl.textContent = `🏆 全世界ランキングに「${distInt} m」を登録しました！`;
+      }
+    } catch (_) {
+      savedOnline = false;
+    }
   }
 
+  if (!savedOnline && msgEl) {
+    msgEl.textContent = `端末ランキングに「${bestLocalDist} m」を保存しました！`;
+  }
+
+  state.scoreRegisteredThisRun = true;
   renderRanks();
-
-  regBtn.textContent = '登録完了 ✓';
-  statusEl.style.color = 'var(--mint)';
-  statusEl.innerHTML = `「${escapeHtml(playerName)}」でランキングに登録しました！ <button type="button" class="rank-view-link" id="openRankAfterRegBtn">ランキングを見る</button>`;
-  statusEl.style.display = 'block';
-
-  const viewBtn = $('openRankAfterRegBtn');
-  if (viewBtn) {
-    viewBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      openRankModal(mode);
-    });
-  }
 }
 
 function escapeHtml(s) {
@@ -3824,6 +3893,55 @@ $('previewThrowPoseBtn').addEventListener('click', e => {
   state.debugPreviewTimer = 0.9;
 });
 
+function enter360CharacterViewer() {
+  state.viewer360Active = true;
+  state.viewerYaw = Math.PI;
+  state.viewerPitch = 0.12;
+  state.viewerDist = 3.1;
+
+  if (state.gameMode !== 'THROWER_VIEW') {
+    switchGameMode('THROWER_VIEW');
+  }
+  loadCharConfigFromStorage(state.selectedThrower);
+  rebuildCharacterFromConfig();
+
+  // Hide all UI overlays and show ONLY the back button
+  document.querySelector('header').style.display = 'none';
+  $('selectPanel').style.display = 'none';
+  $('ranking').style.display = 'none';
+  $('centerMessage').style.display = 'none';
+  $('bottomHint').style.display = 'none';
+  $('charDebugDrawer').style.display = 'none';
+  $('charViewerOverlay').style.display = 'block';
+}
+
+function exit360CharacterViewer() {
+  state.viewer360Active = false;
+  $('charViewerOverlay').style.display = 'none';
+  document.querySelector('header').style.display = 'flex';
+  $('selectPanel').style.display = 'block';
+  if (window.innerWidth > 760) $('ranking').style.display = 'block';
+  $('centerMessage').style.display = 'block';
+  $('bottomHint').style.display = 'block';
+  if (state.debugOpen) {
+    $('charDebugDrawer').style.display = 'block';
+  }
+}
+
+$('viewChar360Btn').addEventListener('click', e => {
+  e.stopPropagation();
+  sfx.init();
+  sfx.playClick(640);
+  enter360CharacterViewer();
+});
+
+$('exitViewerBtn').addEventListener('click', e => {
+  e.stopPropagation();
+  sfx.init();
+  sfx.playClick(520);
+  exit360CharacterViewer();
+});
+
 $('resetCharCfgBtn').addEventListener('click', e => {
   e.stopPropagation();
   sfx.init();
@@ -3923,22 +4041,15 @@ $('startThrowerBtn').addEventListener('click', startSelectedMode);
 $('retryBtn').addEventListener('click', startSelectedMode);
 $('backTopBtn').addEventListener('click', backToSelect);
 $('resultBack').addEventListener('click', backToSelect);
+$('registerRankBtn').addEventListener('click', () => {
+  sfx.init();
+  sfx.playClick(760);
+  registerManualScore();
+});
 $('shareXBtn').addEventListener('click', () => {
   sfx.init();
   sfx.playClick(720);
   shareResultOnX();
-});
-
-$('registerRankBtn').addEventListener('click', e => {
-  e.stopPropagation();
-  registerScoreManually();
-});
-$('rankPlayerName').addEventListener('keydown', e => {
-  e.stopPropagation();
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    registerScoreManually();
-  }
 });
 
 $('openRankHudBtn').addEventListener('click', e => {
@@ -4000,6 +4111,7 @@ $('soundBtn').addEventListener('click', e => {
 });
 
 function handleViewportTap(e) {
+  if (state.viewer360Active) return;
   if (e && e.cancelable) e.preventDefault();
   sfx.init();
 
@@ -4014,7 +4126,35 @@ function handleViewportTap(e) {
   }
 }
 
-renderer.domElement.addEventListener('pointerdown', handleViewportTap);
+renderer.domElement.addEventListener('pointerdown', e => {
+  if (state.viewer360Active) {
+    state.isDraggingViewer = true;
+    state.dragStartX = e.clientX;
+    state.dragStartY = e.clientY;
+    return;
+  }
+  handleViewportTap(e);
+});
+
+window.addEventListener('pointermove', e => {
+  if (!state.viewer360Active || !state.isDraggingViewer) return;
+  const dx = e.clientX - state.dragStartX;
+  const dy = e.clientY - state.dragStartY;
+  state.dragStartX = e.clientX;
+  state.dragStartY = e.clientY;
+  state.viewerYaw -= dx * 0.012;
+  state.viewerPitch = Math.max(-0.35, Math.min(0.65, state.viewerPitch + dy * 0.008));
+});
+
+window.addEventListener('pointerup', () => {
+  state.isDraggingViewer = false;
+});
+
+renderer.domElement.addEventListener('wheel', e => {
+  if (!state.viewer360Active) return;
+  e.preventDefault();
+  state.viewerDist = Math.max(1.5, Math.min(5.5, state.viewerDist + e.deltaY * 0.002));
+}, { passive: false });
 window.addEventListener('keydown', e => {
   if (e.code === 'Space') {
     if (['READY_THROW', 'FLYING', 'POWER_GAUGE', 'RUNUP'].includes(state.phase)) {
@@ -4085,7 +4225,14 @@ function animate(now) {
 
       const cx = charRig.position.x;
       const cz = charRig.position.z;
-      if (state.debugOpen) {
+      if (state.viewer360Active) {
+        const horiz = Math.cos(state.viewerPitch) * state.viewerDist;
+        const camY = 1.25 + Math.sin(state.viewerPitch) * state.viewerDist;
+        const camX = cx + Math.sin(state.viewerYaw) * horiz;
+        const camZ = cz + Math.cos(state.viewerYaw) * horiz;
+        state.camPos.lerp(new THREE.Vector3(camX, camY, camZ), 0.22);
+        state.camLook.lerp(new THREE.Vector3(cx, 1.25, cz), 0.22);
+      } else if (state.debugOpen) {
         if (state.debugCamMode === 'FACE') {
           state.camPos.lerp(new THREE.Vector3(cx - 0.15, 2.02, cz - 1.65), 0.14);
           state.camLook.lerp(new THREE.Vector3(cx, 1.92, cz), 0.14);
