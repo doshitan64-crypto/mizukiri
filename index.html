@@ -1258,7 +1258,7 @@ ol.top-list li b.r-score {
     <button type="button" class="primary" id="lockPowerBtn">この強さで投げる！ (SPACE / TAP)</button>
   </div>
 
-  <!-- Timing Ring (Clean center, no text inside circle) -->
+  <!-- Timing Ring — Clean Center (NO center text) -->
   <div id="timing">
     <div id="gaugeBackdrop"></div>
     <div id="outerGuide"></div>
@@ -1342,8 +1342,54 @@ ol.top-list li b.r-score {
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
 import { getAnalytics, isSupported as isAnalyticsSupported } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js';
-import { getAuth, signInAnonymously, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
+import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
 import { getFirestore, collection, doc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+// ============================================================================
+// GLOBAL ERROR BOUNDARIES (PREVENT UNCAUGHT ERRORS & CONSOLE CLUTTER)
+// ============================================================================
+window.addEventListener('error', event => {
+  try {
+    console.warn('[Game Error Guard]', event?.message || event);
+  } catch (_) {}
+});
+
+window.addEventListener('unhandledrejection', event => {
+  try {
+    if (event && typeof event.preventDefault === 'function') {
+      event.preventDefault();
+    }
+    console.warn('[Promise Rejection Guard]', event?.reason?.message || event?.reason || event);
+  } catch (_) {}
+});
+
+function withTimeout(promise, ms = 2500, label = 'timeout') {
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const timer = setTimeout(() => {
+      if (!settled) {
+        settled = true;
+        reject(new Error(`${label} (${ms}ms)`));
+      }
+    }, ms);
+
+    Promise.resolve(promise)
+      .then(val => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          resolve(val);
+        }
+      })
+      .catch(err => {
+        if (!settled) {
+          settled = true;
+          clearTimeout(timer);
+          reject(err);
+        }
+      });
+  });
+}
 
 // ============================================================================
 // FIREBASE CONFIGURATION (PROJECT: infinite-skip)
@@ -1645,7 +1691,9 @@ class SoundFX {
         const AC = window.AudioContext || window.webkitAudioContext;
         if (AC) this.ctx = new AC();
       }
-      if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      if (this.ctx && this.ctx.state === 'suspended') {
+        this.ctx.resume().catch(() => {});
+      }
     } catch (_) {}
   }
   toggle() {
@@ -1654,95 +1702,105 @@ class SoundFX {
   }
   playClick(freq = 640) {
     if (this.muted || !this.ctx) return;
-    const now = this.ctx.currentTime;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq, now);
-    osc.frequency.exponentialRampToValueAtTime(freq * 1.35, now + 0.08);
-    gain.gain.setValueAtTime(0.18, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.1);
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.35, now + 0.08);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    } catch (_) {}
   }
   playStep() {
     if (this.muted || !this.ctx) return;
-    const now = this.ctx.currentTime;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(115, now);
-    osc.frequency.exponentialRampToValueAtTime(52, now + 0.06);
-    gain.gain.setValueAtTime(0.12, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.07);
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(115, now);
+      osc.frequency.exponentialRampToValueAtTime(52, now + 0.06);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.07);
+    } catch (_) {}
   }
   playThrow(powerRatio = 0.8) {
     if (this.muted || !this.ctx) return;
-    const now = this.ctx.currentTime;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(150, now);
-    osc.frequency.exponentialRampToValueAtTime(420 + powerRatio * 280, now + 0.14);
-    osc.frequency.exponentialRampToValueAtTime(180, now + 0.26);
-    gain.gain.setValueAtTime(0.26, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.27);
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.28);
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(150, now);
+      osc.frequency.exponentialRampToValueAtTime(420 + powerRatio * 280, now + 0.14);
+      osc.frequency.exponentialRampToValueAtTime(180, now + 0.26);
+      gain.gain.setValueAtTime(0.26, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.27);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.28);
+    } catch (_) {}
   }
   playSkip(grade, combo) {
     if (this.muted || !this.ctx) return;
-    const now = this.ctx.currentTime;
-    const slap = this.ctx.createOscillator();
-    const slapGain = this.ctx.createGain();
-    slap.type = 'sine';
-    const baseFreq = grade === 'PERFECT' ? 560 : grade === 'GREAT' ? 440 : 340;
-    slap.frequency.setValueAtTime(baseFreq, now);
-    slap.frequency.exponentialRampToValueAtTime(115, now + 0.085);
-    slapGain.gain.setValueAtTime(0.24, now);
-    slapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.095);
-    slap.connect(slapGain);
-    slapGain.connect(this.ctx.destination);
-    slap.start(now);
-    slap.stop(now + 0.1);
+    try {
+      const now = this.ctx.currentTime;
+      const slap = this.ctx.createOscillator();
+      const slapGain = this.ctx.createGain();
+      slap.type = 'sine';
+      const baseFreq = grade === 'PERFECT' ? 560 : grade === 'GREAT' ? 440 : 340;
+      slap.frequency.setValueAtTime(baseFreq, now);
+      slap.frequency.exponentialRampToValueAtTime(115, now + 0.085);
+      slapGain.gain.setValueAtTime(0.24, now);
+      slapGain.gain.exponentialRampToValueAtTime(0.001, now + 0.095);
+      slap.connect(slapGain);
+      slapGain.connect(this.ctx.destination);
+      slap.start(now);
+      slap.stop(now + 0.1);
 
-    if (grade === 'PERFECT' || grade === 'GREAT') {
-      const chime = this.ctx.createOscillator();
-      const chimeGain = this.ctx.createGain();
-      chime.type = 'triangle';
-      const pitch = Math.min(2100, 560 + combo * 75);
-      chime.frequency.setValueAtTime(pitch, now + 0.015);
-      chime.frequency.exponentialRampToValueAtTime(pitch * 1.24, now + 0.19);
-      chimeGain.gain.setValueAtTime(grade === 'PERFECT' ? 0.18 : 0.12, now + 0.015);
-      chimeGain.gain.exponentialRampToValueAtTime(0.001, now + 0.21);
-      chime.connect(chimeGain);
-      chimeGain.connect(this.ctx.destination);
-      chime.start(now + 0.015);
-      chime.stop(now + 0.22);
-    }
+      if (grade === 'PERFECT' || grade === 'GREAT') {
+        const chime = this.ctx.createOscillator();
+        const chimeGain = this.ctx.createGain();
+        chime.type = 'triangle';
+        const pitch = Math.min(2100, 560 + combo * 75);
+        chime.frequency.setValueAtTime(pitch, now + 0.015);
+        chime.frequency.exponentialRampToValueAtTime(pitch * 1.24, now + 0.19);
+        chimeGain.gain.setValueAtTime(grade === 'PERFECT' ? 0.18 : 0.12, now + 0.015);
+        chimeGain.gain.exponentialRampToValueAtTime(0.001, now + 0.21);
+        chime.connect(chimeGain);
+        chimeGain.connect(this.ctx.destination);
+        chime.start(now + 0.015);
+        chime.stop(now + 0.22);
+      }
+    } catch (_) {}
   }
   playSink() {
     if (this.muted || !this.ctx) return;
-    const now = this.ctx.currentTime;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(185, now);
-    osc.frequency.exponentialRampToValueAtTime(40, now + 0.36);
-    gain.gain.setValueAtTime(0.24, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start(now);
-    osc.stop(now + 0.4);
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(185, now);
+      osc.frequency.exponentialRampToValueAtTime(40, now + 0.36);
+      gain.gain.setValueAtTime(0.24, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.38);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.4);
+    } catch (_) {}
   }
 }
 const sfx = new SoundFX();
@@ -3181,7 +3239,7 @@ function chooseThrower(idx) {
 }
 
 // ============================================================================
-// 9. GLOBAL ONLINE RANKING (FIREBASE FIRESTORE & ANALYTICS)
+// 9. GLOBAL ONLINE RANKING (FIREBASE FIRESTORE, ANALYTICS & LOCAL FALLBACK)
 // ============================================================================
 const GAME_SHARE_URL = 'https://doshitan64-crypto.github.io/mizukiri';
 const onlineScores = {
@@ -3235,28 +3293,37 @@ function deduplicateBestEntries(rawList) {
   return result;
 }
 
+async function initAnalyticsSafe() {
+  if (!firebaseApp || analyticsInstance) return;
+  try {
+    const supported = await withTimeout(isAnalyticsSupported(), 1800, 'analytics-support');
+    if (supported && firebaseApp && !analyticsInstance) {
+      analyticsInstance = getAnalytics(firebaseApp);
+    }
+  } catch (_) {
+    // Analytics is optional and may be blocked in sandboxed iframes or ad-blockers
+  }
+}
+
+async function signInAnonymousSafe() {
+  if (!authInstance) return null;
+  try {
+    const cred = await withTimeout(signInAnonymously(authInstance), 2000, 'auth-timeout');
+    return cred && cred.user ? cred.user : null;
+  } catch (_) {
+    // Anonymous Auth may be disabled in Firebase Console; Firestore still works if rules allow
+    return null;
+  }
+}
+
 async function initOnlineLeaderboard() {
-  if (isOnlineReady || isInitializingFirebase) return;
+  if (isInitializingFirebase) return;
   isInitializingFirebase = true;
 
   try {
     if (!firebaseApp) {
       firebaseApp = initializeApp(firebaseConfig);
     }
-
-    // Safely initialize Analytics only when supported (avoids iframe/sandbox IndexedDB errors)
-    isAnalyticsSupported()
-      .then(supported => {
-        if (supported && !analyticsInstance) {
-          try {
-            analyticsInstance = getAnalytics(firebaseApp);
-          } catch (analyticsErr) {
-            console.warn('[Firebase Analytics] skipped:', analyticsErr?.message || analyticsErr);
-          }
-        }
-      })
-      .catch(() => {});
-
     if (!authInstance) {
       authInstance = getAuth(firebaseApp);
     }
@@ -3264,56 +3331,49 @@ async function initOnlineLeaderboard() {
       db = getFirestore(firebaseApp);
     }
 
-    // Attempt anonymous authentication if enabled, but continue gracefully if disabled
-    try {
-      if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-        const cred = await signInWithCustomToken(authInstance, __initial_auth_token);
-        currentUser = cred.user;
-      } else {
-        const cred = await signInAnonymously(authInstance);
-        currentUser = cred.user;
-      }
-    } catch (authErr) {
-      console.warn('[Firebase Auth] continuing without anonymous auth:', authErr?.code || authErr);
-      currentUser = { uid: getDeviceId() };
+    // Non-blocking Analytics & Anonymous Auth setup with short timeouts
+    initAnalyticsSafe().catch(() => {});
+    const user = await signInAnonymousSafe();
+    if (user && user.uid) {
+      currentUser = user;
     }
 
     ['STONE_VIEW', 'THROWER_VIEW'].forEach(modeKey => {
-      const colRef = collection(db, `mizukiri_ranking_${modeKey}`);
-      onSnapshot(
-        colRef,
-        snap => {
-          isOnlineReady = true;
-          updateOnlineStatusBadge(true);
-          const allDocs = [];
-          snap.forEach(docSnap => {
-            const d = docSnap.data();
-            if (d && typeof d.distance === 'number') {
-              allDocs.push({
-                id: docSnap.id,
-                deviceId: String(d.deviceId || docSnap.id),
-                rawName: String(d.rawName || d.name || 'PLAYER'),
-                name: String(d.name || 'PLAYER'),
-                detail: String(d.detail || ''),
-                distance: Math.floor(d.distance),
-                skips: Number(d.skips || 0),
-                createdAt: Number(d.createdAt || 0)
-              });
-            }
-          });
-          onlineScores[modeKey] = deduplicateBestEntries(allDocs);
-          renderRanks();
-        },
-        err => {
-          console.warn(`[Firestore onSnapshot:${modeKey}]`, err?.code || err);
-          isOnlineReady = false;
-          updateOnlineStatusBadge(false);
-        }
-      );
+      try {
+        const colRef = collection(db, `mizukiri_ranking_${modeKey}`);
+        onSnapshot(
+          colRef,
+          snap => {
+            isOnlineReady = true;
+            updateOnlineStatusBadge(true);
+            const allDocs = [];
+            snap.forEach(docSnap => {
+              const d = docSnap.data();
+              if (d && typeof d.distance === 'number') {
+                allDocs.push({
+                  id: docSnap.id,
+                  deviceId: String(d.deviceId || docSnap.id),
+                  rawName: String(d.rawName || d.name || 'PLAYER'),
+                  name: String(d.name || 'PLAYER'),
+                  detail: String(d.detail || ''),
+                  distance: Math.floor(d.distance),
+                  skips: Number(d.skips || 0),
+                  createdAt: Number(d.createdAt || 0)
+                });
+              }
+            });
+            onlineScores[modeKey] = deduplicateBestEntries(allDocs);
+            renderRanks();
+          },
+          _err => {
+            updateOnlineStatusBadge(isOnlineReady);
+          }
+        );
+      } catch (_) {
+        updateOnlineStatusBadge(isOnlineReady);
+      }
     });
-  } catch (err) {
-    console.warn('[Firebase Init] falling back to local storage:', err);
-    isOnlineReady = false;
+  } catch (_) {
     updateOnlineStatusBadge(false);
   } finally {
     isInitializingFirebase = false;
@@ -3347,8 +3407,7 @@ function getLocalScores(mode) {
 }
 
 async function handleScoreFormSubmit(e) {
-  if (e) e.preventDefault();
-  if (state.scoreRegisteredThisRun) return;
+  if (e && typeof e.preventDefault === 'function') e.preventDefault();
 
   const distInt = Math.floor(state.distance);
   const msgEl = $('scoreStatus');
@@ -3375,36 +3434,54 @@ async function handleScoreFormSubmit(e) {
   if (btnEl) btnEl.disabled = true;
   if (msgEl) msgEl.textContent = '登録中…';
 
-  // Always save to localStorage first as a reliable backup
-  const localRaw = (() => {
-    try { return JSON.parse(localStorage.getItem(getStorageKey(mode)) || '[]'); } catch (_) { return []; }
-  })();
-  const prevLocal = localRaw.find(
-    it => it.deviceId === deviceId || normalizePlayerKey(it.rawName) === normalizePlayerKey(rawName)
-  );
-  const bestLocalDist = prevLocal ? Math.max(prevLocal.distance, distInt) : distInt;
-  const bestLocalSkips = (prevLocal && prevLocal.distance > distInt) ? prevLocal.skips : state.skips;
-
-  const updatedLocal = localRaw.filter(
-    it => it.deviceId !== deviceId && normalizePlayerKey(it.rawName) !== normalizePlayerKey(rawName)
-  );
-  updatedLocal.push({
-    deviceId,
-    rawName,
-    name: displayName,
-    detail,
-    distance: bestLocalDist,
-    skips: bestLocalSkips
-  });
+  // Step 1: Always save / update best score in localStorage first
+  let bestLocalDist = distInt;
+  let bestLocalSkips = state.skips;
   try {
+    const localRaw = JSON.parse(localStorage.getItem(getStorageKey(mode)) || '[]');
+    const prevLocal = localRaw.find(
+      it => it.deviceId === deviceId || normalizePlayerKey(it.rawName) === normalizePlayerKey(rawName)
+    );
+    bestLocalDist = prevLocal ? Math.max(prevLocal.distance, distInt) : distInt;
+    bestLocalSkips = (prevLocal && prevLocal.distance > distInt) ? prevLocal.skips : state.skips;
+
+    const updatedLocal = localRaw.filter(
+      it => it.deviceId !== deviceId && normalizePlayerKey(it.rawName) !== normalizePlayerKey(rawName)
+    );
+    updatedLocal.push({
+      deviceId,
+      rawName,
+      name: displayName,
+      detail,
+      distance: bestLocalDist,
+      skips: bestLocalSkips
+    });
     localStorage.setItem(getStorageKey(mode), JSON.stringify(deduplicateBestEntries(updatedLocal)));
   } catch (_) {}
 
-  if (!db) {
-    await initOnlineLeaderboard();
-  }
+  renderRanks();
 
+  // Step 2: Ensure Firebase & Firestore are initialized without blocking
+  try {
+    if (!db) {
+      firebaseApp = firebaseApp || initializeApp(firebaseConfig);
+      authInstance = authInstance || getAuth(firebaseApp);
+      db = getFirestore(firebaseApp);
+      initOnlineLeaderboard().catch(() => {});
+    }
+    if (!currentUser && authInstance) {
+      const authedUser = await signInAnonymousSafe();
+      if (authedUser && authedUser.uid) {
+        currentUser = authedUser;
+      }
+    }
+  } catch (_) {}
+
+  // Step 3: Write to Firestore with timeout protection inside try/catch
   let savedOnline = false;
+  let keptHigherRecord = false;
+  let finalOnlineDist = distInt;
+
   if (db) {
     try {
       const existing = (onlineScores[mode] || []).find(
@@ -3412,51 +3489,74 @@ async function handleScoreFormSubmit(e) {
       );
       const docId = existing ? (existing.id || deviceId) : deviceId;
       const docRef = doc(db, `mizukiri_ranking_${mode}`, docId);
-      const uidVal = currentUser ? currentUser.uid : deviceId;
+      const uidVal = currentUser && currentUser.uid ? currentUser.uid : deviceId;
 
-      if (existing && existing.distance > distInt) {
-        await setDoc(docRef, {
-          rawName,
-          name: displayName,
-          detail,
-          distance: existing.distance,
-          skips: existing.skips,
-          deviceId,
-          uid: uidVal,
-          createdAt: Date.now()
-        }, { merge: true });
-        savedOnline = true;
-        isOnlineReady = true;
-        updateOnlineStatusBadge(true);
-        if (msgEl) msgEl.textContent = `自己ベスト（${existing.distance} m）を保持してなまえを更新しました！`;
-      } else {
-        await setDoc(docRef, {
-          rawName,
-          name: displayName,
-          detail,
-          distance: distInt,
-          skips: state.skips,
-          deviceId,
-          uid: uidVal,
-          createdAt: Date.now()
-        }, { merge: true });
-        savedOnline = true;
-        isOnlineReady = true;
-        updateOnlineStatusBadge(true);
-        if (msgEl) msgEl.textContent = `🏆 全世界ランキングに「${distInt} m」を登録しました！`;
-      }
-    } catch (writeErr) {
-      console.warn('[Firestore setDoc]', writeErr?.code || writeErr);
+      const payload = (existing && existing.distance > distInt)
+        ? {
+            rawName,
+            name: displayName,
+            detail,
+            distance: existing.distance,
+            skips: existing.skips,
+            deviceId,
+            uid: uidVal,
+            createdAt: existing.createdAt || Date.now(),
+            updatedAt: Date.now()
+          }
+        : {
+            rawName,
+            name: displayName,
+            detail,
+            distance: distInt,
+            skips: state.skips,
+            deviceId,
+            uid: uidVal,
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+          };
+
+      keptHigherRecord = Boolean(existing && existing.distance > distInt);
+      finalOnlineDist = payload.distance;
+
+      await withTimeout(setDoc(docRef, payload, { merge: true }), 3000, 'firestore-setdoc');
+
+      savedOnline = true;
+      isOnlineReady = true;
+      updateOnlineStatusBadge(true);
+
+      const mergedList = (onlineScores[mode] || []).filter(
+        r => r.id !== docId && r.deviceId !== deviceId && normalizePlayerKey(r.rawName) !== normalizePlayerKey(rawName)
+      );
+      mergedList.push({
+        id: docId,
+        deviceId,
+        rawName,
+        name: displayName,
+        detail,
+        distance: payload.distance,
+        skips: payload.skips,
+        createdAt: payload.createdAt
+      });
+      onlineScores[mode] = deduplicateBestEntries(mergedList);
+      renderRanks();
+    } catch (_) {
       savedOnline = false;
     }
   }
 
-  if (!savedOnline && msgEl) {
-    msgEl.textContent = `ランキングに「${bestLocalDist} m」を保存しました！`;
-  }
-
+  // Step 4: Always release button lock and show clear Japanese feedback
   state.scoreRegisteredThisRun = true;
-  renderRanks();
+  if (btnEl) btnEl.disabled = false;
+
+  if (msgEl) {
+    if (savedOnline) {
+      msgEl.textContent = keptHigherRecord
+        ? `🏆 自己ベスト（${finalOnlineDist} m）を保持してランキングを更新しました！`
+        : `🏆 オンラインランキングに「${finalOnlineDist} m」を登録しました！`;
+    } else {
+      msgEl.textContent = `💾 端末ランキングに「${bestLocalDist} m」を保存しました（通信制限時は端末記録を表示）。`;
+    }
+  }
 }
 
 function escapeHtml(s) {
@@ -3467,10 +3567,11 @@ function escapeHtml(s) {
 
 function getDisplayScores(mode, limitCount = 10) {
   const online = onlineScores[mode] || [];
+  const local = getLocalScores(mode);
   if (isOnlineReady && online.length > 0) {
-    return online.slice(0, limitCount);
+    return deduplicateBestEntries([...online, ...local]).slice(0, limitCount);
   }
-  return getLocalScores(mode).slice(0, limitCount);
+  return local.slice(0, limitCount);
 }
 
 function formatRankListHtml(list) {
@@ -3913,7 +4014,7 @@ $('resultBack').addEventListener('click', backToSelect);
 $('scoreForm').addEventListener('submit', e => {
   sfx.init();
   sfx.playClick(760);
-  handleScoreFormSubmit(e);
+  handleScoreFormSubmit(e).catch(() => {});
 });
 $('shareXBtn').addEventListener('click', () => {
   sfx.init();
@@ -4374,7 +4475,7 @@ function animate(now) {
 chooseStone(0);
 chooseThrower(0);
 renderRanks();
-initOnlineLeaderboard();
+initOnlineLeaderboard().catch(() => {});
 requestAnimationFrame(animate);
 </script>
 </body>
