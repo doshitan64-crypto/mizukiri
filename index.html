@@ -894,8 +894,10 @@ button {
 #scoreStatus {
   font-size: 10.5px;
   color: var(--mint);
-  margin: 5px 0 0;
+  margin: 6px 0 0;
   min-height: 15px;
+  line-height: 1.45;
+  word-break: break-word;
 }
 
 .result-action-row {
@@ -1275,7 +1277,7 @@ ol.top-list li b.r-score {
   <aside id="ranking">
     <div class="eyebrow" id="rankHeader">GLOBAL TOP10 · 石視点</div>
     <h1 style="font-size:19px">飛距離ランキング TOP10</h1>
-    <p class="ranking-note" id="rankFooterNote">同じなまえ・同じ端末のベスト記録のみ掲載</p>
+    <p class="ranking-note" id="rankFooterNote">1端末・同じなまえのベスト記録（重複なし）</p>
     <ol id="rankRows" class="top-list" aria-live="polite"></ol>
   </aside>
 
@@ -1284,7 +1286,7 @@ ol.top-list li b.r-score {
     <div class="rank-modal-card">
       <div class="rank-modal-header">
         <div>
-          <div class="eyebrow">WORLDWIDE LEADERBOARD <span class="rank-status-badge" id="onlineBadge">ONLINE</span></div>
+          <div class="eyebrow">WORLDWIDE LEADERBOARD <span class="rank-status-badge" id="onlineBadge">CONNECTING</span></div>
           <h2 style="margin:2px 0 0;font-size:19px">🏆 飛距離ランキング TOP10</h2>
         </div>
         <button type="button" class="dbg-close" id="closeRankModalBtn">✕ 閉じる</button>
@@ -1340,13 +1342,13 @@ ol.top-list li b.r-score {
 
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
 import { getAnalytics, isSupported as isAnalyticsSupported } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js';
 import { getAuth, signInAnonymously } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
 import { getFirestore, collection, doc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
 // ============================================================================
-// GLOBAL ERROR BOUNDARIES (PREVENT UNCAUGHT ERRORS & CONSOLE CLUTTER)
+// GLOBAL ERROR BOUNDARIES & ASYNC TIMEOUT HELPER
 // ============================================================================
 window.addEventListener('error', event => {
   try {
@@ -1363,7 +1365,7 @@ window.addEventListener('unhandledrejection', event => {
   } catch (_) {}
 });
 
-function withTimeout(promise, ms = 2500, label = 'timeout') {
+function withTimeout(promise, ms = 3500, label = 'timeout') {
   return new Promise((resolve, reject) => {
     let settled = false;
     const timer = setTimeout(() => {
@@ -3293,6 +3295,19 @@ function deduplicateBestEntries(rawList) {
   return result;
 }
 
+function ensureFirebaseAppAndDb() {
+  if (!firebaseApp) {
+    firebaseApp = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+  }
+  if (!authInstance) {
+    authInstance = getAuth(firebaseApp);
+  }
+  if (!db) {
+    db = getFirestore(firebaseApp);
+  }
+  return { app: firebaseApp, auth: authInstance, db };
+}
+
 async function initAnalyticsSafe() {
   if (!firebaseApp || analyticsInstance) return;
   try {
@@ -3308,7 +3323,7 @@ async function initAnalyticsSafe() {
 async function signInAnonymousSafe() {
   if (!authInstance) return null;
   try {
-    const cred = await withTimeout(signInAnonymously(authInstance), 2000, 'auth-timeout');
+    const cred = await withTimeout(signInAnonymously(authInstance), 2200, 'auth-timeout');
     return cred && cred.user ? cred.user : null;
   } catch (_) {
     // Anonymous Auth may be disabled in Firebase Console; Firestore still works if rules allow
@@ -3316,31 +3331,36 @@ async function signInAnonymousSafe() {
   }
 }
 
+function describeFirestoreError(err) {
+  const code = String(err?.code || '');
+  const msg = String(err?.message || '');
+  if (code.includes('permission-denied')) {
+    return 'Firestoreの読み書き権限がありません（ルール設定を確認してください）';
+  }
+  if (code.includes('unavailable') || msg.toLowerCase().includes('timeout')) {
+    return '通信がタイムアウトしました（ネットワークやブロッカーを確認してください）';
+  }
+  if (code.includes('not-found')) {
+    return 'Firestoreデータベースが見つかりません（Firebase側で作成済みか確認してください）';
+  }
+  return `オンライン通信エラー（${code || 'network'}）`;
+}
+
 async function initOnlineLeaderboard() {
   if (isInitializingFirebase) return;
   isInitializingFirebase = true;
 
   try {
-    if (!firebaseApp) {
-      firebaseApp = initializeApp(firebaseConfig);
-    }
-    if (!authInstance) {
-      authInstance = getAuth(firebaseApp);
-    }
-    if (!db) {
-      db = getFirestore(firebaseApp);
-    }
+    const { db: firestoreDb } = ensureFirebaseAppAndDb();
 
-    // Non-blocking Analytics & Anonymous Auth setup with short timeouts
     initAnalyticsSafe().catch(() => {});
-    const user = await signInAnonymousSafe();
-    if (user && user.uid) {
-      currentUser = user;
-    }
+    signInAnonymousSafe().then(user => {
+      if (user && user.uid) currentUser = user;
+    }).catch(() => {});
 
     ['STONE_VIEW', 'THROWER_VIEW'].forEach(modeKey => {
       try {
-        const colRef = collection(db, `mizukiri_ranking_${modeKey}`);
+        const colRef = collection(firestoreDb, `mizukiri_ranking_${modeKey}`);
         onSnapshot(
           colRef,
           snap => {
@@ -3432,7 +3452,7 @@ async function handleScoreFormSubmit(e) {
   const displayName = `${rawName}（${detail}）`;
 
   if (btnEl) btnEl.disabled = true;
-  if (msgEl) msgEl.textContent = '登録中…';
+  if (msgEl) msgEl.textContent = 'オンラインランキングに登録中…';
 
   // Step 1: Always save / update best score in localStorage first
   let bestLocalDist = distInt;
@@ -3461,100 +3481,90 @@ async function handleScoreFormSubmit(e) {
 
   renderRanks();
 
-  // Step 2: Ensure Firebase & Firestore are initialized without blocking
-  try {
-    if (!db) {
-      firebaseApp = firebaseApp || initializeApp(firebaseConfig);
-      authInstance = authInstance || getAuth(firebaseApp);
-      db = getFirestore(firebaseApp);
-      initOnlineLeaderboard().catch(() => {});
-    }
-    if (!currentUser && authInstance) {
-      const authedUser = await signInAnonymousSafe();
-      if (authedUser && authedUser.uid) {
-        currentUser = authedUser;
-      }
-    }
-  } catch (_) {}
-
-  // Step 3: Write to Firestore with timeout protection inside try/catch
+  // Step 2: Ensure Firebase & Firestore are initialized and write with timeout + error feedback
   let savedOnline = false;
   let keptHigherRecord = false;
   let finalOnlineDist = distInt;
+  let failureReason = '';
 
-  if (db) {
-    try {
-      const existing = (onlineScores[mode] || []).find(
-        r => r.deviceId === deviceId || r.id === deviceId || normalizePlayerKey(r.rawName) === normalizePlayerKey(rawName)
-      );
-      const docId = existing ? (existing.id || deviceId) : deviceId;
-      const docRef = doc(db, `mizukiri_ranking_${mode}`, docId);
-      const uidVal = currentUser && currentUser.uid ? currentUser.uid : deviceId;
-
-      const payload = (existing && existing.distance > distInt)
-        ? {
-            rawName,
-            name: displayName,
-            detail,
-            distance: existing.distance,
-            skips: existing.skips,
-            deviceId,
-            uid: uidVal,
-            createdAt: existing.createdAt || Date.now(),
-            updatedAt: Date.now()
-          }
-        : {
-            rawName,
-            name: displayName,
-            detail,
-            distance: distInt,
-            skips: state.skips,
-            deviceId,
-            uid: uidVal,
-            createdAt: Date.now(),
-            updatedAt: Date.now()
-          };
-
-      keptHigherRecord = Boolean(existing && existing.distance > distInt);
-      finalOnlineDist = payload.distance;
-
-      await withTimeout(setDoc(docRef, payload, { merge: true }), 3000, 'firestore-setdoc');
-
-      savedOnline = true;
-      isOnlineReady = true;
-      updateOnlineStatusBadge(true);
-
-      const mergedList = (onlineScores[mode] || []).filter(
-        r => r.id !== docId && r.deviceId !== deviceId && normalizePlayerKey(r.rawName) !== normalizePlayerKey(rawName)
-      );
-      mergedList.push({
-        id: docId,
-        deviceId,
-        rawName,
-        name: displayName,
-        detail,
-        distance: payload.distance,
-        skips: payload.skips,
-        createdAt: payload.createdAt
-      });
-      onlineScores[mode] = deduplicateBestEntries(mergedList);
-      renderRanks();
-    } catch (_) {
-      savedOnline = false;
+  try {
+    const { db: firestoreDb } = ensureFirebaseAppAndDb();
+    if (!currentUser) {
+      const authedUser = await signInAnonymousSafe();
+      if (authedUser && authedUser.uid) currentUser = authedUser;
     }
+
+    const existing = (onlineScores[mode] || []).find(
+      r => r.deviceId === deviceId || r.id === deviceId || normalizePlayerKey(r.rawName) === normalizePlayerKey(rawName)
+    );
+    const docId = existing ? (existing.id || deviceId) : deviceId;
+    const docRef = doc(firestoreDb, `mizukiri_ranking_${mode}`, docId);
+    const uidVal = currentUser && currentUser.uid ? currentUser.uid : deviceId;
+
+    const payload = (existing && existing.distance > distInt)
+      ? {
+          rawName,
+          name: displayName,
+          detail,
+          distance: existing.distance,
+          skips: existing.skips,
+          deviceId,
+          uid: uidVal,
+          createdAt: existing.createdAt || Date.now(),
+          updatedAt: Date.now()
+        }
+      : {
+          rawName,
+          name: displayName,
+          detail,
+          distance: distInt,
+          skips: state.skips,
+          deviceId,
+          uid: uidVal,
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        };
+
+    keptHigherRecord = Boolean(existing && existing.distance > distInt);
+    finalOnlineDist = payload.distance;
+
+    await withTimeout(setDoc(docRef, payload, { merge: true }), 4000, 'firestore-setdoc');
+
+    savedOnline = true;
+    isOnlineReady = true;
+    updateOnlineStatusBadge(true);
+
+    const mergedList = (onlineScores[mode] || []).filter(
+      r => r.id !== docId && r.deviceId !== deviceId && normalizePlayerKey(r.rawName) !== normalizePlayerKey(rawName)
+    );
+    mergedList.push({
+      id: docId,
+      deviceId,
+      rawName,
+      name: displayName,
+      detail,
+      distance: payload.distance,
+      skips: payload.skips,
+      createdAt: payload.createdAt
+    });
+    onlineScores[mode] = deduplicateBestEntries(mergedList);
+    renderRanks();
+  } catch (err) {
+    savedOnline = false;
+    failureReason = describeFirestoreError(err);
   }
 
-  // Step 4: Always release button lock and show clear Japanese feedback
+  // Step 3: Always release button lock and report clear status
   state.scoreRegisteredThisRun = true;
   if (btnEl) btnEl.disabled = false;
 
   if (msgEl) {
     if (savedOnline) {
       msgEl.textContent = keptHigherRecord
-        ? `🏆 自己ベスト（${finalOnlineDist} m）を保持してランキングを更新しました！`
-        : `🏆 オンラインランキングに「${finalOnlineDist} m」を登録しました！`;
+        ? `🏆 自己ベスト（${finalOnlineDist} m）を保持して全世界ランキングを更新しました！`
+        : `🏆 全世界ランキングに「${finalOnlineDist} m」を登録しました！`;
     } else {
-      msgEl.textContent = `💾 端末ランキングに「${bestLocalDist} m」を保存しました（通信制限時は端末記録を表示）。`;
+      msgEl.textContent = `💾 端末には「${bestLocalDist} m」を保存しました。(${failureReason || '通信を確認してください'})`;
     }
   }
 }
