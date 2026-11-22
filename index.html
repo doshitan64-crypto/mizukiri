@@ -12,8 +12,8 @@
   --gold: #ffd966;
   --danger: #ff5e7e;
   --ink: #07151d;
-  --panel: rgba(8, 25, 35, 0.86);
-  --line: rgba(160, 230, 239, 0.24);
+  --panel: rgba(8, 25, 35, 0.88);
+  --line: rgba(160, 230, 239, 0.26);
 }
 * {
   box-sizing: border-box;
@@ -45,34 +45,34 @@ body {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(0deg, rgba(3, 13, 20, 0.44), transparent 36%),
-    radial-gradient(ellipse at center, transparent 48%, rgba(2, 10, 15, 0.34));
+    linear-gradient(0deg, rgba(3, 13, 20, 0.36), transparent 34%),
+    radial-gradient(ellipse at center, transparent 52%, rgba(2, 10, 15, 0.3));
 }
 #flashOverlay {
   position: fixed;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: radial-gradient(circle at center, rgba(156, 255, 208, 0.38), transparent 72%);
+  background: radial-gradient(circle at center, rgba(156, 255, 208, 0.42), transparent 72%);
   opacity: 0;
   transition: opacity 0.16s ease-out;
 }
 
-/* Header & Compact Top-Right HUD */
+/* Header & Compact Top HUD */
 header {
   position: fixed;
   z-index: 5;
-  top: 18px;
-  left: 24px;
-  right: 24px;
+  top: 14px;
+  left: 18px;
+  right: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   pointer-events: none;
-  gap: 10px;
+  gap: 8px;
 }
 .brand {
-  font: 900 27px 'Barlow Condensed', sans-serif;
+  font: 900 25px 'Barlow Condensed', sans-serif;
   letter-spacing: 3px;
 }
 .brand span {
@@ -81,20 +81,20 @@ header {
 .tag {
   font-size: 10px;
   letter-spacing: 2px;
-  color: #9bb9c4;
-  margin-top: 2px;
+  color: #a9c7d1;
+  margin-top: 1px;
 }
 .hud {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
 .pill {
-  background: rgba(4, 20, 29, 0.78);
+  background: rgba(4, 20, 29, 0.82);
   border: 1px solid var(--line);
-  padding: 8px 13px;
+  padding: 6px 11px;
   border-radius: 8px;
   font-size: 10px;
   letter-spacing: 1px;
@@ -103,8 +103,8 @@ header {
 }
 .pill b {
   color: #fff;
-  font: 800 18px 'Barlow Condensed', sans-serif;
-  margin-left: 6px;
+  font: 800 17px 'Barlow Condensed', sans-serif;
+  margin-left: 4px;
 }
 .pill.accent b {
   color: var(--mint);
@@ -116,10 +116,10 @@ header {
 }
 .hud-btn {
   pointer-events: auto;
-  background: rgba(4, 20, 29, 0.84);
+  background: rgba(4, 20, 29, 0.88);
   border: 1px solid var(--line);
   color: #d8f4f8;
-  padding: 8px 12px;
+  padding: 7px 11px;
   border-radius: 8px;
   font: 700 11px 'Noto Sans JP', sans-serif;
   backdrop-filter: blur(12px);
@@ -140,15 +140,15 @@ header {
   display: none;
   pointer-events: auto;
   position: fixed;
-  right: 20px;
-  top: 72px;
-  width: min(390px, calc(100vw - 24px));
-  max-height: calc(100vh - 88px);
+  right: 16px;
+  top: 64px;
+  width: min(372px, calc(100vw - 24px));
+  max-height: calc(100vh - 78px);
   overflow-y: auto;
   background: rgba(6, 22, 31, 0.95);
   border: 1px solid rgba(102, 230, 239, 0.48);
   border-radius: 14px;
-  padding: 14px 15px;
+  padding: 13px 14px;
   z-index: 20;
   backdrop-filter: blur(18px);
   box-shadow: 0 22px 64px rgba(0, 0, 0, 0.72);
@@ -159,7 +159,7 @@ header {
   align-items: center;
   border-bottom: 1px solid var(--line);
   padding-bottom: 8px;
-  margin-bottom: 9px;
+  margin-bottom: 8px;
 }
 .dbg-title {
   font: 800 13px 'Noto Sans JP', sans-serif;
@@ -170,8 +170,9 @@ header {
   border: 1px solid var(--line);
   color: #cfe4e9;
   border-radius: 6px;
-  padding: 3px 8px;
+  padding: 4px 9px;
   font-size: 11px;
+  cursor: pointer;
 }
 .dbg-cam-bar {
   display: grid;
@@ -186,6 +187,7 @@ header {
   border-radius: 6px;
   padding: 5px 4px;
   font: 700 10px 'Noto Sans JP', sans-serif;
+  cursor: pointer;
 }
 .dbg-cam-btn.active {
   border-color: var(--cyan);
@@ -196,15 +198,16 @@ header {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px;
-  margin-bottom: 9px;
+  margin-bottom: 8px;
 }
 .dbg-btn {
   border: 1px solid var(--line);
   background: #0d2b38;
   color: #e4fbff;
   border-radius: 7px;
-  padding: 7px 6px;
-  font: 700 10px 'Noto Sans JP', sans-serif;
+  padding: 8px 6px;
+  font: 700 10.5px 'Noto Sans JP', sans-serif;
+  cursor: pointer;
   transition: all 0.14s ease;
 }
 .dbg-btn:hover {
@@ -222,7 +225,7 @@ header {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 9px;
 }
 .dbg-cat-tab {
   border: 1px solid var(--line);
@@ -232,6 +235,7 @@ header {
   padding: 6px 2px;
   font: 700 9.5px 'Noto Sans JP', sans-serif;
   text-align: center;
+  cursor: pointer;
 }
 .dbg-cat-tab.active {
   background: #164457;
@@ -239,7 +243,7 @@ header {
   color: #fff;
 }
 .dbg-group {
-  margin-bottom: 10px;
+  margin-bottom: 9px;
   background: rgba(11, 33, 44, 0.76);
   border: 1px solid rgba(160, 230, 239, 0.16);
   border-radius: 9px;
@@ -249,11 +253,10 @@ header {
   font: 800 11px 'Noto Sans JP', sans-serif;
   color: var(--cyan);
   margin-bottom: 7px;
-  letter-spacing: 0.5px;
 }
 .dbg-row {
   display: grid;
-  grid-template-columns: 126px 1fr 48px;
+  grid-template-columns: 118px 1fr 48px;
   align-items: center;
   gap: 7px;
   margin-bottom: 6px;
@@ -278,13 +281,6 @@ header {
   border-radius: 5px;
   cursor: pointer;
 }
-.dbg-row input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--mint);
-  justify-self: start;
-  cursor: pointer;
-}
 .dbg-row select {
   width: 100%;
   background: #071a24;
@@ -300,12 +296,11 @@ header {
   color: #fff;
 }
 .dbg-toast {
-  display: none;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
   padding: 5px 8px;
   border-radius: 6px;
-  background: rgba(156, 255, 208, 0.16);
-  border: 1px solid rgba(156, 255, 208, 0.45);
+  background: rgba(156, 255, 208, 0.14);
+  border: 1px solid rgba(156, 255, 208, 0.42);
   text-align: center;
   font-size: 10px;
   font-weight: 700;
@@ -319,24 +314,22 @@ main {
   pointer-events: none;
 }
 
-/* Selection Panel (Left side, hidden during gameplay) */
+/* Selection Panel */
 .panel {
   pointer-events: auto;
   position: absolute;
-  left: 24px;
-  top: 86px;
-  width: min(375px, calc(100vw - 48px));
+  left: 18px;
+  top: 72px;
+  width: min(375px, calc(100vw - 36px));
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 18px;
+  padding: 15px;
   backdrop-filter: blur(18px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.48);
-  max-height: calc(100vh - 104px);
+  max-height: calc(100vh - 86px);
   overflow-y: auto;
 }
-
-/* Mode Switcher Tabs */
 .mode-tabs {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -345,7 +338,7 @@ main {
   padding: 5px;
   border-radius: 10px;
   border: 1px solid var(--line);
-  margin-bottom: 14px;
+  margin-bottom: 11px;
 }
 .mode-tab {
   border: 0;
@@ -363,28 +356,27 @@ main {
   font-weight: 900;
   box-shadow: 0 4px 14px rgba(102, 230, 239, 0.3);
 }
-
 .eyebrow {
   font: 700 11px 'Barlow Condensed', sans-serif;
-  letter-spacing: 2.5px;
+  letter-spacing: 2px;
   color: var(--cyan);
   text-transform: uppercase;
 }
 h1 {
-  font: 800 26px 'Noto Sans JP', sans-serif;
+  font: 800 23px 'Noto Sans JP', sans-serif;
   letter-spacing: 0.5px;
-  margin: 4px 0 4px;
+  margin: 3px 0 4px;
 }
 .sub {
   font-size: 11px;
   color: #9db8c1;
-  line-height: 1.65;
-  margin: 0 0 11px;
+  line-height: 1.55;
+  margin: 0 0 9px;
 }
 
-/* Stone View Selection */
+/* Stone Grid (5 Exact Original Stones) */
 .stone-preview {
-  height: 76px;
+  height: 62px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: linear-gradient(135deg, #153442, #0b202b);
@@ -392,21 +384,21 @@ h1 {
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   overflow: hidden;
 }
 .stone-preview:after {
   content: "3D STONE";
   position: absolute;
   right: 10px;
-  bottom: 6px;
+  bottom: 5px;
   font: 700 10px 'Barlow Condensed', sans-serif;
   letter-spacing: 2px;
   color: #72949e;
 }
 .stone-icon {
   width: 96px;
-  height: 42px;
+  height: 34px;
   border-radius: 50% 44% 48% 42%;
   background: linear-gradient(145deg, #a9b5b0, #56676a 65%, #293a40);
   box-shadow:
@@ -414,21 +406,21 @@ h1 {
     inset 8px 5px 12px #e1e6d5,
     0 13px 18px rgba(0, 0, 0, 0.5);
   transform: rotate(-12deg);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 .field-label {
   display: block;
   font-size: 10px;
   color: #9db8c1;
-  margin: 9px 0 4px;
-  letter-spacing: 1px;
+  margin: 7px 0 4px;
+  letter-spacing: 0.8px;
 }
 input {
   width: 100%;
   background: #071a24;
   border: 1px solid var(--line);
   border-radius: 7px;
-  padding: 9px 10px;
+  padding: 8px 10px;
   color: #fff;
   font: 500 12px 'Noto Sans JP', sans-serif;
   outline: none;
@@ -451,41 +443,41 @@ input:focus {
   color: #c5dce1;
   cursor: pointer;
   text-align: center;
-  font-size: 10px;
+  font-size: 9.5px;
+  font-weight: 700;
   transition: all 0.15s ease;
 }
 .stone-choice.active {
   border-color: var(--cyan);
   background: #123440;
-  box-shadow: 0 0 0 1px rgba(102, 230, 239, 0.28);
+  box-shadow: 0 0 0 1px rgba(102, 230, 239, 0.35);
   color: #fff;
 }
 .stone-choice .shape {
-  height: 18px;
-  width: 34px;
+  height: 16px;
+  width: 36px;
   margin: 0 auto 4px;
   background: linear-gradient(145deg, #c5c9bb, #455b60);
   border-radius: 50%;
   box-shadow: inset -5px -4px 6px #182e35;
 }
-.stone-choice:nth-child(2) .shape { width: 40px; height: 12px; }
-.stone-choice:nth-child(3) .shape { width: 22px; height: 18px; }
-.stone-choice:nth-child(4) .shape { width: 41px; height: 9px; }
-.stone-choice:nth-child(5) .shape { width: 18px; height: 16px; }
-.stone-choice:nth-child(6) .shape { width: 37px; height: 14px; border-radius: 35%; }
+.stone-choice:nth-child(2) .shape { background: linear-gradient(145deg, #475569, #0f172a); width: 42px; height: 12px; }
+.stone-choice:nth-child(3) .shape { background: linear-gradient(145deg, #f1f5f9, #94a3b8); width: 34px; height: 18px; }
+.stone-choice:nth-child(4) .shape { background: linear-gradient(145deg, #7e22ce, #090d16); width: 40px; height: 13px; }
+.stone-choice:nth-child(5) .shape { background: linear-gradient(145deg, #fef08a, #b45309); width: 36px; height: 14px; }
 
-/* Thrower Mode Character Grid */
+/* Thrower Grid (4 Exact Original Characters) */
 .thrower-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 7px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .thrower-card {
   background: #0b202a;
   border: 1px solid var(--line);
   border-radius: 10px;
-  padding: 9px 10px;
+  padding: 8px 9px;
   text-align: left;
   color: #cfe4e9;
   cursor: pointer;
@@ -501,29 +493,28 @@ input:focus {
   font-size: 9px;
   font-weight: 700;
   color: var(--cyan);
-  letter-spacing: 0.5px;
 }
 .thrower-name {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 900;
   margin: 2px 0 3px;
 }
 .thrower-desc {
-  font-size: 10px;
+  font-size: 9.5px;
   color: #9bb9c4;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 7px;
-  margin: 10px 0 7px;
+  margin: 8px 0 6px;
 }
 .stat {
   background: #0a202a;
   border-radius: 8px;
-  padding: 7px 9px;
+  padding: 6px 8px;
 }
 .stat small {
   display: block;
@@ -531,7 +522,7 @@ input:focus {
   font-size: 9px;
 }
 .stat strong {
-  font: 700 16px 'Barlow Condensed', sans-serif;
+  font: 700 15px 'Barlow Condensed', sans-serif;
   color: #fff;
   letter-spacing: 1px;
 }
@@ -539,8 +530,7 @@ input:focus {
   font-size: 10px;
   color: #8be9f2;
   text-align: center;
-  margin: 0 0 10px;
-  letter-spacing: 0.3px;
+  margin: 0 0 8px;
 }
 button {
   font-family: inherit;
@@ -550,7 +540,7 @@ button {
   width: 100%;
   border: 0;
   border-radius: 8px;
-  padding: 12px;
+  padding: 11px;
   background: linear-gradient(100deg, #8bffe0, #64dbe9);
   color: #06202a;
   font-weight: 900;
@@ -567,39 +557,45 @@ button {
   transform: translateY(1px);
 }
 .secondary {
-  background: transparent;
-  color: #b8d1d7;
+  background: rgba(10, 32, 42, 0.78);
+  color: #d6eef4;
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 10px 12px;
+  padding: 9px 12px;
+  font-weight: 700;
   font-size: 11px;
+  transition: all 0.14s ease;
+}
+.secondary:hover {
+  border-color: var(--cyan);
+  color: #fff;
 }
 
 /* Title Overlay */
 .center-message {
   position: absolute;
   left: 56%;
-  top: 22%;
+  top: 17%;
   transform: translateX(-50%);
   text-align: center;
   text-shadow: 0 3px 18px #001018;
   white-space: nowrap;
 }
 .center-message .big {
-  font: 900 clamp(34px, 5.5vw, 62px) 'Barlow Condensed', sans-serif;
+  font: 900 clamp(34px, 5.5vw, 60px) 'Barlow Condensed', sans-serif;
   letter-spacing: 3px;
 }
 .center-message .small {
   font-size: 11px;
-  color: #b8d5dc;
+  color: #cbe7ef;
   letter-spacing: 2px;
 }
 
-/* Throw Staging Controls (Mode 1) */
+/* Throw Staging Controls */
 #throwControls {
   display: none;
   position: absolute;
-  bottom: 54px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
@@ -609,7 +605,7 @@ button {
 .throw-btn {
   border: 2px solid rgba(255, 255, 255, 0.88);
   border-radius: 999px;
-  padding: 15px 44px;
+  padding: 14px 42px;
   background: linear-gradient(105deg, #9cffd0, #66e6ef);
   color: #041c26;
   font: 900 19px 'Barlow Condensed', 'Noto Sans JP', sans-serif;
@@ -618,15 +614,7 @@ button {
     0 12px 32px rgba(102, 230, 239, 0.5),
     0 0 0 7px rgba(102, 230, 239, 0.18);
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
   white-space: nowrap;
-}
-.throw-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  filter: brightness(1.06);
-}
-.throw-btn:active {
-  transform: translateY(2px) scale(0.98);
 }
 .throw-sub {
   margin-top: 8px;
@@ -634,14 +622,13 @@ button {
   font-weight: 700;
   color: #d6f7fc;
   text-shadow: 0 2px 8px #000;
-  letter-spacing: 1px;
 }
 
-/* Mode 2: Power Gauge Panel */
+/* Power Gauge Panel */
 #powerPanel {
   display: none;
   position: absolute;
-  bottom: 48px;
+  bottom: 46px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
@@ -663,7 +650,7 @@ button {
 }
 .power-label {
   font: 800 12px 'Barlow Condensed', 'Noto Sans JP', sans-serif;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   color: var(--cyan);
 }
 .power-val {
@@ -694,7 +681,6 @@ button {
   width: 10%;
   background: linear-gradient(90deg, #47b8c9, #66e6ef 55%, #9cffd0 82%, #ffd966 100%);
   border-radius: 999px;
-  box-shadow: 0 0 16px rgba(156, 255, 208, 0.65);
 }
 .power-marker {
   position: absolute;
@@ -707,14 +693,14 @@ button {
   transform: translateX(-50%);
 }
 
-/* High-Visibility Timing Gauge — Clean center (NO center text) */
+/* Timing Ring — Clean Center (NO center text) */
 #timing {
   display: none;
   position: absolute;
   right: 42px;
   bottom: 72px;
-  width: 216px;
-  height: 216px;
+  width: 210px;
+  height: 210px;
   pointer-events: none;
   z-index: 4;
 }
@@ -722,7 +708,7 @@ button {
   position: absolute;
   inset: 6px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(4, 22, 32, 0.30) 0%, rgba(4, 22, 32, 0.78) 100%);
+  background: radial-gradient(circle, rgba(4, 22, 32, 0.28) 0%, rgba(4, 22, 32, 0.78) 100%);
   border: 2px solid rgba(102, 230, 239, 0.4);
   box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
 }
@@ -741,7 +727,6 @@ button {
   transform: translate(-50%, -50%);
   border-radius: 50%;
   border: 10px solid rgba(255, 255, 255, 0.24);
-  box-shadow: 0 0 20px rgba(156, 255, 208, 0.35);
 }
 #target {
   position: absolute;
@@ -753,16 +738,14 @@ button {
   border: 4.5px solid #9cffd0;
   border-radius: 50%;
   background: rgba(156, 255, 208, 0.05);
-  box-shadow:
-    0 0 24px rgba(156, 255, 208, 0.9),
-    inset 0 0 18px rgba(156, 255, 208, 0.4);
+  box-shadow: 0 0 24px rgba(156, 255, 208, 0.9), inset 0 0 18px rgba(156, 255, 208, 0.4);
 }
 #moving {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 206px;
-  height: 206px;
+  width: 202px;
+  height: 202px;
   border: 4.5px solid #66e6ef;
   border-radius: 50%;
   transform: translate(-50%, -50%);
@@ -772,35 +755,27 @@ button {
 #timing.in-zone #moving {
   border-width: 6px;
   border-color: #ffffff;
-  box-shadow:
-    0 0 30px #ffffff,
-    0 0 50px #9cffd0;
+  box-shadow: 0 0 30px #ffffff, 0 0 50px #9cffd0;
 }
 #timing.in-zone #target {
   border-color: #ffffff;
   background: rgba(156, 255, 208, 0.24);
-  box-shadow:
-    0 0 34px #ffffff,
-    inset 0 0 22px #9cffd0;
 }
 #timing.late-zone #moving {
   border-color: var(--danger);
-  box-shadow: 0 0 24px rgba(255, 94, 126, 0.85);
 }
 #timingHint {
   position: absolute;
-  top: -34px;
+  top: -32px;
   left: 50%;
   transform: translateX(-50%);
   font: 800 11px 'Noto Sans JP', sans-serif;
-  letter-spacing: 1px;
   color: #e6ffff;
-  background: rgba(4, 20, 29, 0.82);
+  background: rgba(4, 20, 29, 0.84);
   border: 1px solid rgba(160, 230, 239, 0.35);
   padding: 4px 12px;
   border-radius: 999px;
   white-space: nowrap;
-  text-shadow: 0 2px 6px #000;
 }
 
 #judge {
@@ -825,105 +800,84 @@ button {
 
 #bottomHint {
   position: absolute;
-  bottom: 18px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 11px;
   letter-spacing: 1px;
-  color: #b8d7df;
+  color: #e6f8fc;
   text-align: center;
   white-space: nowrap;
   text-shadow: 0 2px 8px #000;
 }
 
-/* Result Modal */
+/* Result Modal (Yasai Taopaipai Style Registration & Expandable TOP10) */
 #result {
   display: none;
-  position: absolute;
+  position: fixed;
   inset: 0;
-  background: rgba(3, 18, 27, 0.82);
+  background: rgba(3, 18, 27, 0.84);
   backdrop-filter: blur(8px);
   align-items: center;
   justify-content: center;
   pointer-events: auto;
-  z-index: 6;
+  z-index: 12;
+  padding: 14px;
+  overflow-y: auto;
 }
 .result-card {
-  width: min(400px, calc(100vw - 32px));
+  width: min(410px, 100%);
+  max-height: calc(100vh - 28px);
+  overflow-y: auto;
   background: #0b202b;
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px;
   text-align: center;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7);
 }
 .distance {
-  font: 900 60px 'Barlow Condensed', sans-serif;
+  font: 900 56px 'Barlow Condensed', sans-serif;
   color: var(--mint);
   line-height: 1;
   margin: 4px 0;
 }
 .result-card h2 {
-  font: 800 23px 'Noto Sans JP', sans-serif;
-  margin: 6px 0;
+  font: 800 21px 'Noto Sans JP', sans-serif;
+  margin: 4px 0;
 }
-.result-card p {
+.result-card p.res-sub {
   font-size: 11px;
   color: #9db8c1;
-  line-height: 1.8;
-  margin: 10px 0 16px;
+  line-height: 1.7;
+  margin: 8px 0 13px;
 }
-.share-x-btn {
-  width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 8px;
-  padding: 11px 12px;
-  background: #0f1419;
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: 0.8px;
-  margin-bottom: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-  transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
-}
-.share-x-btn:hover {
-  background: #1c242b;
-  border-color: var(--cyan);
-  transform: translateY(-1px);
-}
-.share-x-btn:active {
-  transform: translateY(1px);
-}
-.rank-reg-box {
-  background: rgba(6, 22, 31, 0.85);
+
+.score-form {
+  background: rgba(6, 22, 31, 0.88);
   border: 1px solid rgba(102, 230, 239, 0.35);
   border-radius: 10px;
   padding: 10px 12px;
-  margin-bottom: 11px;
+  margin-bottom: 10px;
   text-align: left;
 }
-.rank-reg-label {
-  font-size: 10px;
+.score-form label {
+  display: block;
+  font-size: 10.5px;
   font-weight: 700;
   color: var(--cyan);
   margin-bottom: 6px;
-  display: block;
 }
-.rank-reg-row {
+.score-entry {
   display: flex;
   gap: 6px;
 }
-.rank-reg-row input {
+.score-entry input {
   flex: 1;
   padding: 8px 10px;
   font-size: 12px;
 }
-.rank-reg-btn {
+.score-entry button {
   border: 0;
   border-radius: 7px;
   padding: 0 14px;
@@ -932,20 +886,93 @@ button {
   font-weight: 900;
   font-size: 11px;
   white-space: nowrap;
-  cursor: pointer;
 }
-.rank-reg-btn:disabled {
+.score-entry button:disabled {
   opacity: 0.55;
   cursor: default;
 }
-.rank-reg-msg {
-  font-size: 10px;
+#scoreStatus {
+  font-size: 10.5px;
   color: var(--mint);
-  margin-top: 5px;
-  min-height: 14px;
+  margin: 5px 0 0;
+  min-height: 15px;
 }
 
-/* 360° Character Viewer Overlay (Only Back Button Visible) */
+.result-action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+  margin-bottom: 9px;
+}
+.share-x-btn {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 10px 8px;
+  background: #0f1419;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.14s ease;
+}
+.share-x-btn:hover {
+  background: #1c242b;
+  border-color: var(--cyan);
+}
+
+section.ranking-inline {
+  margin: 10px 0 12px;
+  background: rgba(5, 19, 27, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 12px;
+  text-align: left;
+}
+section.ranking-inline.hidden {
+  display: none;
+}
+section.ranking-inline h2 {
+  font: 800 14px 'Noto Sans JP', sans-serif;
+  color: var(--gold);
+  margin: 0 0 2px;
+}
+.ranking-note {
+  font-size: 9.5px;
+  color: #8eb0ba;
+  margin: 0 0 8px;
+}
+ol.top-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ol.top-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 11px;
+  gap: 8px;
+}
+ol.top-list li:last-child {
+  border-bottom: 0;
+}
+ol.top-list li span.r-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+ol.top-list li b.r-score {
+  color: var(--mint);
+  font: 800 14px 'Barlow Condensed', sans-serif;
+  flex-shrink: 0;
+}
+
+/* 360° Character Viewer Overlay (ONLY Back Button Visible) */
 #charViewerOverlay {
   display: none;
   position: fixed;
@@ -958,41 +985,42 @@ button {
   position: fixed;
   top: 20px;
   right: 22px;
-  background: rgba(5, 22, 31, 0.88);
+  background: rgba(5, 22, 31, 0.9);
   border: 1.5px solid var(--cyan);
   color: #ffffff;
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: 999px;
   font: 800 13px 'Noto Sans JP', sans-serif;
   backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
   cursor: pointer;
 }
 #exitViewerBtn:hover {
   background: #143f52;
 }
 
-/* Mobile-Friendly Ranking Modal */
+/* Mobile & Full Ranking Modal */
 #rankModal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(3, 18, 27, 0.84);
+  background: rgba(3, 18, 27, 0.85);
   backdrop-filter: blur(8px);
   align-items: center;
   justify-content: center;
   pointer-events: auto;
-  z-index: 15;
+  z-index: 18;
+  padding: 14px;
 }
 .rank-modal-card {
-  width: min(400px, calc(100vw - 28px));
-  max-height: calc(100vh - 60px);
+  width: min(410px, 100%);
+  max-height: calc(100vh - 36px);
   overflow-y: auto;
   background: #0b202b;
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.7);
+  padding: 18px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.72);
 }
 .rank-modal-header {
   display: flex;
@@ -1008,7 +1036,7 @@ button {
   padding: 4px;
   border-radius: 8px;
   border: 1px solid var(--line);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 .rank-tab-btn {
   border: 0;
@@ -1030,78 +1058,56 @@ button {
   background: rgba(156, 255, 208, 0.14);
   border: 1px solid rgba(156, 255, 208, 0.35);
   color: var(--mint);
-  margin-left: 6px;
+  margin-left: 5px;
 }
 
-/* Leaderboard (Selection screen only) */
+/* Desktop Right-Side Ranking Box */
 #ranking {
   display: block;
   position: absolute;
-  right: 24px;
-  top: 86px;
-  width: 260px;
+  right: 18px;
+  top: 72px;
+  width: 270px;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 14px;
-  padding: 16px;
+  padding: 15px;
   pointer-events: auto;
   backdrop-filter: blur(16px);
 }
-.rank-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 11px;
-  gap: 8px;
-}
-.rank-row span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.rank-row b {
-  color: var(--mint);
-  font: 700 14px 'Barlow Condensed', sans-serif;
-  flex-shrink: 0;
-}
 
 @media (max-width: 760px) {
-  header { left: 12px; right: 12px; top: 10px; }
-  .brand { font-size: 20px; }
+  header { left: 10px; right: 10px; top: 10px; }
+  .brand { font-size: 19px; }
   .tag { display: none; }
   .hud { gap: 4px; }
   .pill { padding: 5px 7px; font-size: 9px; }
   .pill b { font-size: 13px; margin-left: 3px; }
   .hud-btn { padding: 5px 8px; font-size: 10px; }
   .panel {
-    left: 12px;
-    top: 54px;
-    width: calc(100vw - 24px);
-    padding: 13px;
-    max-height: calc(100vh - 70px);
+    left: 10px;
+    top: 52px;
+    width: calc(100vw - 20px);
+    padding: 12px;
+    max-height: calc(100vh - 64px);
   }
-  .panel h1 { font-size: 21px; }
-  .stone-preview { height: 50px; margin-bottom: 8px; }
-  .field-label { margin: 6px 0 3px; }
-  .stats { margin: 7px 0 5px; }
-  .stat { padding: 5px 7px; }
-  .primary { padding: 10px; }
+  .panel h1 { font-size: 20px; }
+  .stone-preview { height: 48px; margin-bottom: 7px; }
   #timing {
     right: auto;
     left: 50%;
     bottom: 42px;
     transform: translateX(-50%);
-    width: 176px;
-    height: 176px;
+    width: 174px;
+    height: 174px;
   }
-  #moving { width: 168px; height: 168px; }
+  #moving { width: 166px; height: 166px; }
   #ranking { display: none !important; }
   .center-message { display: none !important; }
   #bottomHint { bottom: 10px; font-size: 10px; }
-  #throwControls { bottom: 42px; }
-  .throw-btn { padding: 13px 28px; font-size: 16px; }
-  #powerPanel { bottom: 38px; padding: 11px 14px; }
+  #throwControls { bottom: 40px; }
+  .throw-btn { padding: 12px 26px; font-size: 16px; }
+  #powerPanel { bottom: 36px; padding: 11px 14px; }
 }
 </style>
 </head>
@@ -1120,8 +1126,8 @@ button {
     <div class="pill accent">DISTANCE <b id="hudDistance">0 m</b></div>
     <div class="pill">COMBO <b id="hudCombo">0</b></div>
     <div class="pill" id="hudSkipsPill" style="display:none">SKIPS <b id="hudSkips">0</b></div>
-    <button type="button" class="hud-btn" id="openRankHudBtn" title="オンラインランキング">🏆 ランキング</button>
-    <button type="button" class="hud-btn" id="tuneCharBtn" title="CHAR_CONFIG スライダーを開く">🔧 キャラ調整</button>
+    <button type="button" class="hud-btn" id="openRankHudBtn" title="全世界ランキング">🏆 ランキング</button>
+    <button type="button" class="hud-btn" id="tuneCharBtn" title="キャラ調整パネル">🔧 キャラ調整</button>
     <button type="button" class="hud-btn" id="soundBtn" title="サウンド切替">🔊</button>
     <button type="button" class="hud-btn" id="backTopBtn">← 選択画面</button>
   </div>
@@ -1130,7 +1136,7 @@ button {
 <!-- Real-Time CHAR_CONFIG Tuning Drawer -->
 <aside id="charDebugDrawer">
   <div class="dbg-header">
-    <div class="dbg-title" id="dbgCharLabel">🔧 キャラ調整：陸上部 彩葉</div>
+    <div class="dbg-title" id="dbgCharLabel">🔧 キャラ調整：海辺の少年 ユウト</div>
     <button type="button" class="dbg-close" id="closeDebugBtn">✕ 閉じる</button>
   </div>
   <div class="dbg-cam-bar">
@@ -1145,40 +1151,38 @@ button {
     <button type="button" class="dbg-btn" id="resetCharCfgBtn" style="grid-column: 1 / -1;">↺ 初期値にリセット</button>
     <button type="button" class="dbg-btn accent" id="copyCharCfgBtn">📋 CHAR_CONFIG をコピー</button>
   </div>
-  <div class="dbg-toast" id="dbgSaveStatus" style="display:block;margin-bottom:8px;">💾 端末に自動保存済み</div>
-  <div class="dbg-toast" id="dbgCopyToast">コピー完了！コード上部の export const CHAR_CONFIG に貼り付けできます。</div>
+  <div class="dbg-toast" id="dbgSaveStatus">💾 端末に自動保存済み</div>
+  <div class="dbg-toast" id="dbgCopyToast" style="display:none;">コピー完了！コード上部の CHAR_CONFIG に貼り付けできます。</div>
   <div class="dbg-cat-tabs" id="dbgCatTabs">
     <button type="button" class="dbg-cat-tab active" data-cat="body">体型・胸</button>
     <button type="button" class="dbg-cat-tab" data-cat="face">顔・目</button>
-    <button type="button" class="dbg-cat-tab" data-cat="hair">髪・前髪</button>
-    <button type="button" class="dbg-cat-tab" data-cat="outfit">服・靴</button>
+    <button type="button" class="dbg-cat-tab" data-cat="hair">髪・ポニテ</button>
+    <button type="button" class="dbg-cat-tab" data-cat="outfit">服・衣装</button>
     <button type="button" class="dbg-cat-tab" data-cat="throwMotion">投擲</button>
   </div>
   <div id="dbgControlsHost"></div>
 </aside>
 
 <main>
-  <!-- Left Setup Panel (Hidden during gameplay) -->
+  <!-- Left Setup Panel -->
   <section class="panel" id="selectPanel">
-    <!-- 2-Mode Switcher -->
     <div class="mode-tabs">
       <button type="button" class="mode-tab active" data-mode="STONE_VIEW">🪨 石視点モード</button>
       <button type="button" class="mode-tab" data-mode="THROWER_VIEW">🏃 投げる人モード</button>
     </div>
 
-    <!-- MODE 1: STONE VIEW SETUP -->
+    <!-- MODE 1: STONE VIEW SETUP (5 Exact Original Stones) -->
     <div id="stoneSetupSection">
       <div class="eyebrow">01 / STONE VIEW MODE</div>
       <h1>石を選ぼう。</h1>
-      <p class="sub">石の★の数でゲージの速さ・判定の広さ・飛距離が変化。着水に合わせて連続タップ！</p>
+      <p class="sub">5種類の石から選択。着水の瞬間にタイミングよく連続タップ！</p>
       <div class="stone-preview"><div class="stone-icon" id="stoneIcon"></div></div>
       <div class="stone-grid" id="stoneGrid">
-        <button type="button" class="stone-choice active" data-stone="0"><div class="shape"></div>大きな丸石</button>
-        <button type="button" class="stone-choice" data-stone="1"><div class="shape"></div>平たい大石</button>
-        <button type="button" class="stone-choice" data-stone="2"><div class="shape"></div>小さな丸石</button>
-        <button type="button" class="stone-choice" data-stone="3"><div class="shape"></div>薄くて広い石</button>
-        <button type="button" class="stone-choice" data-stone="4"><div class="shape"></div>小石</button>
-        <button type="button" class="stone-choice" data-stone="5"><div class="shape"></div>細長い石</button>
+        <button type="button" class="stone-choice active" data-stone="0"><div class="shape"></div>河原の平石</button>
+        <button type="button" class="stone-choice" data-stone="1"><div class="shape"></div>楕円スレート</button>
+        <button type="button" class="stone-choice" data-stone="2"><div class="shape"></div>軽石ディスク</button>
+        <button type="button" class="stone-choice" data-stone="3"><div class="shape"></div>黒曜石ブレード</button>
+        <button type="button" class="stone-choice" data-stone="4"><div class="shape"></div>黄金の円盤</button>
       </div>
       <label class="field-label" for="stoneName">石に名前をつける</label>
       <input id="stoneName" maxlength="18" value="蒼い流星" placeholder="石の名前">
@@ -1186,45 +1190,45 @@ button {
         <div class="stat"><small>操作のしやすさ（速度・判定幅）</small><strong id="ease">★★★★★</strong></div>
         <div class="stat"><small>跳ねやすさ（初速・飛距離）</small><strong id="bounce">★★★☆☆</strong></div>
       </div>
-      <div class="stone-trait" id="stoneTrait">ゲージ速度：ゆっくり ／ 判定幅：超ワイド ／ 安定型</div>
+      <div class="stone-trait" id="stoneTrait">ゲージ速度：ゆっくり ／ 判定幅：超ワイド ／ 王道バランス型</div>
       <button type="button" class="primary" id="startStoneBtn">この石で水切りを始める　→</button>
-      <button type="button" class="secondary" id="openRankStoneBtn" style="margin-top:8px;width:100%">🏆 オンラインランキングを見る</button>
+      <button type="button" class="secondary" id="openRankStoneBtn" style="margin-top:8px;width:100%">🏆 ランキングを見る</button>
     </div>
 
-    <!-- MODE 2: THROWER VIEW SETUP -->
+    <!-- MODE 2: THROWER VIEW SETUP (4 Exact Original Characters) -->
     <div id="throwerSetupSection" style="display:none">
       <div class="eyebrow">02 / THROWER MODE</div>
       <h1>投げる人を選ぼう。</h1>
-      <p class="sub">パワーゲージを止めて助走開始！腕を振り抜くベストな瞬間に1回だけタッチ！</p>
+      <p class="sub">パワーゲージを止めて助走開始！腕を振り抜く瞬間に1回だけタッチ！</p>
       <div class="thrower-grid" id="throwerGrid">
         <button type="button" class="thrower-card active" data-thrower="0">
           <div class="thrower-role">バランス型</div>
-          <div class="thrower-name">河原の少年 ユウト</div>
-          <div class="thrower-desc">助走が素直でリリースタイミングが合わせやすい</div>
+          <div class="thrower-name">海辺の少年 ユウト</div>
+          <div class="thrower-desc">素直な助走と安定したフォームで扱いやすいオールラウンダー</div>
         </button>
         <button type="button" class="thrower-card" data-thrower="1">
-          <div class="thrower-role">超剛腕パワー型</div>
-          <div class="thrower-name">元プロ投手 剛田</div>
-          <div class="thrower-desc">ゲージは速いが最高初速と剛速スピンが圧倒的</div>
+          <div class="thrower-role">剛腕パワー型</div>
+          <div class="thrower-name">ベテラン職人 剛田</div>
+          <div class="thrower-desc">圧倒的な腕力で豪快な剛速球を放つパワー自慢</div>
         </button>
         <button type="button" class="thrower-card" data-thrower="2">
-          <div class="thrower-role">超回転テクニカル</div>
+          <div class="thrower-role">超回転テクニック型</div>
           <div class="thrower-name">水切り仙人 無心斎</div>
-          <div class="thrower-desc">驚異の回転数で水面をどこまでも滑るように跳ねる</div>
+          <div class="thrower-desc">極限まで研ぎ澄ました回転数で水面を滑るように跳ねる</div>
         </button>
         <button type="button" class="thrower-card" data-thrower="3">
-          <div class="thrower-role">神速スプリンター</div>
-          <div class="thrower-name">陸上部 彩葉</div>
-          <div class="thrower-desc">超高速初速×最大級スピン×広めの判定で圧倒的記録を狙える最強型</div>
+          <div class="thrower-role">神速スプリンター（最強）</div>
+          <div class="thrower-name">陸上部 レイナ</div>
+          <div class="thrower-desc">最高初速×超回転×広めの判定で圧倒的記録を狙える最強型</div>
         </button>
       </div>
       <div class="stats">
         <div class="stat"><small>投擲パワー（初速）</small><strong id="thPower">★★★☆☆</strong></div>
-        <div class="stat"><small>回転＆フォーム精度</small><strong id="thSpin">★★★★☆</strong></div>
+        <div class="stat"><small>回転＆フォーム精度</small><strong id="thSpin">★★★☆☆</strong></div>
       </div>
-      <div class="stone-trait" id="throwerTrait">バランス型：安定したフォームで記録を伸ばしやすい</div>
+      <div class="stone-trait" id="throwerTrait">バランス型：素直な助走と安定したフォームで扱いやすいオールラウンダー</div>
       <button type="button" class="primary" id="startThrowerBtn">この人で挑戦する　→</button>
-      <button type="button" class="secondary" id="openRankThrowerBtn" style="margin-top:8px;width:100%">🏆 オンラインランキングを見る</button>
+      <button type="button" class="secondary" id="openRankThrowerBtn" style="margin-top:8px;width:100%">🏆 ランキングを見る</button>
     </div>
   </section>
 
@@ -1243,7 +1247,7 @@ button {
   <!-- Mode 2: Power Gauge Controls -->
   <div id="powerPanel">
     <div class="power-header">
-      <span class="power-label" id="powerCharLabel">河原の少年 ユウト — POWER GAUGE</span>
+      <span class="power-label" id="powerCharLabel">海辺の少年 ユウト — POWER GAUGE</span>
       <span class="power-val" id="powerPercent">50%</span>
     </div>
     <div class="power-track">
@@ -1254,7 +1258,7 @@ button {
     <button type="button" class="primary" id="lockPowerBtn">この強さで投げる！ (SPACE / TAP)</button>
   </div>
 
-  <!-- High-Visibility Timing Ring (Clean center, positioned at BOTTOM-RIGHT) -->
+  <!-- Timing Ring (Clean center, no text inside circle) -->
   <div id="timing">
     <div id="gaugeBackdrop"></div>
     <div id="outerGuide"></div>
@@ -1267,12 +1271,12 @@ button {
   <div id="judge"></div>
   <div id="bottomHint">モードとキャラクター／石を選んでスタート</div>
 
-  <!-- Leaderboard (Selection Screen Only) -->
+  <!-- Desktop Sidebar Leaderboard -->
   <aside id="ranking">
-    <div class="eyebrow" id="rankHeader">ONLINE TOP · 石視点</div>
-    <h1 style="font-size:20px">TOP DISTANCE</h1>
-    <div id="rankRows"></div>
-    <p class="sub" id="rankFooterNote" style="margin-top:10px;margin-bottom:0">オンラインランキング（TOP 5）を表示しています。</p>
+    <div class="eyebrow" id="rankHeader">GLOBAL TOP10 · 石視点</div>
+    <h1 style="font-size:19px">飛距離ランキング TOP10</h1>
+    <p class="ranking-note" id="rankFooterNote">同じなまえ・同じ端末のベスト記録のみ掲載</p>
+    <ol id="rankRows" class="top-list" aria-live="polite"></ol>
   </aside>
 
   <!-- Mobile & Full Ranking Modal -->
@@ -1280,43 +1284,56 @@ button {
     <div class="rank-modal-card">
       <div class="rank-modal-header">
         <div>
-          <div class="eyebrow">GLOBAL LEADERBOARD <span class="rank-status-badge" id="onlineBadge">ONLINE</span></div>
-          <h2 style="margin:2px 0 0;font-size:20px">🏆 オンラインランキング</h2>
+          <div class="eyebrow">WORLDWIDE LEADERBOARD <span class="rank-status-badge" id="onlineBadge">ONLINE</span></div>
+          <h2 style="margin:2px 0 0;font-size:19px">🏆 飛距離ランキング TOP10</h2>
         </div>
         <button type="button" class="dbg-close" id="closeRankModalBtn">✕ 閉じる</button>
       </div>
+      <p class="ranking-note">1端末・同じなまえにつきベスト記録1枠のみ反映されます</p>
       <div class="rank-tabs">
         <button type="button" class="rank-tab-btn active" data-rankmode="STONE_VIEW">🪨 石視点モード</button>
         <button type="button" class="rank-tab-btn" data-rankmode="THROWER_VIEW">🏃 投げる人モード</button>
       </div>
-      <div id="modalRankRows"></div>
+      <ol id="modalRankRows" class="top-list" aria-live="polite"></ol>
       <button type="button" class="secondary" id="closeRankModalBottomBtn" style="margin-top:14px;width:100%">閉じる</button>
     </div>
   </div>
 
-  <!-- Result Modal -->
+  <!-- Result Modal (Yasai Taopaipai Style Registration & Expandable Ranking) -->
   <div id="result">
     <div class="result-card">
       <div class="eyebrow" id="resultEyebrow">RUN COMPLETE</div>
       <h2 id="resultTitle">水切り終了</h2>
       <div class="distance" id="resultDistance">0 m</div>
-      <p id="resultDetails"></p>
-      <div class="rank-reg-box">
-        <label class="rank-reg-label" for="playerRankName">🏆 全世界ランキングに登録（1端末につき最高記録1枠）</label>
-        <div class="rank-reg-row">
-          <input id="playerRankName" maxlength="12" placeholder="プレイヤー名を入力">
-          <button type="button" class="rank-reg-btn" id="registerRankBtn">登録する</button>
+      <p class="res-sub" id="resultDetails"></p>
+
+      <form id="scoreForm" class="score-form">
+        <label for="playerName">なまえ（12文字まで）</label>
+        <div class="score-entry">
+          <input id="playerName" maxlength="12" placeholder="ニックネーム" autocomplete="nickname">
+          <button id="submitBtn" type="submit">記録を登録</button>
         </div>
-        <div class="rank-reg-msg" id="rankRegMsg"></div>
+        <p id="scoreStatus" role="status"></p>
+      </form>
+
+      <div class="result-action-row">
+        <button type="button" class="share-x-btn" id="shareXBtn">𝕏 で共有する</button>
+        <button type="button" class="secondary" id="rankingBtn" aria-expanded="false">🏆 ランキングを見る</button>
       </div>
-      <button type="button" class="share-x-btn" id="shareXBtn">𝕏 で結果を共有する</button>
+
+      <section id="resultRanking" class="ranking-inline hidden">
+        <h2>飛距離ランキング TOP10</h2>
+        <p class="ranking-note">1端末・同じなまえのベスト記録（重複なし）</p>
+        <ol id="resultTop" class="top-list" aria-live="polite"></ol>
+      </section>
+
       <button type="button" class="primary" id="retryBtn">もう一度挑戦する　↻</button>
-      <button type="button" class="secondary" id="resultBack" style="margin-top:9px;width:100%">選択画面に戻る</button>
+      <button type="button" class="secondary" id="resultBack" style="margin-top:8px;width:100%">選択画面に戻る</button>
     </div>
   </div>
 </main>
 
-<!-- 360° Character Viewer Overlay (Only Back Button) -->
+<!-- 360° Character Viewer Overlay (ONLY Back Button Visible) -->
 <div id="charViewerOverlay">
   <button type="button" id="exitViewerBtn">← 戻る</button>
 </div>
@@ -1327,169 +1344,57 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebas
 import { getAuth, signInAnonymously, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
 import { getFirestore, collection, doc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
+// ============================================================================
+// 1. CHARACTER CONFIGURATION (EXACT ORIGINAL 4 THROWERS + LOCALSTORAGE)
+// ============================================================================
 export const CHAR_CONFIG = {
-  // ==========================================
-  // 1. 全体プロポーション・立ち姿・バスト
-  // ==========================================
   body: {
-    overallScale: 1.0,        // 全体の大きさ倍率
-    headScale: 1.25,          // 頭身バランス（大きいほどデフォルメ強め）
-    neckLength: 0.14,         // 首の長さ
-    neckThickness: 0.12,      // 首の太さ
-    shoulderWidth: 0.52,      // 肩幅
-    torsoWidth: 0.54,         // 胴体の横幅
-    torsoHeight: 0.78,        // 胴体の高さ
-    torsoDepth: 0.40,         // 胴体の厚み（前後）
-    waistPinch: 0.84,         // ウエストのくびれ具合（小さいほどくびれる）
-    hipWidth: 0.62,           // 腰・ヒップの横幅
-    hipDepth: 0.46,           // 腰・ヒップの厚み
-    hipHeight: 1.05,          // 腰の高さ基準
-
-    // 胸のサイズ・位置・形状
-    bustSize: 1.05,           // 胸の大きさ倍率（0.4〜1.8など）
-    bustHeight: 0.24,         // 胸の上下位置（胸郭中心からのオフセット）
-    bustForward: 0.22,        // 胸の突き出し具合（前後位置）
-    bustSpacing: 0.15,        // 左右の胸の開き具合（間隔）
-    bustDroop: 0.04,          // 胸の自然な垂れ具合・丸みオフセット
-    bustSoftness: 0.12,       // 動くときの胸の揺れ幅
-
-    // 姿勢・脚
-    leanForward: 0.14,        // 少し前傾する角度（ラジアン）
-    pigeonToed: 0.12,         // 少し内股にする角度（ラジアン）
-    kneeInward: 0.08,         // 膝を少し内向きにする角度（ラジアン）
-    legLength: 1.05,          // 脚の長さ
-    thighThickness: 0.18,     // 太ももの太さ
-    calfThickness: 0.13,      // ふくらはぎの太さ
-    armLength: 0.82,          // 腕の長さ
-    armThickness: 0.11,       // 腕の太さ
+    overallScale: 1.0,
+    headScale: 1.08,
+    neckLength: 0.14,
+    neckThickness: 0.12,
+    shoulderWidth: 0.56,
+    chestWidth: 0.56,
+    chestDepth: 0.36,
+    bustSize: 0.0,
+    bustHeight: 0.22,
+    bustSpread: 0.14,
+    waistWidth: 0.48,
+    hipWidth: 0.54,
+    armLength: 0.84,
+    armThickness: 0.115,
+    legLength: 1.04,
+    legThickness: 0.165
   },
-
-  // ==========================================
-  // 2. 顔・目・眉・口・ほっぺ
-  // ==========================================
   face: {
-    faceRoundness: 1.08,      // 輪郭の丸み・ふっくら感
-    jawSharpness: 0.35,       // あごのシャープさ（0で丸顔、1で少しすっきり）
-
-    // 目・瞳・まつげ・ハイライト
-    eyeSize: 0.13,            // 目の大きさ
-    eyeWidthScale: 1.05,      // 目の横幅倍率
-    eyeHeightScale: 1.15,     // 目の縦幅倍率
-    eyeSpacing: 0.22,         // 左右の目の間隔
-    eyeHeight: 0.04,          // 目の上下位置
-    eyeForward: 0.46,         // 目の前後位置
-    eyeTilt: 0.06,            // 目のタレ目/つり目角度（正でタレ目、負でつり目）
-    irisColor: 0x6b6380,       // 瞳の色（落ち着いた紫〜グレー系）
-    irisGradientSub: 0x9b8fb8,  // 瞳のグラデーション下側カラー
-    pupilSize: 0.45,          // 瞳孔の大きさ比率
-    highlightSize: 0.038,     // メインハイライトの大きさ
-    highlightOffsetX: 0.03,   // ハイライトの横ズレ
-    highlightOffsetY: 0.035,  // ハイライトの縦ズレ
-    subHighlightSize: 0.018,  // サブハイライト（小さなきらめき）の大きさ
-    eyelashLength: 0.06,      // まつげの長さ・目尻の強調度
-
-    // 眉・口・ほっぺ
-    browEnabled: true,        // 眉毛を表示するか
-    browColor: 0x3b3842,      // 眉毛の色
-    browHeight: 0.15,         // 眉毛の高さ
-    browThickness: 0.022,     // 眉毛の太さ
-    browTilt: 0.08,           // 眉毛の角度
-    mouthHeight: -0.14,       // 口の上下位置
-    mouthWidth: 0.07,         // 口の幅
-    smileAmount: 0.55,        // 口角の上がり具合（0.0〜1.0）
-    mouthOpenAmount: 0.0,     // 口の開き具合（0.0〜1.0）
-    blushEnabled: true,       // ほっぺを表示するか
-    blushColor: 0xf7b2c4,       // ほっぺの色
-    blushSize: 0.085,         // ほっぺの大きさ
-    blushSpacing: 0.25,       // ほっぺの左右間隔
-    blushHeight: -0.04,       // ほっぺの上下位置
-    blushOpacity: 0.65,       // ほっぺの濃さ（0.0〜1.0）
+    eyeSize: 0.105,
+    eyeSpacing: 0.20,
+    eyeHeight: 0.03,
+    eyeColor: 0x2563eb,
+    blushOpacity: 0.0,
+    mouthWidth: 0.08
   },
-
-  // ==========================================
-  // 3. 髪型・前髪の形と長さ・後ろ髪
-  // ==========================================
   hair: {
-    color: 0x3b3842,            // 髪色（やわらかいダークグレー・黒系）
-    highlightColor: 0x5c5769,   // 髪のツヤ・ハイライト色
-    hairOpacity: 0.96,        // 髪の透け感・軽さ（1.0で不透明）
-
-    // 前髪の形・長さ・分け目・隙間
-    bangsStyle: 'wispy',      // 前髪の形 ('straight' | 'wispy' | 'swept' | 'parted' | 'hime')
-    bangsLength: 0.34,        // 前髪の長さ（目にかかりそう〜眉上など調整）
-    bangsCenterLength: 0.32,  // 前髪中央の長さ
-    bangsSideLength: 0.42,    // 前髪サイド（こめかみ付近）の長さ
-    bangsSpread: 0.74,        // 前髪の横幅の広がり
-    bangsThickness: 0.09,     // 前髪の厚み・束感
-    bangsPartOffset: 0.04,    // 前髪の分け目オフセット
-    bangsGapAmount: 0.25,     // 束と束の間のすき間具合（シースルー感・おでこ見え具合）
-    bangsStrandCount: 7,      // 前髪の毛束の数目安
-
-    // サイド・後ろのロングヘア
-    sideHairLength: 1.18,     // サイドの髪の長さ
-    sideHairFlare: 0.14,      // サイドの毛先の広がり
-    backHairLength: 1.48,     // 後ろのロングヘアの長さ
-    backHairWidth: 0.88,      // 後ろ髪の横幅
-    backHairFlare: 0.22,      // 後ろ髪の裾の広がり具合
-    hairVolume: 1.14,         // 髪全体のボリューム感
-    swayAmount: 0.20,         // 動くときの髪の揺れ幅
-    swaySpeed: 4.5,           // 髪の揺れる速さ
-    hairpinEnabled: true,     // 前髪横のヘアピン・飾りをつけるか
-    hairpinColor: 0xe5e7eb,     // ヘアピンの色
+    style: 'short', // 'short' | 'ponytail' | 'long' | 'bun'
+    length: 0.34,
+    volume: 1.05,
+    bangsLength: 0.24,
+    color: 0x222630
   },
-
-  // ==========================================
-  // 4. 服装・スカート・バッグ・靴・アクセサリー
-  // ==========================================
   outfit: {
-    // トップス（白系半袖など）
-    topColor: 0xf4f5f7,         // トップスの色
-    topFit: 1.0,              // トップスのフィット感
-    necklineDepth: 0.14,      // 襟ぐりの開き具合
-    sleeveLength: 0.28,       // 袖の長さ
-    sleeveWidth: 0.22,        // 袖の太さ・ゆとり
-
-    // スカート（ダーク系フレアなど）
-    skirtColor: 0x2c2e35,       // スカートの色
-    skirtLength: 0.52,        // スカートの丈
-    skirtFlare: 1.42,         // スカートの裾の広がり具合
-    skirtPleats: 12,          // スカートのひだ・ギャザーの細かさ
-    skirtLiftOnThrow: 0.12,   // 動くときにスカートがふわっと広がる度合い
-    beltEnabled: true,        // ウエストベルトを表示するか
-    beltColor: 0x1f2126,        // ベルトの色
-
-    // ショルダーバッグ・小物
-    bagEnabled: true,         // バッグを表示するか
-    bagColor: 0xeae6df,         // バッグの色（オフホワイト系）
-    bagWidth: 0.36,           // バッグの横幅
-    bagHeight: 0.28,          // バッグの高さ
-    bagDepth: 0.14,           // バッグの厚み
-    bagOffsetX: -0.44,        // バッグの横位置（マイナスで左肩側）
-    bagOffsetY: 0.05,         // バッグの高さ位置
-    bagStrapEnabled: true,    // 肩ひもを表示するか
-
-    // サンダル・靴
-    shoeEnabled: true,        // 靴を表示するか
-    shoeColor: 0xf5f5f5,        // 靴の色
-    shoeStyle: 'sandal',      // 靴のタイプ ('sandal' | 'sneaker' | 'loafer')
-    heelHeight: 0.06,         // ヒール・ソールの高さ
-    strapEnabled: true,       // 足首ストラップを表示するか
+    topStyle: 'tee', // 'tee' | 'athletic' | 'workwear' | 'robe'
+    skirtLength: 0.48,
+    skirtFlare: 0.85,
+    topColor: 0x38bdf8,
+    bottomColor: 0x1e3a8a,
+    accentColor: 0xfacc15
   },
-
-  // ==========================================
-  // 5. 投げるモーション・タイミング・演出
-  // ==========================================
   throwMotion: {
-    anticipationScale: 1.0,   // 構え・溜めの大きさ
-    windupDuration: 0.28,     // 振りかぶり時間（秒）
-    releaseDuration: 0.16,    // 振り抜き時間（秒）
-    followThroughDuration: 0.35, // 投げ終わりの余韻時間（秒）
-    armWindupAngle: -1.35,    // 振りかぶり時の腕の角度（ラジアン）
-    armReleaseAngle: 1.25,    // 振り抜き時の腕の角度（ラジアン）
-    torsoTwist: 0.35,         // 投げる時の体のひねり具合
-    headTiltOnRelease: 0.08,  // 投げた瞬間の頭の傾き・うなずき
-    releaseHandOffset: [0.35, 1.35, -0.45], // 石を放す位置 [x, y, z]
-  },
+    windupTwist: 0.42,
+    releaseTwist: 0.48,
+    armElevation: 1.15,
+    followThrough: 1.35
+  }
 };
 
 function deepClone(obj) {
@@ -1508,192 +1413,186 @@ function deepMerge(target, patch) {
   return target;
 }
 
-// Keep Reina's initial CHAR_CONFIG as the master default, and derive presets for the other 3 throwers
-const REINA_DEFAULT_CONFIG = deepClone(CHAR_CONFIG);
+const BASE_DEFAULT_CONFIG = deepClone(CHAR_CONFIG);
 
+// Exact Original 4 Characters:
+// 0: 海辺の少年 ユウト
+// 1: ベテラン職人 剛田
+// 2: 水切り仙人 無心斎
+// 3: 陸上部 レイナ (Cute girl with ponytail, pleated skirt, front bust on -Z, strongest stats)
 const THROWER_PRESETS = {
-  0: deepMerge(deepClone(REINA_DEFAULT_CONFIG), {
+  0: deepMerge(deepClone(BASE_DEFAULT_CONFIG), {
     body: {
       overallScale: 0.96,
-      headScale: 1.06,
-      shoulderWidth: 0.56,
-      torsoWidth: 0.56,
-      waistPinch: 0.94,
-      hipWidth: 0.54,
-      bustSize: 0.01,
-      leanForward: 0.06,
-      pigeonToed: 0.0,
-      kneeInward: 0.0,
-      thighThickness: 0.17,
-      calfThickness: 0.13,
-      armThickness: 0.115,
-      bustsoftness: 1.00
+      headScale: 1.10,
+      shoulderWidth: 0.54,
+      chestWidth: 0.54,
+      chestDepth: 0.34,
+      bustSize: 0.0,
+      waistWidth: 0.48,
+      hipWidth: 0.52,
+      armLength: 0.82,
+      armThickness: 0.11,
+      legLength: 1.02,
+      legThickness: 0.155
     },
     face: {
-      faceRoundness: 1.02,
-      jawSharpness: 0.52,
-      eyeSize: 0.105,
-      eyeHeightScale: 1.02,
-      eyeTilt: -0.02,
-      irisColor: 0x2b4c7e,
-      irisGradientSub: 0x4f7cac,
-      eyelashLength: 0.01,
-      blushEnabled: false
+      eyeSize: 0.112,
+      eyeSpacing: 0.20,
+      eyeHeight: 0.03,
+      eyeColor: 0x1d4ed8,
+      blushOpacity: 0.15,
+      mouthWidth: 0.085
     },
     hair: {
-      color: 0x1e222b,
-      highlightColor: 0x3b4252,
-      bangsStyle: 'swept',
-      bangsLength: 0.24,
-      bangsCenterLength: 0.22,
-      bangsSideLength: 0.28,
-      sideHairLength: 0.26,
-      backHairLength: 0.30,
-      backHairWidth: 0.72,
-      hairVolume: 1.04,
-      swayAmount: 0.04,
-      hairpinEnabled: false
+      style: 'short',
+      length: 0.34,
+      volume: 1.06,
+      bangsLength: 0.25,
+      color: 0x242834
     },
     outfit: {
-      topColor: 0x2b8cbe,
-      sleeveLength: 0.30,
-      skirtColor: 0x1d3557,
-      skirtLength: 0.62,
-      skirtFlare: 0.72,
-      skirtPleats: 0,
-      skirtLiftOnThrow: 0.0,
-      beltColor: 0xffd166,
-      bagEnabled: false,
-      shoeStyle: 'sneaker',
-      shoeColor: 0xf8fafc,
-      heelHeight: 0.05
+      topStyle: 'tee',
+      skirtLength: 0.44,
+      skirtFlare: 0.82,
+      topColor: 0x38bdf8,
+      bottomColor: 0x1e3a8a,
+      accentColor: 0xfef08a
     }
   }),
-  1: deepMerge(deepClone(REINA_DEFAULT_CONFIG), {
+  1: deepMerge(deepClone(BASE_DEFAULT_CONFIG), {
     body: {
       overallScale: 1.12,
       headScale: 0.96,
-      shoulderWidth: 0.72,
-      torsoWidth: 0.70,
-      torsoHeight: 0.86,
-      torsoDepth: 0.48,
-      waistPinch: 0.96,
+      shoulderWidth: 0.74,
+      chestWidth: 0.72,
+      chestDepth: 0.48,
+      bustSize: 0.0,
+      waistWidth: 0.62,
       hipWidth: 0.64,
-      bustSize: 0.01,
-      leanForward: 0.08,
-      pigeonToed: -0.05,
-      kneeInward: 0.0,
-      thighThickness: 0.22,
-      calfThickness: 0.16,
-      armThickness: 0.15
+      armLength: 0.92,
+      armThickness: 0.155,
+      legLength: 1.06,
+      legThickness: 0.21
     },
     face: {
-      faceRoundness: 0.98,
-      jawSharpness: 0.68,
       eyeSize: 0.095,
-      eyeHeightScale: 0.95,
-      eyeTilt: -0.08,
-      irisColor: 0x222226,
-      irisGradientSub: 0x45454f,
-      eyelashLength: 0.0,
-      browThickness: 0.032,
-      browTilt: -0.06,
-      blushEnabled: false
+      eyeSpacing: 0.21,
+      eyeHeight: 0.04,
+      eyeColor: 0x1e293b,
+      blushOpacity: 0.0,
+      mouthWidth: 0.095
     },
     hair: {
-      color: 0x18181c,
-      highlightColor: 0x33333b,
-      bangsStyle: 'straight',
+      style: 'short',
+      length: 0.24,
+      volume: 1.02,
       bangsLength: 0.16,
-      bangsCenterLength: 0.16,
-      bangsSideLength: 0.20,
-      sideHairLength: 0.20,
-      backHairLength: 0.22,
-      backHairWidth: 0.70,
-      hairVolume: 1.00,
-      swayAmount: 0.02,
-      hairpinEnabled: false
+      color: 0x18181b
     },
     outfit: {
-      topColor: 0xd9383a,
-      sleeveLength: 0.34,
-      skirtColor: 0xf1f5f9,
-      skirtLength: 0.76,
-      skirtFlare: 0.74,
-      skirtPleats: 0,
-      skirtLiftOnThrow: 0.0,
-      beltColor: 0x1e293b,
-      bagEnabled: false,
-      shoeStyle: 'sneaker',
-      shoeColor: 0x1e293b,
-      heelHeight: 0.06
+      topStyle: 'workwear',
+      skirtLength: 0.66,
+      skirtFlare: 0.84,
+      topColor: 0x1e3a5f,
+      bottomColor: 0x334155,
+      accentColor: 0xf8fafc
     },
     throwMotion: {
-      anticipationScale: 1.18,
-      armWindupAngle: -1.55,
-      armReleaseAngle: 1.40,
-      torsoTwist: 0.48
+      windupTwist: 0.52,
+      releaseTwist: 0.56,
+      armElevation: 1.25,
+      followThrough: 1.48
     }
   }),
-  2: deepMerge(deepClone(REINA_DEFAULT_CONFIG), {
+  2: deepMerge(deepClone(BASE_DEFAULT_CONFIG), {
     body: {
       overallScale: 0.95,
-      headScale: 1.05,
+      headScale: 1.06,
       shoulderWidth: 0.52,
-      torsoWidth: 0.52,
-      waistPinch: 0.95,
+      chestWidth: 0.52,
+      chestDepth: 0.35,
+      bustSize: 0.0,
+      waistWidth: 0.50,
       hipWidth: 0.56,
-      bustSize: 0.01,
-      leanForward: 0.12,
-      pigeonToed: 0.0,
-      kneeInward: 0.0,
-      thighThickness: 0.16,
-      calfThickness: 0.12,
-      armThickness: 0.10,
-      bustsoftness: 1.00
+      armLength: 0.84,
+      armThickness: 0.105,
+      legLength: 1.00,
+      legThickness: 0.155
     },
     face: {
-      faceRoundness: 1.04,
-      jawSharpness: 0.45,
       eyeSize: 0.092,
-      eyeHeightScale: 0.85,
-      eyeTilt: 0.08,
-      irisColor: 0x475569,
-      irisGradientSub: 0x94a3b8,
-      eyelashLength: 0.0,
-      browColor: 0xe2e8f0,
-      blushEnabled: false
+      eyeSpacing: 0.20,
+      eyeHeight: 0.03,
+      eyeColor: 0x475569,
+      blushOpacity: 0.0,
+      mouthWidth: 0.075
     },
     hair: {
-      color: 0xe2e8f0,
-      highlightColor: 0xffffff,
-      bangsStyle: 'parted',
-      bangsLength: 0.14,
-      bangsCenterLength: 0.14,
-      bangsSideLength: 0.24,
-      sideHairLength: 0.28,
-      backHairLength: 0.26,
-      backHairWidth: 0.72,
-      hairVolume: 1.02,
-      swayAmount: 0.05,
-      hairpinEnabled: false
+      style: 'bun',
+      length: 0.36,
+      volume: 1.04,
+      bangsLength: 0.15,
+      color: 0xf1f5f9
     },
     outfit: {
-      topColor: 0x457b9d,
-      sleeveLength: 0.42,
-      skirtColor: 0x2b2d42,
-      skirtLength: 0.82,
-      skirtFlare: 1.15,
-      skirtPleats: 4,
-      skirtLiftOnThrow: 0.08,
-      beltColor: 0x9cffd0,
-      bagEnabled: false,
-      shoeStyle: 'sandal',
-      shoeColor: 0x92400e,
-      heelHeight: 0.04
+      topStyle: 'robe',
+      skirtLength: 0.84,
+      skirtFlare: 1.18,
+      topColor: 0x3b6e8c,
+      bottomColor: 0x1e293b,
+      accentColor: 0x9cffd0
     }
   }),
-  3: deepClone(REINA_DEFAULT_CONFIG)
+  3: deepMerge(deepClone(BASE_DEFAULT_CONFIG), {
+    body: {
+      overallScale: 1.0,
+      headScale: 1.22,
+      neckLength: 0.14,
+      neckThickness: 0.11,
+      shoulderWidth: 0.48,
+      chestWidth: 0.48,
+      chestDepth: 0.36,
+      bustSize: 1.06,
+      bustHeight: 0.22,
+      bustSpread: 0.135,
+      waistWidth: 0.40,
+      hipWidth: 0.56,
+      armLength: 0.82,
+      armThickness: 0.10,
+      legLength: 1.06,
+      legThickness: 0.15
+    },
+    face: {
+      eyeSize: 0.132,
+      eyeSpacing: 0.21,
+      eyeHeight: 0.035,
+      eyeColor: 0x0284c7,
+      blushOpacity: 0.65,
+      mouthWidth: 0.072
+    },
+    hair: {
+      style: 'ponytail',
+      length: 1.12,
+      volume: 1.14,
+      bangsLength: 0.32,
+      color: 0x4a2c2a
+    },
+    outfit: {
+      topStyle: 'athletic',
+      skirtLength: 0.44,
+      skirtFlare: 1.48,
+      topColor: 0xffffff,
+      bottomColor: 0x0f766e,
+      accentColor: 0x06d6a0
+    },
+    throwMotion: {
+      windupTwist: 0.46,
+      releaseTwist: 0.54,
+      armElevation: 1.22,
+      followThrough: 1.44
+    }
+  })
 };
 
 const CHAR_STORAGE_PREFIX = 'infiniteSkip_charConfig_v1_';
@@ -1710,7 +1609,7 @@ function saveCharConfigToStorage(idx) {
 }
 
 function loadCharConfigFromStorage(idx) {
-  const base = deepClone(THROWER_PRESETS[idx] || REINA_DEFAULT_CONFIG);
+  const base = deepClone(THROWER_PRESETS[idx] || THROWER_PRESETS[0]);
   try {
     const raw = localStorage.getItem(CHAR_STORAGE_PREFIX + idx);
     if (raw) {
@@ -1724,7 +1623,7 @@ function loadCharConfigFromStorage(idx) {
 const $ = id => document.getElementById(id);
 
 // ============================================================================
-// 1. PROCEDURAL WEB AUDIO ENGINE
+// 2. PROCEDURAL WEB AUDIO ENGINE
 // ============================================================================
 class SoundFX {
   constructor() {
@@ -1840,91 +1739,90 @@ class SoundFX {
 const sfx = new SoundFX();
 
 // ============================================================================
-// 2. DATA DEFINITIONS (STONES & THROWERS)
+// 3. EXACT ORIGINAL 5 STONES & 4 THROWERS
 // ============================================================================
 const stones = [
   {
-    name: '大きな丸石', easeStars: 5, bounceStars: 3,
+    name: '河原の平石', easeStars: 5, bounceStars: 3,
     gaugeDuration: 0.96, targetSize: 90, judgeMult: 1.42,
     speedFactor: 1.00, bounceFactor: 1.00, distFactor: 1.00,
-    trait: 'ゲージ速度：ゆっくり ／ 判定幅：超ワイド ／ 安定型',
-    color: 0x879b9a, scale: [1.18, 0.42, 0.95]
+    trait: 'ゲージ速度：ゆっくり ／ 判定幅：超ワイド ／ 王道バランス型',
+    color: 0x9ba9a3, metalness: 0.08, roughness: 0.78,
+    scale: [1.24, 0.24, 1.04], cssGrad: 'linear-gradient(145deg, #cbd5e1, #475569)'
   },
   {
-    name: '平たい大石', easeStars: 4, bounceStars: 4,
+    name: '楕円スレート', easeStars: 4, bounceStars: 4,
     gaugeDuration: 0.80, targetSize: 80, judgeMult: 1.18,
-    speedFactor: 1.15, bounceFactor: 1.16, distFactor: 1.20,
-    trait: 'ゲージ速度：標準 ／ 判定幅：広め ／ バランス型',
-    color: 0x9ba9a3, scale: [1.25, 0.22, 1.05]
+    speedFactor: 1.16, bounceFactor: 1.16, distFactor: 1.22,
+    trait: 'ゲージ速度：標準 ／ 判定幅：広め ／ 水面安定スキップ特化',
+    color: 0x26323d, metalness: 0.30, roughness: 0.42,
+    scale: [1.34, 0.17, 1.02], cssGrad: 'linear-gradient(145deg, #64748b, #1e293b)'
   },
   {
-    name: '小さな丸石', easeStars: 3, bounceStars: 3,
-    gaugeDuration: 0.68, targetSize: 72, judgeMult: 0.95,
-    speedFactor: 1.06, bounceFactor: 1.04, distFactor: 1.06,
-    trait: 'ゲージ速度：やや速い ／ 判定幅：標準 ／ 軽快型',
-    color: 0x788b91, scale: [0.76, 0.32, 0.70]
+    name: '軽石ディスク', easeStars: 5, bounceStars: 4,
+    gaugeDuration: 0.86, targetSize: 84, judgeMult: 1.28,
+    speedFactor: 1.10, bounceFactor: 1.32, distFactor: 1.26,
+    trait: 'ゲージ速度：ややゆっくり ／ 超軽量でふわっと跳ねやすい初心者〜中級向け',
+    color: 0xd6dee2, metalness: 0.04, roughness: 0.92,
+    scale: [1.20, 0.26, 1.12], cssGrad: 'linear-gradient(145deg, #f8fafc, #94a3b8)'
   },
   {
-    name: '薄くて広い石', easeStars: 2, bounceStars: 5,
-    gaugeDuration: 0.48, targetSize: 58, judgeMult: 0.66,
-    speedFactor: 1.38, bounceFactor: 1.40, distFactor: 1.52,
-    trait: 'ゲージ速度：超高速 ／ 判定幅：極狭 ／ 超長距離型',
-    color: 0xb0b8a9, scale: [1.50, 0.13, 1.22]
+    name: '黒曜石ブレード', easeStars: 3, bounceStars: 5,
+    gaugeDuration: 0.62, targetSize: 68, judgeMult: 0.88,
+    speedFactor: 1.32, bounceFactor: 1.34, distFactor: 1.42,
+    trait: 'ゲージ速度：速い ／ 判定幅：狭め ／ 鋭い高速回転スラッシュ型',
+    color: 0x160f24, metalness: 0.68, roughness: 0.16,
+    scale: [1.38, 0.15, 1.08], cssGrad: 'linear-gradient(145deg, #7e22ce, #090d16)'
   },
   {
-    name: '小石', easeStars: 2, bounceStars: 3,
-    gaugeDuration: 0.54, targetSize: 62, judgeMult: 0.74,
-    speedFactor: 0.96, bounceFactor: 0.94, distFactor: 0.96,
-    trait: 'ゲージ速度：高速 ／ 判定幅：狭い ／ テクニカル型',
-    color: 0x89989a, scale: [0.55, 0.28, 0.48]
-  },
-  {
-    name: '細長い石', easeStars: 3, bounceStars: 4,
-    gaugeDuration: 0.64, targetSize: 70, judgeMult: 0.90,
-    speedFactor: 1.24, bounceFactor: 1.22, distFactor: 1.28,
-    trait: 'ゲージ速度：速め ／ 判定幅：標準 ／ スピード型',
-    color: 0x899c9c, scale: [1.55, 0.24, 0.55]
+    name: '黄金の円盤', easeStars: 2, bounceStars: 5,
+    gaugeDuration: 0.50, targetSize: 60, judgeMult: 0.72,
+    speedFactor: 1.42, bounceFactor: 1.46, distFactor: 1.58,
+    trait: 'ゲージ速度：超高速 ／ 判定幅：極狭 ／ 全ステータスMAXの伝説円盤',
+    color: 0xfacc15, metalness: 0.82, roughness: 0.20,
+    scale: [1.32, 0.16, 1.32], cssGrad: 'linear-gradient(145deg, #fef08a, #b45309)'
   }
 ];
 
 const throwers = [
   {
-    name: '河原の少年 ユウト', shortName: 'ユウト', role: 'バランス型',
-    powerStars: 3, spinStars: 4, powerGaugeSpeed: 1.45,
-    runDuration: 1.05, releaseWindowMult: 1.25, baseVel: 34, spinBonus: 1.08,
-    trait: 'バランス型：助走が素直でリリースタイミングが合わせやすい',
-    skinColor: 0xe8bfa2
+    name: '海辺の少年 ユウト', shortName: 'ユウト', role: 'バランス型',
+    powerStars: 3, spinStars: 3, powerGaugeSpeed: 1.55,
+    runDuration: 1.05, releaseWindowMult: 1.25, baseVel: 42, spinBonus: 1.15,
+    trait: 'バランス型：素直な助走と安定したフォームで扱いやすいオールラウンダー',
+    skinColor: 0xecc4a8
   },
   {
-    name: '元プロ投手 剛田', shortName: '剛田', role: '超剛腕パワー型',
-    powerStars: 5, spinStars: 4, powerGaugeSpeed: 2.35,
-    runDuration: 0.92, releaseWindowMult: 0.88, baseVel: 46, spinBonus: 1.18,
-    trait: '超剛腕パワー型：ゲージは速いが最高初速と剛速スピンが圧倒的',
+    name: 'ベテラン職人 剛田', shortName: '剛田', role: '剛腕パワー型',
+    powerStars: 5, spinStars: 2, powerGaugeSpeed: 2.25,
+    runDuration: 0.94, releaseWindowMult: 0.92, baseVel: 50, spinBonus: 1.05,
+    trait: '剛腕パワー型：ゲージは速いが圧倒的な腕力で豪快な剛速球を放つ',
     skinColor: 0xd9a077
   },
   {
-    name: '水切り仙人 無心斎', shortName: '無心斎', role: '超回転テクニカル',
+    name: '水切り仙人 無心斎', shortName: '無心斎', role: '超回転テクニック型',
     powerStars: 3, spinStars: 5, powerGaugeSpeed: 1.75,
-    runDuration: 1.15, releaseWindowMult: 1.05, baseVel: 36, spinBonus: 1.48,
-    trait: '超回転テクニカル：驚異の回転数で水面をどこまでも滑るように跳ねる',
+    runDuration: 1.12, releaseWindowMult: 1.08, baseVel: 43, spinBonus: 1.48,
+    trait: '超回転テクニック型：極限まで研ぎ澄ました回転数で水面をどこまでも滑る',
     skinColor: 0xe2b89b
   },
   {
-    name: '陸上部 彩葉', shortName: '彩葉', role: '神速スプリンター',
+    name: '陸上部 レイナ', shortName: 'レイナ', role: '神速スプリンター（最強）',
     powerStars: 5, spinStars: 5, powerGaugeSpeed: 1.55,
     runDuration: 0.90, releaseWindowMult: 1.50, baseVel: 54, spinBonus: 1.75,
-    trait: '神速スプリンター：超高速初速×最大級スピン×広めのリリース判定で圧倒的記録を狙える最強型',
+    trait: '神速スプリンター：最高初速×超回転×広めの判定で圧倒的記録を狙える最強型',
     skinColor: 0xf4cfb8
   }
 ];
 
 const WATER_Y = -0.38;
+const BANK_STAND_POS = { x: -1.4, y: 0, z: 2.2 };
 
 const state = {
   gameMode: 'STONE_VIEW',
   phase: 'SELECT',
   selectedStone: 0,
-  selectedThrower: 3,
+  selectedThrower: 0,
   stoneName: '蒼い流星',
   distance: 0,
   combo: 0,
@@ -1973,13 +1871,13 @@ const state = {
 window.__gameState = state;
 
 // ============================================================================
-// 3. THREE.JS SCENE, LIGHTING & LAKE
+// 4. THREE.JS SCENIC RIVER, BANK, TREES, CLOUDS & LIGHTING
 // ============================================================================
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x84b5c4);
-scene.fog = new THREE.FogExp2(0x84b5c4, 0.0085);
+scene.background = new THREE.Color(0x88bdd0);
+scene.fog = new THREE.FogExp2(0x88bdd0, 0.0078);
 
-const camera = new THREE.PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 340);
+const camera = new THREE.PerspectiveCamera(54, innerWidth / innerHeight, 0.1, 360);
 camera.position.copy(state.camPos);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
@@ -1991,18 +1889,19 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.15;
 $('scene').appendChild(renderer.domElement);
 
-scene.add(new THREE.HemisphereLight(0xdff8ff, 0x244a56, 2.0));
-const sun = new THREE.DirectionalLight(0xfff1d2, 2.8);
-sun.position.set(-14, 22, 12);
+scene.add(new THREE.HemisphereLight(0xe4f9ff, 0x264c58, 2.0));
+const sun = new THREE.DirectionalLight(0xfff2d6, 2.7);
+sun.position.set(-16, 24, 14);
 sun.castShadow = true;
 scene.add(sun);
 
-const waterGeo = new THREE.PlaneGeometry(360, 360, 96, 96);
+// River Water Surface
+const waterGeo = new THREE.PlaneGeometry(380, 380, 96, 96);
 waterGeo.rotateX(-Math.PI / 2);
 const waterMat = new THREE.MeshStandardMaterial({
-  color: 0x23798e,
-  roughness: 0.22,
-  metalness: 0.25,
+  color: 0x227b91,
+  roughness: 0.20,
+  metalness: 0.26,
   transparent: true,
   opacity: 0.97
 });
@@ -2012,15 +1911,61 @@ water.receiveShadow = true;
 scene.add(water);
 const baseWaterPos = waterGeo.attributes.position.array.slice();
 
-const shoreMesh = new THREE.Mesh(
-  new THREE.BoxGeometry(26, 0.7, 16),
-  new THREE.MeshStandardMaterial({ color: 0xc2b280, roughness: 0.92 })
+// Scenic River Bank (Left/Foreground bank at z >= 0.4 so character stands firmly at x=-1.4, y=0, z=2.2)
+const bankGroup = new THREE.Group();
+const bankGround = new THREE.Mesh(
+  new THREE.BoxGeometry(34, 0.85, 18),
+  new THREE.MeshStandardMaterial({ color: 0xc8b588, roughness: 0.92 })
 );
-shoreMesh.position.set(0, -0.42, 8.5);
-shoreMesh.receiveShadow = true;
-shoreMesh.visible = false;
-scene.add(shoreMesh);
+bankGround.position.set(0, -0.425, 9.4);
+bankGround.receiveShadow = true;
+bankGroup.add(bankGround);
 
+const grassStrip = new THREE.Mesh(
+  new THREE.BoxGeometry(34, 0.14, 12),
+  new THREE.MeshStandardMaterial({ color: 0x4d8b55, roughness: 0.88 })
+);
+grassStrip.position.set(0, 0.02, 12.2);
+grassStrip.receiveShadow = true;
+bankGroup.add(grassStrip);
+
+// Decorative riverside rocks and trees on the bank
+const rockMat = new THREE.MeshStandardMaterial({ color: 0x7b878c, roughness: 0.88 });
+const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 0.9 });
+const leafMat = new THREE.MeshStandardMaterial({ color: 0x3b7a47, roughness: 0.82 });
+
+[
+  { x: -4.2, z: 3.6, s: 0.7 },
+  { x: -3.5, z: 1.5, s: 0.45 },
+  { x: 2.8, z: 2.6, s: 0.6 },
+  { x: 3.9, z: 4.4, s: 0.85 }
+].forEach(r => {
+  const rk = new THREE.Mesh(new THREE.DodecahedronGeometry(r.s, 1), rockMat);
+  rk.scale.set(1.2, 0.65, 1.0);
+  rk.position.set(r.x, 0.15 * r.s, r.z);
+  rk.castShadow = true;
+  bankGroup.add(rk);
+});
+
+[
+  { x: -5.4, z: 6.5, h: 3.4 },
+  { x: 5.2, z: 7.2, h: 3.8 }
+].forEach(tr => {
+  const tg = new THREE.Group();
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.26, tr.h * 0.45, 8), trunkMat);
+  trunk.position.y = tr.h * 0.225;
+  const crown = new THREE.Mesh(new THREE.ConeGeometry(1.25, tr.h * 0.7, 9), leafMat);
+  crown.position.y = tr.h * 0.65;
+  crown.castShadow = true;
+  tg.add(trunk, crown);
+  tg.position.set(tr.x, 0, tr.z);
+  bankGroup.add(tg);
+});
+
+bankGroup.visible = false;
+scene.add(bankGroup);
+
+// Distant Mountains & Clouds
 const horizonGroup = new THREE.Group();
 const ridgeMat = new THREE.MeshBasicMaterial({ color: 0x56828b, transparent: true, opacity: 0.72 });
 for (let i = -6; i <= 6; i++) {
@@ -2030,10 +1975,22 @@ for (let i = -6; i <= 6; i++) {
   peak.position.set(i * 38, h * 0.42 - 0.5, -185 - (Math.abs(i) % 2) * 18);
   horizonGroup.add(peak);
 }
+const cloudMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.78 });
+for (let c = -4; c <= 4; c++) {
+  const cg = new THREE.Group();
+  for (let p = 0; p < 3; p++) {
+    const puff = new THREE.Mesh(new THREE.SphereGeometry(2.6 + p * 0.5, 10, 8), cloudMat);
+    puff.scale.set(1.8, 0.55, 1.0);
+    puff.position.set(p * 2.8 - 2.8, (p % 2) * 0.6, 0);
+    cg.add(puff);
+  }
+  cg.position.set(c * 34, 18 + (Math.abs(c) % 3) * 3, -150 - (Math.abs(c) % 2) * 25);
+  horizonGroup.add(cg);
+}
 scene.add(horizonGroup);
 
 // ============================================================================
-// 4. 3D STONE, ARM RIG (MODE 1) & CONFIGURABLE CHARACTER RIG (MODE 2)
+// 5. 3D STONE, ARM RIG (MODE 1) & CONFIGURABLE CHARACTER RIG (MODE 2)
 // ============================================================================
 let stoneMesh = null;
 function buildStoneMesh(idx) {
@@ -2041,20 +1998,24 @@ function buildStoneMesh(idx) {
     if (stoneMesh.parent) stoneMesh.parent.remove(stoneMesh);
     stoneMesh.geometry.dispose();
   }
-  const s = stones[idx];
+  const s = stones[idx] || stones[0];
   const geo = new THREE.IcosahedronGeometry(0.72, 2);
   const posAttr = geo.attributes.position;
   for (let j = 0; j < posAttr.count; j++) {
     const x = posAttr.getX(j);
     const y = posAttr.getY(j);
     const z = posAttr.getZ(j);
-    const noise = 1 + 0.07 * Math.sin(x * 13 + y * 7 + z * 11);
+    const noise = 1 + 0.06 * Math.sin(x * 13 + y * 7 + z * 11);
     posAttr.setXYZ(j, x * noise, y * noise, z * noise);
   }
   geo.computeVertexNormals();
   stoneMesh = new THREE.Mesh(
     geo,
-    new THREE.MeshStandardMaterial({ color: s.color, roughness: 0.76, metalness: 0.08 })
+    new THREE.MeshStandardMaterial({
+      color: s.color,
+      roughness: s.roughness ?? 0.76,
+      metalness: s.metalness ?? 0.08
+    })
   );
   stoneMesh.scale.set(...s.scale);
   stoneMesh.castShadow = true;
@@ -2123,10 +2084,11 @@ function setArmPose(phase, progress) {
 }
 
 // ============================================================================
-// Mode 2: Full-Body Articulated Character Driven by CHAR_CONFIG
+// Mode 2: Full-Body Articulated 3D Humanoid Driven by CHAR_CONFIG
+// Stands on the riverside bank at (x: -1.4, y: 0, z: 2.2) facing -Z (toward water)
 // ============================================================================
 const charRig = new THREE.Group();
-charRig.position.set(0, -0.05, 8.5);
+charRig.position.set(BANK_STAND_POS.x, BANK_STAND_POS.y, BANK_STAND_POS.z);
 charRig.visible = false;
 scene.add(charRig);
 
@@ -2137,8 +2099,6 @@ const charNodes = {
   bustLeft: new THREE.Group(),
   bustRight: new THREE.Group(),
   hairBackPivot: new THREE.Group(),
-  hairSideL: new THREE.Group(),
-  hairSideR: new THREE.Group(),
   skirtGroup: new THREE.Group(),
   leftHip: new THREE.Group(),
   leftKnee: new THREE.Group(),
@@ -2170,69 +2130,67 @@ function rebuildCharacterFromConfig() {
   const f = CHAR_CONFIG.face;
   const h = CHAR_CONFIG.hair;
   const o = CHAR_CONFIG.outfit;
-  const tData = throwers[state.selectedThrower] || throwers[3];
+  const tData = throwers[state.selectedThrower] || throwers[0];
 
   charRig.scale.setScalar(b.overallScale);
 
   const skinMat = new THREE.MeshStandardMaterial({ color: tData.skinColor, roughness: 0.52 });
   const topMat = new THREE.MeshStandardMaterial({ color: o.topColor, roughness: 0.62 });
-  const skirtMat = new THREE.MeshStandardMaterial({ color: o.skirtColor, roughness: 0.68, side: THREE.DoubleSide });
-  const beltMat = new THREE.MeshStandardMaterial({ color: o.beltColor, roughness: 0.45 });
-  const hairMat = new THREE.MeshStandardMaterial({
-    color: h.color,
-    roughness: 0.42,
-    transparent: h.hairOpacity < 1.0,
-    opacity: h.hairOpacity
-  });
-  const hairHiMat = new THREE.MeshStandardMaterial({ color: h.highlightColor, roughness: 0.28 });
-  const shoeMat = new THREE.MeshStandardMaterial({ color: o.shoeColor, roughness: 0.45 });
+  const bottomMat = new THREE.MeshStandardMaterial({ color: o.bottomColor, roughness: 0.66, side: THREE.DoubleSide });
+  const accentMat = new THREE.MeshStandardMaterial({ color: o.accentColor, roughness: 0.42 });
+  const hairMat = new THREE.MeshStandardMaterial({ color: h.color, roughness: 0.42 });
+  const shoeMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.45 });
+  const sockMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.6 });
+
+  const hipY = b.legLength + 0.04;
+  const torsoH = 0.76;
 
   // Pelvis & Hip
   const pelvis = charNodes.pelvis;
-  pelvis.position.set(0, b.hipHeight, 0);
+  pelvis.position.set(0, hipY, 0);
   charRig.add(pelvis);
 
-  const hipMesh = new THREE.Mesh(new THREE.SphereGeometry(0.5, 18, 14), skirtMat);
-  hipMesh.scale.set(b.hipWidth, 0.42, b.hipDepth);
+  const hipMesh = new THREE.Mesh(new THREE.SphereGeometry(0.5, 18, 14), bottomMat);
+  hipMesh.scale.set(b.hipWidth, 0.42, b.chestDepth * 1.12);
   hipMesh.castShadow = true;
   pelvis.add(hipMesh);
 
-  // Waist Belt
-  if (o.beltEnabled) {
-    const belt = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.52, 0.08, 20), beltMat);
-    belt.scale.set(b.torsoWidth * b.waistPinch, 1, b.torsoDepth * b.waistPinch);
-    belt.position.set(0, 0.16, 0);
-    pelvis.add(belt);
-  }
+  // Waistband / Sash / Belt
+  const belt = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.52, 0.08, 20), accentMat);
+  belt.scale.set(b.waistWidth, 1, b.chestDepth * 0.92);
+  belt.position.set(0, 0.15, 0);
+  pelvis.add(belt);
 
-  // Skirt / Bottoms
+  // Bottoms / Pleated Skirt / Hakama / Work Pants
   const skirtGroup = charNodes.skirtGroup;
-  skirtGroup.position.set(0, 0.14, 0);
+  skirtGroup.position.set(0, 0.13, 0);
   pelvis.add(skirtGroup);
 
-  const topRadius = b.hipWidth * 0.48;
-  const botRadius = topRadius * o.skirtFlare;
+  const isPleatedSkirt = o.topStyle === 'athletic' || o.skirtFlare >= 1.25;
+  const topR = b.hipWidth * 0.48;
+  const botR = topR * o.skirtFlare;
   const skirtMesh = new THREE.Mesh(
-    new THREE.CylinderGeometry(topRadius, botRadius, o.skirtLength, Math.max(12, o.skirtPleats * 2), 1, o.skirtPleats > 0),
-    skirtMat
+    new THREE.CylinderGeometry(topR, botR, o.skirtLength, isPleatedSkirt ? 24 : 16, 1, isPleatedSkirt),
+    bottomMat
   );
   skirtMesh.position.set(0, -o.skirtLength * 0.5, 0);
-  skirtMesh.scale.set(1, 1, b.hipDepth / Math.max(0.2, b.hipWidth));
+  skirtMesh.scale.set(1, 1, b.chestDepth / Math.max(0.2, b.hipWidth));
   skirtMesh.castShadow = true;
   skirtGroup.add(skirtMesh);
 
-  if (o.skirtPleats > 0) {
-    for (let i = 0; i < o.skirtPleats; i++) {
-      const ang = (i / o.skirtPleats) * Math.PI * 2;
-      const pleat = new THREE.Mesh(new THREE.BoxGeometry(0.025, o.skirtLength * 0.96, 0.04), beltMat);
-      const midR = (topRadius + botRadius) * 0.5;
+  if (isPleatedSkirt) {
+    const pleats = 14;
+    for (let i = 0; i < pleats; i++) {
+      const ang = (i / pleats) * Math.PI * 2;
+      const pleat = new THREE.Mesh(new THREE.BoxGeometry(0.022, o.skirtLength * 0.96, 0.036), accentMat);
+      const midR = (topR + botR) * 0.5;
       pleat.position.set(
         Math.sin(ang) * midR,
         -o.skirtLength * 0.5,
-        Math.cos(ang) * midR * (b.hipDepth / Math.max(0.2, b.hipWidth))
+        Math.cos(ang) * midR * (b.chestDepth / Math.max(0.2, b.hipWidth))
       );
       pleat.rotation.y = ang;
-      pleat.rotation.x = -Math.atan2(botRadius - topRadius, o.skirtLength);
+      pleat.rotation.x = -Math.atan2(botR - topR, o.skirtLength);
       skirtGroup.add(pleat);
     }
   }
@@ -2240,69 +2198,67 @@ function rebuildCharacterFromConfig() {
   // Torso Pivot
   const torsoPivot = charNodes.torsoPivot;
   torsoPivot.position.set(0, 0.14, 0);
-  torsoPivot.rotation.x = b.leanForward;
+  torsoPivot.rotation.x = 0.08;
   pelvis.add(torsoPivot);
 
   const lowerTorso = new THREE.Mesh(
-    new THREE.CylinderGeometry(b.torsoWidth * 0.48, b.torsoWidth * 0.48 * b.waistPinch, b.torsoHeight * 0.52, 18),
+    new THREE.CylinderGeometry(b.chestWidth * 0.48, b.waistWidth * 0.48, torsoH * 0.52, 18),
     topMat
   );
-  lowerTorso.scale.set(1, 1, b.torsoDepth / Math.max(0.2, b.torsoWidth));
-  lowerTorso.position.set(0, b.torsoHeight * 0.25, 0);
+  lowerTorso.scale.set(1, 1, b.chestDepth / Math.max(0.2, b.chestWidth));
+  lowerTorso.position.set(0, torsoH * 0.25, 0);
   lowerTorso.castShadow = true;
   torsoPivot.add(lowerTorso);
 
   const upperTorso = new THREE.Mesh(
-    new THREE.CylinderGeometry(b.shoulderWidth * 0.5, b.torsoWidth * 0.48, b.torsoHeight * 0.52, 18),
+    new THREE.CylinderGeometry(b.shoulderWidth * 0.5, b.chestWidth * 0.48, torsoH * 0.52, 18),
     topMat
   );
-  upperTorso.scale.set(1, 1, b.torsoDepth / Math.max(0.2, b.torsoWidth));
-  upperTorso.position.set(0, b.torsoHeight * 0.74, 0);
+  upperTorso.scale.set(1, 1, b.chestDepth / Math.max(0.2, b.chestWidth));
+  upperTorso.position.set(0, torsoH * 0.74, 0);
   upperTorso.castShadow = true;
   torsoPivot.add(upperTorso);
 
-  // Neckline collar accent
-  const collar = new THREE.Mesh(
-    new THREE.TorusGeometry(b.neckThickness * 1.15, 0.022, 8, 20),
-    skinMat
-  );
-  collar.rotation.x = Math.PI * 0.5 + o.necklineDepth * 0.8;
-  collar.position.set(0, b.torsoHeight - 0.02, 0.03);
-  torsoPivot.add(collar);
+  // Outfit-specific details
+  if (o.topStyle === 'athletic') {
+    // Sailor / athletic collar & ribbon
+    const collar = new THREE.Mesh(new THREE.BoxGeometry(b.shoulderWidth * 0.72, 0.06, b.chestDepth * 0.96), bottomMat);
+    collar.position.set(0, torsoH * 0.95, 0.02);
+    torsoPivot.add(collar);
 
-  // Bust
-  charNodes.bustLeft.position.set(-b.bustSpacing, b.torsoHeight * 0.5 + b.bustHeight - b.bustDroop, -b.bustForward);
-  charNodes.bustRight.position.set(b.bustSpacing, b.torsoHeight * 0.5 + b.bustHeight - b.bustDroop, -b.bustForward);
+    const chestRibbon = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.14, 0.04), accentMat);
+    chestRibbon.position.set(0, torsoH * 0.82, -b.chestDepth * 0.48);
+    torsoPivot.add(chestRibbon);
+  } else if (o.topStyle === 'robe') {
+    // Traditional robe lapel
+    const lapel = new THREE.Mesh(new THREE.BoxGeometry(0.08, torsoH * 0.7, 0.04), accentMat);
+    lapel.position.set(0, torsoH * 0.55, -b.chestDepth * 0.47);
+    lapel.rotation.z = 0.22;
+    torsoPivot.add(lapel);
+  } else if (o.topStyle === 'workwear') {
+    // Happi coat front trim
+    const trim = new THREE.Mesh(new THREE.BoxGeometry(0.10, torsoH * 0.9, 0.04), accentMat);
+    trim.position.set(0, torsoH * 0.5, -b.chestDepth * 0.48);
+    torsoPivot.add(trim);
+  }
+
+  // Bust (Properly attached on the FRONT -Z chest side)
+  const bustZ = -(b.chestDepth * 0.46 + 0.05 * b.bustSize);
+  const bustY = torsoH * 0.5 + b.bustHeight;
+  charNodes.bustLeft.position.set(-b.bustSpread, bustY, bustZ);
+  charNodes.bustRight.position.set(b.bustSpread, bustY, bustZ);
   torsoPivot.add(charNodes.bustLeft, charNodes.bustRight);
 
   if (b.bustSize > 0.05) {
     const bustR = 0.115 * b.bustSize;
     const bGeo = new THREE.SphereGeometry(bustR, 16, 14);
     const bMeshL = new THREE.Mesh(bGeo, topMat);
-    bMeshL.scale.set(1.0, 0.94, 1.08);
+    bMeshL.scale.set(1.0, 0.94, 1.06);
     charNodes.bustLeft.add(bMeshL);
 
     const bMeshR = new THREE.Mesh(bGeo, topMat);
-    bMeshR.scale.set(1.0, 0.94, 1.08);
+    bMeshR.scale.set(1.0, 0.94, 1.06);
     charNodes.bustRight.add(bMeshR);
-  }
-
-  // Shoulder Bag
-  if (o.bagEnabled) {
-    const bagMat = new THREE.MeshStandardMaterial({ color: o.bagColor, roughness: 0.55 });
-    const bagMesh = new THREE.Mesh(new THREE.BoxGeometry(o.bagWidth, o.bagHeight, o.bagDepth), bagMat);
-    bagMesh.position.set(o.bagOffsetX, o.bagOffsetY, 0.06);
-    bagMesh.rotation.z = 0.14;
-    bagMesh.castShadow = true;
-    torsoPivot.add(bagMesh);
-
-    if (o.bagStrapEnabled) {
-      const strap = new THREE.Mesh(new THREE.TorusGeometry(0.46, 0.018, 8, 24), bagMat);
-      strap.position.set(o.bagOffsetX * 0.35, b.torsoHeight * 0.52, 0.02);
-      strap.rotation.set(0.18, 0.45, -0.58);
-      strap.scale.set(0.95, 1.25, 0.65);
-      torsoPivot.add(strap);
-    }
   }
 
   // Neck & Head
@@ -2310,211 +2266,173 @@ function rebuildCharacterFromConfig() {
     new THREE.CylinderGeometry(b.neckThickness * 0.88, b.neckThickness, b.neckLength + 0.08, 14),
     skinMat
   );
-  neck.position.set(0, b.torsoHeight + b.neckLength * 0.45, 0);
+  neck.position.set(0, torsoH + b.neckLength * 0.45, 0);
   torsoPivot.add(neck);
 
   const headPivot = charNodes.headPivot;
-  headPivot.position.set(0, b.torsoHeight + b.neckLength + 0.32 * b.headScale, 0);
+  headPivot.position.set(0, torsoH + b.neckLength + 0.32 * b.headScale, 0);
   headPivot.scale.setScalar(b.headScale);
   torsoPivot.add(headPivot);
 
-  // Cranium + Jaw (Note: Character faces -Z toward the water)
-  const cranium = new THREE.Mesh(new THREE.SphereGeometry(0.46, 24, 20), skinMat);
-  cranium.scale.set(f.faceRoundness, 1.02, 0.98);
+  // Cranium (Character faces -Z toward the river)
+  const cranium = new THREE.Mesh(new THREE.SphereGeometry(0.45, 24, 20), skinMat);
+  cranium.scale.set(1.04, 1.0, 0.96);
   cranium.castShadow = true;
   headPivot.add(cranium);
 
-  const chin = new THREE.Mesh(new THREE.SphereGeometry(0.32, 18, 14), skinMat);
-  chin.position.set(0, -0.17, -0.05);
-  chin.scale.set(f.faceRoundness * (1.05 - f.jawSharpness * 0.35), 0.86, 0.88);
-  headPivot.add(chin);
+  // Headband for Gota (index 1)
+  if (o.topStyle === 'workwear') {
+    const hachimaki = new THREE.Mesh(new THREE.TorusGeometry(0.455, 0.032, 8, 24), accentMat);
+    hachimaki.rotation.x = Math.PI * 0.5;
+    hachimaki.position.set(0, 0.16, 0);
+    headPivot.add(hachimaki);
+  }
+
+  // White beard for Mushinsai (index 2)
+  if (o.topStyle === 'robe') {
+    const beard = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.48, 12), hairMat);
+    beard.position.set(0, -0.34, -0.34);
+    beard.rotation.x = Math.PI - 0.12;
+    headPivot.add(beard);
+  }
 
   // Eyes (facing -Z)
   [-1, 1].forEach(side => {
     const eyeGrp = new THREE.Group();
-    eyeGrp.position.set(side * f.eyeSpacing, f.eyeHeight, -f.eyeForward);
-    eyeGrp.rotation.z = side * f.eyeTilt;
+    eyeGrp.position.set(side * f.eyeSpacing, f.eyeHeight, -0.43);
     headPivot.add(eyeGrp);
 
     const sclera = new THREE.Mesh(
       new THREE.SphereGeometry(f.eyeSize, 16, 14),
       new THREE.MeshBasicMaterial({ color: 0xffffff })
     );
-    sclera.scale.set(f.eyeWidthScale, f.eyeHeightScale, 0.35);
+    sclera.scale.set(1.04, 1.12, 0.35);
     eyeGrp.add(sclera);
 
     const iris = new THREE.Mesh(
       new THREE.SphereGeometry(f.eyeSize * 0.72, 16, 14),
-      new THREE.MeshBasicMaterial({ color: f.irisColor })
+      new THREE.MeshBasicMaterial({ color: f.eyeColor })
     );
-    iris.position.set(0, -0.005, -f.eyeSize * 0.25);
-    iris.scale.set(f.eyeWidthScale * 0.95, f.eyeHeightScale * 1.05, 0.3);
+    iris.position.set(0, -0.004, -f.eyeSize * 0.25);
+    iris.scale.set(0.95, 1.05, 0.3);
     eyeGrp.add(iris);
 
-    const irisSub = new THREE.Mesh(
-      new THREE.SphereGeometry(f.eyeSize * 0.56, 14, 12),
-      new THREE.MeshBasicMaterial({ color: f.irisGradientSub })
-    );
-    irisSub.position.set(0, -f.eyeSize * 0.24, -f.eyeSize * 0.28);
-    irisSub.scale.set(0.95, 0.65, 0.28);
-    eyeGrp.add(irisSub);
-
     const pupil = new THREE.Mesh(
-      new THREE.SphereGeometry(f.eyeSize * 0.72 * f.pupilSize, 12, 12),
-      new THREE.MeshBasicMaterial({ color: 0x16141f })
+      new THREE.SphereGeometry(f.eyeSize * 0.34, 12, 12),
+      new THREE.MeshBasicMaterial({ color: 0x11131a })
     );
     pupil.position.set(0, 0, -f.eyeSize * 0.34);
     pupil.scale.set(1, 1.1, 0.25);
     eyeGrp.add(pupil);
 
-    const hi1 = new THREE.Mesh(
-      new THREE.SphereGeometry(f.highlightSize, 10, 10),
+    const hi = new THREE.Mesh(
+      new THREE.SphereGeometry(f.eyeSize * 0.25, 10, 10),
       new THREE.MeshBasicMaterial({ color: 0xffffff })
     );
-    hi1.position.set(-f.highlightOffsetX, f.highlightOffsetY, -f.eyeSize * 0.40);
-    eyeGrp.add(hi1);
-
-    if (f.subHighlightSize > 0.002) {
-      const hi2 = new THREE.Mesh(
-        new THREE.SphereGeometry(f.subHighlightSize, 8, 8),
-        new THREE.MeshBasicMaterial({ color: 0xffffff })
-      );
-      hi2.position.set(f.highlightOffsetX * 0.85, -f.highlightOffsetY * 0.75, -f.eyeSize * 0.40);
-      eyeGrp.add(hi2);
-    }
-
-    if (f.eyelashLength > 0.005) {
-      const lash = new THREE.Mesh(
-        new THREE.BoxGeometry(f.eyeSize * 2.1 + f.eyelashLength, 0.022, 0.03),
-        new THREE.MeshBasicMaterial({ color: 0x1f1d28 })
-      );
-      lash.position.set(side * f.eyelashLength * 0.35, f.eyeSize * f.eyeHeightScale * 0.88, -f.eyeSize * 0.32);
-      lash.rotation.z = -side * 0.14;
-      eyeGrp.add(lash);
-    }
+    hi.position.set(-f.eyeSize * 0.22, f.eyeSize * 0.24, -f.eyeSize * 0.40);
+    eyeGrp.add(hi);
 
     // Eyebrow
-    if (f.browEnabled) {
-      const brow = new THREE.Mesh(
-        new THREE.BoxGeometry(f.eyeSize * 1.65, f.browThickness, 0.025),
-        new THREE.MeshBasicMaterial({ color: f.browColor })
-      );
-      brow.position.set(side * f.eyeSpacing, f.browHeight, -f.eyeForward + 0.02);
-      brow.rotation.z = side * f.browTilt;
-      headPivot.add(brow);
-    }
+    const brow = new THREE.Mesh(
+      new THREE.BoxGeometry(f.eyeSize * 1.55, 0.022, 0.025),
+      new THREE.MeshBasicMaterial({ color: h.color })
+    );
+    brow.position.set(side * f.eyeSpacing, f.eyeHeight + f.eyeSize * 1.15, -0.42);
+    brow.rotation.z = side * 0.05;
+    headPivot.add(brow);
 
     // Blush
-    if (f.blushEnabled) {
+    if (f.blushOpacity > 0.02) {
       const blush = new THREE.Mesh(
-        new THREE.CircleGeometry(f.blushSize, 16),
+        new THREE.CircleGeometry(0.08, 16),
         new THREE.MeshBasicMaterial({
-          color: f.blushColor,
+          color: 0xf9a8d4,
           transparent: true,
           opacity: f.blushOpacity,
           side: THREE.DoubleSide
         })
       );
-      blush.position.set(side * f.blushSpacing, f.blushHeight, -f.eyeForward + 0.03);
-      blush.rotation.y = Math.PI + side * 0.38;
+      blush.position.set(side * (f.eyeSpacing + 0.04), f.eyeHeight - 0.08, -0.41);
+      blush.rotation.y = Math.PI + side * 0.35;
       blush.scale.set(1.25, 0.72, 1);
       headPivot.add(blush);
     }
   });
 
   // Mouth
-  const mouthMat = new THREE.MeshBasicMaterial({ color: 0xd97384 });
   const mouth = new THREE.Mesh(
-    new THREE.TorusGeometry(f.mouthWidth * 0.55, 0.012 + f.mouthOpenAmount * 0.02, 8, 16, Math.PI),
-    mouthMat
+    new THREE.TorusGeometry(f.mouthWidth * 0.55, 0.013, 8, 16, Math.PI),
+    new THREE.MeshBasicMaterial({ color: 0xd97384 })
   );
-  mouth.position.set(0, f.mouthHeight, -f.eyeForward + 0.01);
-  mouth.rotation.z = Math.PI + (f.smileAmount - 0.5) * 0.4;
+  mouth.position.set(0, -0.14, -0.43);
+  mouth.rotation.z = Math.PI;
   headPivot.add(mouth);
 
-  // Hair Cap & Highlight Ring
+  // Hair Cap
   const hairCap = new THREE.Mesh(
-    new THREE.SphereGeometry(0.49 * h.hairVolume, 22, 18, 0, Math.PI * 2, 0, Math.PI * 0.62),
+    new THREE.SphereGeometry(0.48 * h.volume, 22, 18, 0, Math.PI * 2, 0, Math.PI * 0.62),
     hairMat
   );
   hairCap.position.set(0, 0.04, 0.03);
   hairCap.rotation.x = -0.18;
   headPivot.add(hairCap);
 
-  const hairHalo = new THREE.Mesh(
-    new THREE.TorusGeometry(0.44 * h.hairVolume, 0.02, 8, 24, Math.PI * 1.2),
-    hairHiMat
-  );
-  hairHalo.position.set(0, 0.24, 0.02);
-  hairHalo.rotation.set(Math.PI * 0.42, 0, Math.PI * 0.9);
-  headPivot.add(hairHalo);
-
-  // Bangs (Front Strands)
-  const count = Math.max(3, Math.round(h.bangsStrandCount));
-  for (let i = 0; i < count; i++) {
-    const norm = count === 1 ? 0 : (i / (count - 1)) * 2 - 1; // -1 .. 1
-    const edgeFactor = Math.abs(norm);
-    let len = h.bangsCenterLength * (1 - edgeFactor) + h.bangsSideLength * edgeFactor;
-    if (h.bangsStyle === 'straight') len = h.bangsLength;
-    else if (h.bangsStyle === 'swept') len = h.bangsLength * (0.75 + (norm + 1) * 0.25);
-    else if (h.bangsStyle === 'parted') len = h.bangsLength * (0.45 + edgeFactor * 0.75);
-    else if (h.bangsStyle === 'hime') len = edgeFactor > 0.68 ? h.bangsSideLength * 1.45 : h.bangsCenterLength;
-
-    const strandW = (h.bangsSpread / count) * (1.18 - h.bangsGapAmount * 0.45);
-    const strand = new THREE.Mesh(
-      new THREE.ConeGeometry(strandW * 0.65, len, 6),
-      hairMat
-    );
-    const xPos = norm * (h.bangsSpread * 0.5) + h.bangsPartOffset * 0.3;
-    const zArc = Math.cos(norm * 0.9) * 0.48;
-    strand.position.set(xPos, 0.30 - len * 0.45, -zArc - h.bangsThickness * 0.25);
+  // Bangs (on front -Z)
+  const bangCount = 7;
+  for (let i = 0; i < bangCount; i++) {
+    const norm = (i / (bangCount - 1)) * 2 - 1;
+    const len = h.bangsLength * (0.85 + Math.abs(norm) * 0.25);
+    const strand = new THREE.Mesh(new THREE.ConeGeometry(0.085, len, 6), hairMat);
+    const xPos = norm * 0.34;
+    const zArc = Math.cos(norm * 0.9) * 0.46;
+    strand.position.set(xPos, 0.28 - len * 0.45, -zArc - 0.02);
     strand.rotation.set(Math.PI + 0.14, 0, norm * 0.18);
     headPivot.add(strand);
   }
 
-  // Hairpin
-  if (h.hairpinEnabled) {
-    const pinMat = new THREE.MeshStandardMaterial({ color: h.hairpinColor, metalness: 0.4, roughness: 0.25 });
-    const pin1 = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.022, 0.025), pinMat);
-    pin1.position.set(-0.28, 0.20, -0.43);
-    pin1.rotation.set(0, 0.45, 0.25);
-    const pin2 = pin1.clone();
-    pin2.position.y -= 0.032;
-    headPivot.add(pin1, pin2);
-  }
-
-  // Side Hair & Long Back Hair
-  charNodes.hairSideL.position.set(-0.44 * h.hairVolume, 0.12, -0.05);
-  charNodes.hairSideR.position.set(0.44 * h.hairVolume, 0.12, -0.05);
-  headPivot.add(charNodes.hairSideL, charNodes.hairSideR);
-
-  const sideGeo = new THREE.CylinderGeometry(0.08, 0.08 + h.sideHairFlare, h.sideHairLength, 10);
-  const sideMeshL = new THREE.Mesh(sideGeo, hairMat);
-  sideMeshL.position.set(0, -h.sideHairLength * 0.48, 0);
-  charNodes.hairSideL.add(sideMeshL);
-
-  const sideMeshR = new THREE.Mesh(sideGeo, hairMat);
-  sideMeshR.position.set(0, -h.sideHairLength * 0.48, 0);
-  charNodes.hairSideR.add(sideMeshR);
-
-  charNodes.hairBackPivot.position.set(0, 0.18, 0.32);
+  // Back Hair / Ponytail / Bun (on back +Z)
+  charNodes.hairBackPivot.position.set(0, 0.24, 0.42);
   headPivot.add(charNodes.hairBackPivot);
 
-  const backHair = new THREE.Mesh(
-    new THREE.CylinderGeometry(h.backHairWidth * 0.46, h.backHairWidth * 0.46 + h.backHairFlare, h.backHairLength, 16),
-    hairMat
-  );
-  backHair.scale.set(1, 1, 0.36);
-  backHair.position.set(0, -h.backHairLength * 0.48, 0.08);
-  backHair.castShadow = true;
-  charNodes.hairBackPivot.add(backHair);
+  if (h.style === 'ponytail') {
+    const ribbon = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.04, 10, 18), accentMat);
+    ribbon.rotation.x = 0.45;
+    charNodes.hairBackPivot.add(ribbon);
 
-  // Arms (Left & Right)
+    const tail = new THREE.Mesh(new THREE.ConeGeometry(0.23, h.length, 14), hairMat);
+    tail.position.set(0, -h.length * 0.44, 0.20);
+    tail.rotation.x = Math.PI - 0.38;
+    tail.castShadow = true;
+    charNodes.hairBackPivot.add(tail);
+
+    // Side locks for cute ponytail framing
+    [-1, 1].forEach(side => {
+      const sLock = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.09, 0.65, 10), hairMat);
+      sLock.position.set(side * 0.43 * h.volume, -0.18, -0.05);
+      headPivot.add(sLock);
+    });
+  } else if (h.style === 'long') {
+    const longBack = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.44, h.length, 16), hairMat);
+    longBack.scale.set(1, 1, 0.38);
+    longBack.position.set(0, -h.length * 0.48, -0.02);
+    charNodes.hairBackPivot.add(longBack);
+  } else if (h.style === 'bun') {
+    const bun = new THREE.Mesh(new THREE.SphereGeometry(0.20, 14, 14), hairMat);
+    bun.position.set(0, 0.18, -0.02);
+    charNodes.hairBackPivot.add(bun);
+  } else {
+    const shortBack = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.36, h.length, 14), hairMat);
+    shortBack.scale.set(1, 1, 0.42);
+    shortBack.position.set(0, -h.length * 0.42, -0.05);
+    charNodes.hairBackPivot.add(shortBack);
+  }
+
+  // Arms
   const upperArmLen = b.armLength * 0.5;
   const foreArmLen = b.armLength * 0.5;
 
-  charNodes.leftShoulder.position.set(-b.shoulderWidth * 0.56, b.torsoHeight * 0.88, 0);
-  charNodes.rightShoulder.position.set(b.shoulderWidth * 0.56, b.torsoHeight * 0.88, 0);
+  charNodes.leftShoulder.position.set(-b.shoulderWidth * 0.56, torsoH * 0.88, 0);
+  charNodes.rightShoulder.position.set(b.shoulderWidth * 0.56, torsoH * 0.88, 0);
   torsoPivot.add(charNodes.leftShoulder, charNodes.rightShoulder);
 
   [
@@ -2522,10 +2440,10 @@ function rebuildCharacterFromConfig() {
     { sh: charNodes.rightShoulder, el: charNodes.rightElbow, isRight: true }
   ].forEach(arm => {
     const sleeve = new THREE.Mesh(
-      new THREE.CylinderGeometry(o.sleeveWidth * 0.48, o.sleeveWidth * 0.56, o.sleeveLength, 12),
+      new THREE.CylinderGeometry(b.armThickness * 1.45, b.armThickness * 1.65, 0.24, 12),
       topMat
     );
-    sleeve.position.set(0, -o.sleeveLength * 0.45, 0);
+    sleeve.position.set(0, -0.11, 0);
     arm.sh.add(sleeve);
 
     const uArm = new THREE.Mesh(
@@ -2557,21 +2475,21 @@ function rebuildCharacterFromConfig() {
     }
   });
 
-  // Legs (Left & Right)
+  // Legs
   const thighLen = b.legLength * 0.5;
   const calfLen = b.legLength * 0.5;
 
-  charNodes.leftHip.position.set(-b.hipWidth * 0.27, -0.05, 0);
-  charNodes.rightHip.position.set(b.hipWidth * 0.27, -0.05, 0);
+  charNodes.leftHip.position.set(-b.hipWidth * 0.27, -0.04, 0);
+  charNodes.rightHip.position.set(b.hipWidth * 0.27, -0.04, 0);
   pelvis.add(charNodes.leftHip, charNodes.rightHip);
 
   [
-    { hip: charNodes.leftHip, knee: charNodes.leftKnee, side: -1 },
-    { hip: charNodes.rightHip, knee: charNodes.rightKnee, side: 1 }
+    { hip: charNodes.leftHip, knee: charNodes.leftKnee },
+    { hip: charNodes.rightHip, knee: charNodes.rightKnee }
   ].forEach(leg => {
     const thigh = new THREE.Mesh(
-      new THREE.CylinderGeometry(b.thighThickness, b.thighThickness * 0.82, thighLen, 12),
-      skinMat
+      new THREE.CylinderGeometry(b.legThickness, b.legThickness * 0.82, thighLen, 12),
+      o.topStyle === 'workwear' ? bottomMat : skinMat
     );
     thigh.position.set(0, -thighLen * 0.5, 0);
     thigh.castShadow = true;
@@ -2581,42 +2499,20 @@ function rebuildCharacterFromConfig() {
     leg.hip.add(leg.knee);
 
     const calf = new THREE.Mesh(
-      new THREE.CylinderGeometry(b.calfThickness, b.calfThickness * 0.76, calfLen, 12),
-      skinMat
+      new THREE.CylinderGeometry(b.legThickness * 0.80, b.legThickness * 0.62, calfLen, 12),
+      isPleatedSkirt ? sockMat : skinMat
     );
     calf.position.set(0, -calfLen * 0.5, 0);
     calf.castShadow = true;
     leg.knee.add(calf);
 
-    if (o.shoeEnabled) {
-      const footGrp = new THREE.Group();
-      footGrp.position.set(0, -calfLen - o.heelHeight * 0.5, -0.06);
-      leg.knee.add(footGrp);
-
-      const sole = new THREE.Mesh(
-        new THREE.BoxGeometry(b.calfThickness * 1.7, o.heelHeight + 0.04, 0.34),
-        shoeMat
-      );
-      sole.castShadow = true;
-      footGrp.add(sole);
-
-      if (o.shoeStyle !== 'sandal') {
-        const upperShoe = new THREE.Mesh(
-          new THREE.BoxGeometry(b.calfThickness * 1.65, 0.11, 0.30),
-          shoeMat
-        );
-        upperShoe.position.set(0, 0.06, 0.01);
-        footGrp.add(upperShoe);
-      } else if (o.strapEnabled) {
-        const ankleStrap = new THREE.Mesh(
-          new THREE.TorusGeometry(b.calfThickness * 0.86, 0.016, 8, 16),
-          shoeMat
-        );
-        ankleStrap.rotation.x = Math.PI * 0.5;
-        ankleStrap.position.set(0, 0.08, 0.06);
-        footGrp.add(ankleStrap);
-      }
-    }
+    const foot = new THREE.Mesh(
+      new THREE.BoxGeometry(b.legThickness * 1.45, 0.11, 0.34),
+      shoeMat
+    );
+    foot.position.set(0, -calfLen - 0.03, -0.06);
+    foot.castShadow = true;
+    leg.knee.add(foot);
   });
 
   if (wasStoneAttached && stoneMesh) {
@@ -2627,30 +2523,26 @@ function rebuildCharacterFromConfig() {
 
 function setCharacterPose(type, tNorm) {
   const b = CHAR_CONFIG.body;
-  const h = CHAR_CONFIG.hair;
-  const o = CHAR_CONFIG.outfit;
   const m = CHAR_CONFIG.throwMotion;
   const nowSec = performance.now() * 0.001;
+  const hipY = b.legLength + 0.04;
 
-  const hairWave = Math.sin(nowSec * h.swaySpeed) * h.swayAmount;
-  charNodes.hairBackPivot.rotation.x = 0.08 + hairWave * 0.35;
-  charNodes.hairSideL.rotation.z = -0.05 + hairWave * 0.15;
-  charNodes.hairSideR.rotation.z = 0.05 - hairWave * 0.15;
+  const hairWave = Math.sin(nowSec * 4.5) * 0.18;
+  charNodes.hairBackPivot.rotation.z = hairWave * 0.45;
+  charNodes.hairBackPivot.rotation.x = Math.abs(hairWave) * 0.22;
 
   if (type === 'IDLE') {
     const breath = Math.sin(nowSec * 2.6);
-    charNodes.pelvis.position.y = b.hipHeight + breath * 0.02;
-    charNodes.pelvis.rotation.set(0, 0.18, 0);
-    charNodes.torsoPivot.rotation.set(b.leanForward + breath * 0.02, 0.08, 0);
-    charNodes.headPivot.rotation.set(-b.leanForward * 0.6, -0.16, 0);
-    charNodes.bustLeft.position.y = b.torsoHeight * 0.5 + b.bustHeight - b.bustDroop + breath * 0.01 * b.bustSoftness;
-    charNodes.bustRight.position.y = charNodes.bustLeft.position.y;
+    charNodes.pelvis.position.y = hipY + breath * 0.02;
+    charNodes.pelvis.rotation.set(0, 0.16, 0);
+    charNodes.torsoPivot.rotation.set(0.08 + breath * 0.02, 0.08, 0);
+    charNodes.headPivot.rotation.set(-0.06, -0.14, 0);
     charNodes.skirtGroup.scale.set(1, 1, 1);
 
-    charNodes.leftHip.rotation.set(-0.08, b.pigeonToed, -0.04);
-    charNodes.rightHip.rotation.set(0.10, -b.pigeonToed, 0.04);
-    charNodes.leftKnee.rotation.set(0.12, b.kneeInward, 0);
-    charNodes.rightKnee.rotation.set(0.14, -b.kneeInward, 0);
+    charNodes.leftHip.rotation.set(-0.08, 0.06, -0.04);
+    charNodes.rightHip.rotation.set(0.10, -0.06, 0.04);
+    charNodes.leftKnee.rotation.set(0.12, 0.04, 0);
+    charNodes.rightKnee.rotation.set(0.14, -0.04, 0);
 
     charNodes.leftShoulder.rotation.set(-0.18, 0, -0.18);
     charNodes.leftElbow.rotation.set(-0.35, 0, 0);
@@ -2659,38 +2551,31 @@ function setCharacterPose(type, tNorm) {
   } else if (type === 'RUN') {
     const stride = Math.sin(tNorm * Math.PI * 6);
     const bounce = Math.abs(stride);
-    charNodes.pelvis.position.y = b.hipHeight - 0.03 + bounce * 0.07;
+    charNodes.pelvis.position.y = hipY - 0.03 + bounce * 0.07;
     charNodes.pelvis.rotation.set(0, Math.sin(tNorm * Math.PI * 3) * 0.14, 0);
-    charNodes.torsoPivot.rotation.set(b.leanForward + 0.12, -stride * 0.12, 0);
+    charNodes.torsoPivot.rotation.set(0.18, -stride * 0.12, 0);
     charNodes.headPivot.rotation.set(-0.12, 0, 0);
+    charNodes.skirtGroup.scale.set(1.06, 1, 1.06);
 
-    const bustBounce = Math.cos(tNorm * Math.PI * 12) * 0.035 * b.bustSoftness;
-    charNodes.bustLeft.position.y = b.torsoHeight * 0.5 + b.bustHeight - b.bustDroop + bustBounce;
-    charNodes.bustRight.position.y = charNodes.bustLeft.position.y;
-    charNodes.skirtGroup.scale.set(1 + o.skirtLiftOnThrow * 0.4, 1, 1 + o.skirtLiftOnThrow * 0.4);
-
-    charNodes.leftHip.rotation.set(stride * 0.78, b.pigeonToed * 0.5, 0);
-    charNodes.rightHip.rotation.set(-stride * 0.78, -b.pigeonToed * 0.5, 0);
-    charNodes.leftKnee.rotation.set(Math.max(0.1, -stride * 0.85), b.kneeInward, 0);
-    charNodes.rightKnee.rotation.set(Math.max(0.1, stride * 0.85), -b.kneeInward, 0);
+    charNodes.leftHip.rotation.set(stride * 0.78, 0.03, 0);
+    charNodes.rightHip.rotation.set(-stride * 0.78, -0.03, 0);
+    charNodes.leftKnee.rotation.set(Math.max(0.1, -stride * 0.85), 0.04, 0);
+    charNodes.rightKnee.rotation.set(Math.max(0.1, stride * 0.85), -0.04, 0);
 
     charNodes.leftShoulder.rotation.set(-stride * 0.65, 0, -0.22);
     charNodes.leftElbow.rotation.set(-0.75, 0, 0);
 
-    const cock = Math.min(1, tNorm * 1.35) * m.anticipationScale;
-    charNodes.rightShoulder.rotation.set(-m.armWindupAngle * 0.65 * cock, 0, 1.05 * cock);
+    const cock = Math.min(1, tNorm * 1.35);
+    charNodes.rightShoulder.rotation.set(0.95 * cock, 0, m.armElevation * 0.9 * cock);
     charNodes.rightElbow.rotation.set(-0.55 * cock, 0, 0);
-    charNodes.hairBackPivot.rotation.x = 0.35 + bounce * 0.25;
   } else if (type === 'WHIP') {
     const w = Math.min(1, tNorm);
     const easeW = 1 - Math.pow(1 - w, 2.5);
-    charNodes.pelvis.position.y = b.hipHeight - 0.14;
-    charNodes.pelvis.rotation.set(0, -m.torsoTwist + m.torsoTwist * 2.1 * easeW, 0);
-    charNodes.torsoPivot.rotation.set(b.leanForward + 0.16, -m.torsoTwist * 0.6 + m.torsoTwist * 1.4 * easeW, -0.14);
-    charNodes.headPivot.rotation.set(m.headTiltOnRelease * easeW, -m.torsoTwist * 0.5 * easeW, 0.06);
-
-    charNodes.skirtGroup.scale.set(1 + o.skirtLiftOnThrow, 1, 1 + o.skirtLiftOnThrow);
-    charNodes.hairBackPivot.rotation.x = 0.42 + easeW * 0.22;
+    charNodes.pelvis.position.y = hipY - 0.14;
+    charNodes.pelvis.rotation.set(0, -m.windupTwist + (m.windupTwist + m.releaseTwist) * easeW, 0);
+    charNodes.torsoPivot.rotation.set(0.22, -m.windupTwist * 0.5 + (m.windupTwist + m.releaseTwist) * 0.7 * easeW, -0.14);
+    charNodes.headPivot.rotation.set(0.06 * easeW, -m.releaseTwist * 0.4 * easeW, 0.05);
+    charNodes.skirtGroup.scale.set(1.14, 1, 1.14);
 
     charNodes.leftHip.rotation.set(-0.52, 0, -0.08);
     charNodes.leftKnee.rotation.set(0.45, 0, 0);
@@ -2700,8 +2585,8 @@ function setCharacterPose(type, tNorm) {
     charNodes.leftShoulder.rotation.set(0.45, 0, -0.62);
     charNodes.leftElbow.rotation.set(-0.85, 0, 0);
 
-    const swingAngle = m.armWindupAngle + (m.armReleaseAngle - m.armWindupAngle) * easeW;
-    charNodes.rightShoulder.rotation.set(-swingAngle * 0.85, 0, 1.18 - 0.35 * easeW);
+    const swingAngle = -1.35 + (m.followThrough + 1.35) * easeW;
+    charNodes.rightShoulder.rotation.set(-swingAngle * 0.85, 0, m.armElevation - 0.35 * easeW);
     charNodes.rightElbow.rotation.set(-0.45 * (1 - easeW), 0, 0);
   }
 }
@@ -2726,7 +2611,7 @@ function detachStoneToWorld() {
 }
 
 // ============================================================================
-// 5. TRAIL, SPLASHES, RIPPLES & BUOYS
+// 6. TRAIL, SPLASHES, RIPPLES & BUOYS
 // ============================================================================
 const trailParticles = [];
 const trailGeo = new THREE.SphereGeometry(0.14, 6, 6);
@@ -2859,7 +2744,7 @@ function configureGauge(targetSize, judgeMult, hintText) {
 }
 
 // ============================================================================
-// 6. MODE 1 & MODE 2 GAMEPLAY LOGIC
+// 7. MODE 1 & MODE 2 GAMEPLAY LOGIC
 // ============================================================================
 function launchStoneViewArc(vy, vz, spin, customDuration = null) {
   const s = stones[state.selectedStone];
@@ -2880,8 +2765,8 @@ function launchStoneViewArc(vy, vz, spin, customDuration = null) {
   const timingEl = $('timing');
   timingEl.style.display = 'block';
   timingEl.className = '';
-  $('moving').style.width = '206px';
-  $('moving').style.height = '206px';
+  $('moving').style.width = '202px';
+  $('moving').style.height = '202px';
 }
 
 function handleStoneViewTap() {
@@ -2971,8 +2856,8 @@ function lockPowerAndStartRun() {
   const timingEl = $('timing');
   timingEl.style.display = 'block';
   timingEl.className = '';
-  $('moving').style.width = '206px';
-  $('moving').style.height = '206px';
+  $('moving').style.width = '202px';
+  $('moving').style.height = '202px';
 }
 
 function resolveThrowerRelease(forcedLate = false) {
@@ -3032,9 +2917,8 @@ function resolveThrowerRelease(forcedLate = false) {
   sfx.playThrow(state.lockedPower);
 
   detachStoneToWorld();
-  const off = CHAR_CONFIG.throwMotion.releaseHandOffset;
-  if (Array.isArray(off) && off.length === 3 && stoneMesh) {
-    stoneMesh.position.set(charRig.position.x + off[0], charRig.position.y + off[1], charRig.position.z + off[2]);
+  if (stoneMesh) {
+    stoneMesh.position.set(charRig.position.x + 0.35, charRig.position.y + 1.32, charRig.position.z - 0.55);
     state.pos.copy(stoneMesh.position);
   }
   state.phase = 'AUTO_FLIGHT';
@@ -3090,11 +2974,17 @@ function finishRun() {
   $('result').style.display = 'flex';
   $('resultDistance').textContent = Math.floor(state.distance) + ' m';
 
-  const regBtn = $('registerRankBtn');
-  const regMsg = $('rankRegMsg');
-  const nameInput = $('playerRankName');
+  const regBtn = $('submitBtn');
+  const regMsg = $('scoreStatus');
+  const nameInput = $('playerName');
+  const resRankBox = $('resultRanking');
+  const resRankBtn = $('rankingBtn');
+
   if (regBtn) regBtn.disabled = false;
   if (regMsg) regMsg.textContent = '';
+  if (resRankBox) resRankBox.classList.add('hidden');
+  if (resRankBtn) resRankBtn.setAttribute('aria-expanded', 'false');
+
   try {
     const savedName = localStorage.getItem('infiniteSkip_playerName');
     if (savedName && nameInput && !nameInput.value) {
@@ -3153,7 +3043,7 @@ function startSelectedMode() {
     $('bottomHint').textContent = `${state.stoneName} を構えています`;
 
     charRig.visible = false;
-    shoreMesh.visible = false;
+    bankGroup.visible = false;
     throwArmRig.visible = true;
     throwArmRig.position.set(1.35, 1.85, 2.2);
     setArmPose('READY', 0);
@@ -3170,13 +3060,14 @@ function startSelectedMode() {
     $('bottomHint').textContent = 'ゲージが右端の黄金ゾーンに近いほど超パワー！';
 
     throwArmRig.visible = false;
-    shoreMesh.visible = true;
+    bankGroup.visible = true;
     charRig.visible = true;
-    charRig.position.set(0, -0.05, 11.5);
+    // Start run-up further back on the bank at x = -1.4, z = 8.8 facing -Z
+    charRig.position.set(BANK_STAND_POS.x, BANK_STAND_POS.y, 8.8);
     loadCharConfigFromStorage(state.selectedThrower);
     rebuildCharacterFromConfig();
     setCharacterPose('IDLE', 0);
-    buildStoneMesh(1);
+    buildStoneMesh(0);
     attachStoneToSocket(charNodes.stoneSocket);
   }
 }
@@ -3231,7 +3122,7 @@ function backToSelect() {
 }
 
 // ============================================================================
-// 7. SELECTION & MODE SWITCHING
+// 8. SELECTION & MODE SWITCHING
 // ============================================================================
 function switchGameMode(mode) {
   state.gameMode = mode;
@@ -3243,24 +3134,25 @@ function switchGameMode(mode) {
     $('stoneSetupSection').style.display = 'block';
     $('throwerSetupSection').style.display = 'none';
     $('hudModeBadge').textContent = '石視点モード';
-    $('rankHeader').textContent = 'ONLINE TOP · 石視点';
+    $('rankHeader').textContent = 'GLOBAL TOP10 · 石視点';
     charRig.visible = false;
-    shoreMesh.visible = false;
+    bankGroup.visible = false;
     buildStoneMesh(state.selectedStone);
     stoneMesh.position.set(0, 0.35, 1.5);
   } else {
     $('stoneSetupSection').style.display = 'none';
     $('throwerSetupSection').style.display = 'block';
     $('hudModeBadge').textContent = '投げる人モード';
-    $('rankHeader').textContent = 'ONLINE TOP · 投げる人';
+    $('rankHeader').textContent = 'GLOBAL TOP10 · 投げる人';
     throwArmRig.visible = false;
-    shoreMesh.visible = true;
+    bankGroup.visible = true;
     charRig.visible = true;
-    charRig.position.set(0, -0.05, 8.5);
+    // Original river bank placement at (x: -1.4, y: 0, z: 2.2) facing -Z toward the water
+    charRig.position.set(BANK_STAND_POS.x, BANK_STAND_POS.y, BANK_STAND_POS.z);
     loadCharConfigFromStorage(state.selectedThrower);
     rebuildCharacterFromConfig();
     setCharacterPose('IDLE', 0);
-    buildStoneMesh(1);
+    buildStoneMesh(0);
     attachStoneToSocket(charNodes.stoneSocket);
   }
   renderRanks();
@@ -3276,7 +3168,8 @@ function chooseStone(idx) {
   $('ease').textContent = '★'.repeat(s.easeStars) + '☆'.repeat(5 - s.easeStars);
   $('bounce').textContent = '★'.repeat(s.bounceStars) + '☆'.repeat(5 - s.bounceStars);
   $('stoneTrait').textContent = s.trait;
-  $('stoneIcon').style.transform = `rotate(-12deg) scale(${s.scale[0] / 1.2}, ${s.scale[1] / 0.42})`;
+  $('stoneIcon').style.background = s.cssGrad;
+  $('stoneIcon').style.transform = `rotate(-12deg) scale(${s.scale[0] / 1.24}, ${Math.max(0.55, s.scale[1] / 0.24)})`;
 }
 
 function chooseThrower(idx) {
@@ -3302,7 +3195,7 @@ function chooseThrower(idx) {
 }
 
 // ============================================================================
-// 8. ONLINE & LOCAL LEADERBOARD + X (TWITTER) SHARE
+// 9. GLOBAL ONLINE RANKING (YASAI TAOPAIPAI STYLE: SINGLE SLOT PER DEVICE & NAME)
 // ============================================================================
 const GAME_SHARE_URL = 'https://doshitan64-crypto.github.io/mizukiri';
 const onlineScores = {
@@ -3329,6 +3222,29 @@ function getDeviceId() {
   } catch (_) {
     return 'dev_guest';
   }
+}
+
+function normalizePlayerKey(name) {
+  return String(name || '').trim().toLowerCase().replace(/\s+/g, '');
+}
+
+function deduplicateBestEntries(rawList) {
+  const sorted = [...rawList].sort((a, b) => b.distance - a.distance || (b.skips || 0) - (a.skips || 0));
+  const seenDevices = new Set();
+  const seenNames = new Set();
+  const result = [];
+
+  for (const item of sorted) {
+    const devKey = item.deviceId || item.id || '';
+    const nameKey = normalizePlayerKey(item.rawName || item.name);
+    if (devKey && seenDevices.has(devKey)) continue;
+    if (nameKey && seenNames.has(nameKey)) continue;
+    if (devKey) seenDevices.add(devKey);
+    if (nameKey) seenNames.add(nameKey);
+    result.push(item);
+    if (result.length >= 10) break;
+  }
+  return result;
 }
 
 async function initOnlineLeaderboard() {
@@ -3361,33 +3277,27 @@ async function initOnlineLeaderboard() {
     updateOnlineStatusBadge(true);
 
     ['STONE_VIEW', 'THROWER_VIEW'].forEach(modeKey => {
-      const colRef = collection(db, 'artifacts', appId, 'public', 'data', `leaderboard_${modeKey}`);
+      const colRef = collection(db, 'artifacts', appId, 'public', 'data', `mizukiri_ranking_${modeKey}`);
       onSnapshot(
         colRef,
         snap => {
-          const bestByOwner = new Map();
+          const allDocs = [];
           snap.forEach(docSnap => {
             const d = docSnap.data();
             if (d && typeof d.distance === 'number') {
-              const ownerKey = String(d.deviceId || d.uid || docSnap.id);
-              const entry = {
+              allDocs.push({
                 id: docSnap.id,
-                ownerKey,
+                deviceId: String(d.deviceId || docSnap.id),
+                rawName: String(d.rawName || d.name || 'PLAYER'),
                 name: String(d.name || 'PLAYER'),
                 detail: String(d.detail || ''),
                 distance: Math.floor(d.distance),
                 skips: Number(d.skips || 0),
                 createdAt: Number(d.createdAt || 0)
-              };
-              const prev = bestByOwner.get(ownerKey);
-              if (!prev || entry.distance > prev.distance || (entry.distance === prev.distance && entry.skips > prev.skips)) {
-                bestByOwner.set(ownerKey, entry);
-              }
+              });
             }
           });
-          const list = Array.from(bestByOwner.values());
-          list.sort((a, b) => b.distance - a.distance || b.skips - a.skips);
-          onlineScores[modeKey] = list.slice(0, 30);
+          onlineScores[modeKey] = deduplicateBestEntries(allDocs);
           renderRanks();
         },
         () => {
@@ -3408,36 +3318,39 @@ function updateOnlineStatusBadge(online) {
   }
   if (note) {
     note.textContent = online
-      ? '全世界オンラインランキング（1端末につき最高記録1枠）を表示中。'
-      : '端末に保存された自己ベスト記録（1端末1枠）を表示中。';
+      ? '全世界TOP10（1端末・同じなまえのベスト記録）'
+      : '端末保存TOP10（1端末・同じなまえのベスト記録）';
   }
 }
 
 function getStorageKey(mode = state.gameMode) {
-  return mode === 'STONE_VIEW' ? 'infiniteSkip_stoneView_v3' : 'infiniteSkip_throwerView_v3';
+  return mode === 'STONE_VIEW' ? 'infiniteSkip_stoneView_v4' : 'infiniteSkip_throwerView_v4';
 }
 
 function getLocalScores(mode) {
   try {
-    return JSON.parse(localStorage.getItem(getStorageKey(mode)) || '[]');
+    const arr = JSON.parse(localStorage.getItem(getStorageKey(mode)) || '[]');
+    return deduplicateBestEntries(arr);
   } catch (_) {
     return [];
   }
 }
 
-async function registerManualScore() {
+async function handleScoreFormSubmit(e) {
+  if (e) e.preventDefault();
   if (state.scoreRegisteredThisRun) return;
+
   const distInt = Math.floor(state.distance);
-  const msgEl = $('rankRegMsg');
-  const btnEl = $('registerRankBtn');
-  const nameInput = $('playerRankName');
+  const msgEl = $('scoreStatus');
+  const btnEl = $('submitBtn');
+  const nameInput = $('playerName');
 
   if (distInt <= 0) {
     if (msgEl) msgEl.textContent = '1m以上の記録で登録できます。';
     return;
   }
 
-  const rawName = (nameInput ? nameInput.value : '').trim() || '名無しの水切り師';
+  const rawName = (nameInput ? nameInput.value : '').trim() || 'ななしのプレイヤー';
   try {
     localStorage.setItem('infiniteSkip_playerName', rawName);
   } catch (_) {}
@@ -3445,32 +3358,37 @@ async function registerManualScore() {
   const mode = state.gameMode;
   const deviceId = getDeviceId();
   const detail = mode === 'STONE_VIEW'
-    ? `${stones[state.selectedStone].name}`
-    : `${throwers[state.selectedThrower].shortName}`;
-  const displayName = `${rawName} [${detail}]`;
+    ? stones[state.selectedStone].name
+    : throwers[state.selectedThrower].shortName;
+  const displayName = `${rawName}（${detail}）`;
 
   if (btnEl) btnEl.disabled = true;
   if (msgEl) msgEl.textContent = '登録中…';
 
-  // 1. Update local single-slot best record for this device
-  const key = getStorageKey(mode);
-  let arr = getLocalScores(mode).filter(item => item.deviceId !== deviceId);
-  const prevLocal = getLocalScores(mode).find(item => item.deviceId === deviceId);
+  const localRaw = (() => {
+    try { return JSON.parse(localStorage.getItem(getStorageKey(mode)) || '[]'); } catch (_) { return []; }
+  })();
+  const prevLocal = localRaw.find(
+    it => it.deviceId === deviceId || normalizePlayerKey(it.rawName) === normalizePlayerKey(rawName)
+  );
   const bestLocalDist = prevLocal ? Math.max(prevLocal.distance, distInt) : distInt;
   const bestLocalSkips = (prevLocal && prevLocal.distance > distInt) ? prevLocal.skips : state.skips;
-  arr.push({
+
+  const updatedLocal = localRaw.filter(
+    it => it.deviceId !== deviceId && normalizePlayerKey(it.rawName) !== normalizePlayerKey(rawName)
+  );
+  updatedLocal.push({
     deviceId,
+    rawName,
     name: displayName,
     detail,
     distance: bestLocalDist,
     skips: bestLocalSkips
   });
-  arr.sort((a, b) => b.distance - a.distance);
   try {
-    localStorage.setItem(key, JSON.stringify(arr.slice(0, 10)));
+    localStorage.setItem(getStorageKey(mode), JSON.stringify(deduplicateBestEntries(updatedLocal)));
   } catch (_) {}
 
-  // 2. Register / Overwrite single slot per device in Worldwide Firestore
   if (!isOnlineReady) {
     await initOnlineLeaderboard();
   }
@@ -3479,12 +3397,14 @@ async function registerManualScore() {
   if (isOnlineReady && db && currentUser) {
     try {
       const existing = (onlineScores[mode] || []).find(
-        r => r.ownerKey === deviceId || r.ownerKey === currentUser.uid || r.id === deviceId
+        r => r.deviceId === deviceId || r.id === deviceId || normalizePlayerKey(r.rawName) === normalizePlayerKey(rawName)
       );
+      const docId = existing ? (existing.id || deviceId) : deviceId;
+      const docRef = doc(db, 'artifacts', appId, 'public', 'data', `mizukiri_ranking_${mode}`, docId);
+
       if (existing && existing.distance > distInt) {
-        // Keep higher distance, just update display name if changed
-        const docRef = doc(db, 'artifacts', appId, 'public', 'data', `leaderboard_${mode}`, existing.id || deviceId);
         await setDoc(docRef, {
+          rawName,
           name: displayName,
           detail,
           distance: existing.distance,
@@ -3494,11 +3414,10 @@ async function registerManualScore() {
           createdAt: Date.now()
         });
         savedOnline = true;
-        if (msgEl) msgEl.textContent = `自己ベスト（${existing.distance}m）を保持して名前を更新しました！`;
+        if (msgEl) msgEl.textContent = `自己ベスト（${existing.distance} m）を保持してなまえを更新しました！`;
       } else {
-        const docId = existing ? (existing.id || deviceId) : deviceId;
-        const docRef = doc(db, 'artifacts', appId, 'public', 'data', `leaderboard_${mode}`, docId);
         await setDoc(docRef, {
+          rawName,
           name: displayName,
           detail,
           distance: distInt,
@@ -3516,7 +3435,7 @@ async function registerManualScore() {
   }
 
   if (!savedOnline && msgEl) {
-    msgEl.textContent = `端末ランキングに「${bestLocalDist} m」を保存しました！`;
+    msgEl.textContent = `ランキングに「${bestLocalDist} m」を登録しました！`;
   }
 
   state.scoreRegisteredThisRun = true;
@@ -3529,7 +3448,7 @@ function escapeHtml(s) {
   }[c]));
 }
 
-function getDisplayScores(mode, limitCount) {
+function getDisplayScores(mode, limitCount = 10) {
   const online = onlineScores[mode] || [];
   if (isOnlineReady && online.length > 0) {
     return online.slice(0, limitCount);
@@ -3537,23 +3456,29 @@ function getDisplayScores(mode, limitCount) {
   return getLocalScores(mode).slice(0, limitCount);
 }
 
+function formatRankListHtml(list) {
+  if (!list.length) {
+    return '<li><span class="r-name" style="color:#8eb0ba">まだ記録がありません。最初の記録を残そう！</span></li>';
+  }
+  return list.map((r, i) => {
+    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
+    const skipTxt = r.skips ? ` (${r.skips}回)` : '';
+    return `<li><span class="r-name">${medal} ${escapeHtml(r.name)}${skipTxt}</span><b class="r-score">${r.distance} m</b></li>`;
+  }).join('');
+}
+
 function renderRanks() {
-  const sideArr = getDisplayScores(state.gameMode, 5);
-  $('rankRows').innerHTML = sideArr.length
-    ? sideArr.map((r, i) => `<div class="rank-row"><span>${i + 1}. ${escapeHtml(r.name)}</span><b>${r.distance} m</b></div>`).join('')
-    : '<p class="sub" style="margin:6px 0">まだ記録がありません。</p>';
+  const sideArr = getDisplayScores(state.gameMode, 10);
+  const sideHost = $('rankRows');
+  if (sideHost) sideHost.innerHTML = formatRankListHtml(sideArr);
 
   const modalArr = getDisplayScores(modalRankMode, 10);
   const modalHost = $('modalRankRows');
-  if (modalHost) {
-    modalHost.innerHTML = modalArr.length
-      ? modalArr.map((r, i) => {
-          const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : `${i + 1}.`;
-          const skipTxt = r.skips ? ` (${r.skips}回)` : '';
-          return `<div class="rank-row"><span>${medal} ${escapeHtml(r.name)}${skipTxt}</span><b>${r.distance} m</b></div>`;
-        }).join('')
-      : '<p class="sub" style="margin:10px 0;text-align:center">まだ記録がありません。最初の記録を残そう！</p>';
-  }
+  if (modalHost) modalHost.innerHTML = formatRankListHtml(modalArr);
+
+  const resArr = getDisplayScores(state.gameMode, 10);
+  const resHost = $('resultTop');
+  if (resHost) resHost.innerHTML = formatRankListHtml(resArr);
 }
 
 function openRankModal(initialMode = state.gameMode) {
@@ -3576,151 +3501,100 @@ function shareResultOnX() {
     : `結果：${distInt}m（水切り ${state.skips}回 / リリース ${state.releaseRating}）`;
 
   const tweetText = [
-    `【INFINITE SKIP — 水切り】`,
+    `INFINITE SKIP — 水切り`,
     `モード：${modeLabel}`,
     pickedLabel,
     resultLabel,
-    `#INFINITESKIP #水切り`
+    GAME_SHARE_URL
   ].join('\n');
 
-  const intentUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(GAME_SHARE_URL)}`;
+  const intentUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
   window.open(intentUrl, '_blank', 'noopener,noreferrer');
 }
 
 // ============================================================================
-// 9. REAL-TIME CHAR_CONFIG TUNING DRAWER & LOCALSTORAGE PERSISTENCE
+// 10. REAL-TIME CHAR_CONFIG TUNING DRAWER & 360° VIEWER
 // ============================================================================
 const DEBUG_SCHEMA = {
   body: [
     {
-      title: '全体プロポーション・頭身',
+      title: 'プロポーション・体格',
       items: [
-        { key: 'overallScale', label: '全体スケール', min: 0.7, max: 1.4, step: 0.02 },
-        { key: 'headScale', label: '頭身バランス', min: 0.8, max: 1.6, step: 0.02 },
-        { key: 'shoulderWidth', label: '肩幅', min: 0.35, max: 0.85, step: 0.01 },
-        { key: 'torsoWidth', label: '胴体の横幅', min: 0.35, max: 0.85, step: 0.01 },
-        { key: 'torsoHeight', label: '胴体の高さ', min: 0.55, max: 1.05, step: 0.01 },
-        { key: 'waistPinch', label: 'ウエストくびれ', min: 0.65, max: 1.05, step: 0.01 },
-        { key: 'hipWidth', label: '腰・ヒップ幅', min: 0.40, max: 0.85, step: 0.01 }
+        { key: 'overallScale', label: '全体スケール', min: 0.75, max: 1.35, step: 0.02 },
+        { key: 'headScale', label: '頭身バランス', min: 0.85, max: 1.50, step: 0.02 },
+        { key: 'neckLength', label: '首の長さ', min: 0.08, max: 0.24, step: 0.01 },
+        { key: 'neckThickness', label: '首の太さ', min: 0.08, max: 0.18, step: 0.005 },
+        { key: 'shoulderWidth', label: '肩幅', min: 0.36, max: 0.85, step: 0.01 },
+        { key: 'chestWidth', label: '胸郭の横幅', min: 0.36, max: 0.85, step: 0.01 },
+        { key: 'chestDepth', label: '胸郭の厚み', min: 0.24, max: 0.56, step: 0.01 },
+        { key: 'waistWidth', label: 'ウエスト幅', min: 0.32, max: 0.72, step: 0.01 },
+        { key: 'hipWidth', label: '腰・ヒップ幅', min: 0.40, max: 0.80, step: 0.01 }
       ]
     },
     {
-      title: 'バスト・胸の形状',
+      title: 'バスト・胸の調整（正面 -Z 側）',
       items: [
         { key: 'bustSize', label: '胸の大きさ', min: 0.0, max: 1.8, step: 0.05 },
-        { key: 'bustHeight', label: '胸の上下位置', min: 0.05, max: 0.40, step: 0.01 },
-        { key: 'bustForward', label: '胸の前後突き出し', min: 0.10, max: 0.38, step: 0.01 },
-        { key: 'bustSpacing', label: '左右の開き具合', min: 0.08, max: 0.25, step: 0.01 },
-        { key: 'bustDroop', label: '自然な垂れ具合', min: 0.0, max: 0.12, step: 0.005 },
-        { key: 'bustSoftness', label: '動く時の揺れ幅', min: 0.0, max: 0.50, step: 0.02 }
+        { key: 'bustHeight', label: '胸の上下位置', min: 0.08, max: 0.36, step: 0.01 },
+        { key: 'bustSpread', label: '左右の開き幅', min: 0.08, max: 0.22, step: 0.005 }
       ]
     },
     {
-      title: '姿勢・脚・腕',
+      title: '腕・脚の長さ・太さ',
       items: [
-        { key: 'leanForward', label: '前傾角度', min: -0.1, max: 0.35, step: 0.01 },
-        { key: 'pigeonToed', label: '内股角度', min: -0.2, max: 0.35, step: 0.01 },
-        { key: 'legLength', label: '脚の長さ', min: 0.8, max: 1.35, step: 0.02 },
-        { key: 'thighThickness', label: '太ももの太さ', min: 0.11, max: 0.26, step: 0.005 },
-        { key: 'calfThickness', label: 'ふくらはぎ太さ', min: 0.08, max: 0.20, step: 0.005 },
-        { key: 'armLength', label: '腕の長さ', min: 0.6, max: 1.1, step: 0.02 }
+        { key: 'armLength', label: '腕の長さ', min: 0.65, max: 1.05, step: 0.02 },
+        { key: 'armThickness', label: '腕の太さ', min: 0.08, max: 0.19, step: 0.005 },
+        { key: 'legLength', label: '脚の長さ', min: 0.82, max: 1.30, step: 0.02 },
+        { key: 'legThickness', label: '脚の太さ', min: 0.11, max: 0.24, step: 0.005 }
       ]
     }
   ],
   face: [
     {
-      title: '輪郭・目・瞳',
+      title: '目・表情・チーク',
       items: [
-        { key: 'faceRoundness', label: '輪郭の丸み', min: 0.85, max: 1.25, step: 0.01 },
-        { key: 'jawSharpness', label: 'あごシャープさ', min: 0.0, max: 1.0, step: 0.05 },
-        { key: 'eyeSize', label: '目の大きさ', min: 0.06, max: 0.20, step: 0.005 },
-        { key: 'eyeWidthScale', label: '目の横幅倍率', min: 0.7, max: 1.4, step: 0.02 },
-        { key: 'eyeHeightScale', label: '目の縦幅倍率', min: 0.7, max: 1.5, step: 0.02 },
-        { key: 'eyeSpacing', label: '左右の目の間隔', min: 0.14, max: 0.30, step: 0.005 },
-        { key: 'eyeHeight', label: '目の上下位置', min: -0.05, max: 0.14, step: 0.005 },
-        { key: 'eyeTilt', label: 'タレ目/つり目', min: -0.25, max: 0.25, step: 0.01 },
-        { key: 'irisColor', label: '瞳メイン色', type: 'color' },
-        { key: 'irisGradientSub', label: '瞳グラデ下色', type: 'color' },
-        { key: 'eyelashLength', label: 'まつげ長さ', min: 0.0, max: 0.12, step: 0.005 }
-      ]
-    },
-    {
-      title: '眉・口・ほっぺチーク',
-      items: [
-        { key: 'browEnabled', label: '眉毛を表示', type: 'bool' },
-        { key: 'browColor', label: '眉毛の色', type: 'color' },
-        { key: 'browHeight', label: '眉毛の高さ', min: 0.08, max: 0.24, step: 0.005 },
-        { key: 'mouthHeight', label: '口の上下位置', min: -0.24, max: -0.06, step: 0.005 },
-        { key: 'smileAmount', label: '口角上がり具合', min: 0.0, max: 1.0, step: 0.05 },
-        { key: 'blushEnabled', label: 'ほっぺを表示', type: 'bool' },
-        { key: 'blushColor', label: 'ほっぺの色', type: 'color' },
-        { key: 'blushSize', label: 'ほっぺ大きさ', min: 0.03, max: 0.15, step: 0.005 },
-        { key: 'blushOpacity', label: 'ほっぺの濃さ', min: 0.0, max: 1.0, step: 0.05 }
+        { key: 'eyeSize', label: '目の大きさ', min: 0.07, max: 0.18, step: 0.005 },
+        { key: 'eyeSpacing', label: '目の間隔', min: 0.15, max: 0.28, step: 0.005 },
+        { key: 'eyeHeight', label: '目の上下位置', min: -0.04, max: 0.12, step: 0.005 },
+        { key: 'eyeColor', label: '瞳の色', type: 'color' },
+        { key: 'blushOpacity', label: 'ほっぺチーク濃さ', min: 0.0, max: 1.0, step: 0.05 },
+        { key: 'mouthWidth', label: '口の幅', min: 0.04, max: 0.13, step: 0.005 }
       ]
     }
   ],
   hair: [
     {
-      title: '髪色・前髪スタイル',
+      title: 'ヘアスタイル・髪色',
       items: [
-        { key: 'color', label: '髪色', type: 'color' },
-        { key: 'highlightColor', label: 'ツヤ・ハイライト', type: 'color' },
-        { key: 'bangsStyle', label: '前髪スタイル', type: 'select', options: ['wispy', 'straight', 'swept', 'parted', 'hime'] },
-        { key: 'bangsLength', label: '前髪の長さ', min: 0.10, max: 0.50, step: 0.01 },
-        { key: 'bangsCenterLength', label: '前髪中央の長さ', min: 0.10, max: 0.48, step: 0.01 },
-        { key: 'bangsSideLength', label: '前髪サイド長さ', min: 0.15, max: 0.65, step: 0.01 },
-        { key: 'bangsGapAmount', label: 'シースルー隙間', min: 0.0, max: 0.8, step: 0.05 },
-        { key: 'hairpinEnabled', label: 'ヘアピン表示', type: 'bool' },
-        { key: 'hairpinColor', label: 'ヘアピン色', type: 'color' }
-      ]
-    },
-    {
-      title: 'ロングヘア・揺れ',
-      items: [
-        { key: 'sideHairLength', label: 'サイド髪長さ', min: 0.15, max: 1.65, step: 0.02 },
-        { key: 'backHairLength', label: '後ろ髪長さ', min: 0.20, max: 1.95, step: 0.02 },
-        { key: 'backHairWidth', label: '後ろ髪横幅', min: 0.55, max: 1.25, step: 0.02 },
-        { key: 'hairVolume', label: '全体ボリューム', min: 0.90, max: 1.35, step: 0.01 },
-        { key: 'swayAmount', label: '髪の揺れ幅', min: 0.0, max: 0.50, step: 0.02 }
+        { key: 'style', label: '髪型スタイル', type: 'select', options: ['short', 'ponytail', 'long', 'bun'] },
+        { key: 'length', label: '後ろ髪/ポニテ長さ', min: 0.18, max: 1.65, step: 0.04 },
+        { key: 'volume', label: '髪ボリューム', min: 0.92, max: 1.32, step: 0.01 },
+        { key: 'bangsLength', label: '前髪の長さ', min: 0.10, max: 0.45, step: 0.01 },
+        { key: 'color', label: '髪の色', type: 'color' }
       ]
     }
   ],
   outfit: [
     {
-      title: 'トップス・スカート',
+      title: '衣装・スカート・カラー',
       items: [
+        { key: 'topStyle', label: '衣装タイプ', type: 'select', options: ['tee', 'athletic', 'workwear', 'robe'] },
+        { key: 'skirtLength', label: 'ボトム/スカート丈', min: 0.30, max: 0.95, step: 0.02 },
+        { key: 'skirtFlare', label: '裾の広がり', min: 0.72, max: 1.85, step: 0.03 },
         { key: 'topColor', label: 'トップス色', type: 'color' },
-        { key: 'sleeveLength', label: '袖の長さ', min: 0.12, max: 0.55, step: 0.01 },
-        { key: 'skirtColor', label: 'スカート色', type: 'color' },
-        { key: 'skirtLength', label: 'スカート丈', min: 0.28, max: 0.95, step: 0.01 },
-        { key: 'skirtFlare', label: '裾の広がり', min: 0.70, max: 1.85, step: 0.02 },
-        { key: 'skirtPleats', label: 'ひだの細かさ', min: 0, max: 20, step: 1 },
-        { key: 'beltEnabled', label: 'ベルト表示', type: 'bool' },
-        { key: 'beltColor', label: 'ベルト色', type: 'color' }
-      ]
-    },
-    {
-      title: 'バッグ・靴・サンダル',
-      items: [
-        { key: 'bagEnabled', label: 'バッグ表示', type: 'bool' },
-        { key: 'bagColor', label: 'バッグ色', type: 'color' },
-        { key: 'bagOffsetX', label: 'バッグ横位置', min: -0.65, max: 0.65, step: 0.02 },
-        { key: 'shoeEnabled', label: '靴を表示', type: 'bool' },
-        { key: 'shoeStyle', label: '靴タイプ', type: 'select', options: ['sandal', 'sneaker', 'loafer'] },
-        { key: 'shoeColor', label: '靴の色', type: 'color' },
-        { key: 'heelHeight', label: 'ヒール高さ', min: 0.02, max: 0.16, step: 0.005 }
+        { key: 'bottomColor', label: 'ボトム/スカート色', type: 'color' },
+        { key: 'accentColor', label: 'アクセント/リボン色', type: 'color' }
       ]
     }
   ],
   throwMotion: [
     {
-      title: '投擲モーション・フォーム',
+      title: '投擲モーション調整',
       items: [
-        { key: 'anticipationScale', label: '構え・溜め大きさ', min: 0.6, max: 1.5, step: 0.05 },
-        { key: 'armWindupAngle', label: '振りかぶり角度', min: -2.0, max: -0.6, step: 0.05 },
-        { key: 'armReleaseAngle', label: '振り抜き角度', min: 0.6, max: 2.0, step: 0.05 },
-        { key: 'torsoTwist', label: '体のひねり具合', min: 0.1, max: 0.8, step: 0.02 },
-        { key: 'headTiltOnRelease', label: '投げた時の頭傾き', min: -0.2, max: 0.3, step: 0.01 }
+        { key: 'windupTwist', label: '振りかぶりひねり', min: 0.15, max: 0.80, step: 0.02 },
+        { key: 'releaseTwist', label: 'リリースひねり', min: 0.15, max: 0.85, step: 0.02 },
+        { key: 'armElevation', label: '腕の高さ角度', min: 0.70, max: 1.60, step: 0.05 },
+        { key: 'followThrough', label: 'フォロースルー', min: 0.80, max: 1.90, step: 0.05 }
       ]
     }
   ]
@@ -3774,21 +3648,6 @@ function renderDebugCategory(cat) {
         inp.addEventListener('input', () => {
           CHAR_CONFIG[cat][item.key] = cssToHex(inp.value);
           valSpan.textContent = inp.value.toUpperCase();
-          rebuildCharacterFromConfig();
-          saveCharConfigToStorage(state.selectedThrower);
-        });
-        row.appendChild(inp);
-        row.appendChild(valSpan);
-      } else if (item.type === 'bool') {
-        const inp = document.createElement('input');
-        inp.type = 'checkbox';
-        inp.checked = Boolean(curVal);
-        const valSpan = document.createElement('span');
-        valSpan.className = 'dbg-val';
-        valSpan.textContent = inp.checked ? 'ON' : 'OFF';
-        inp.addEventListener('change', () => {
-          CHAR_CONFIG[cat][item.key] = inp.checked;
-          valSpan.textContent = inp.checked ? 'ON' : 'OFF';
           rebuildCharacterFromConfig();
           saveCharConfigToStorage(state.selectedThrower);
         });
@@ -3905,7 +3764,6 @@ function enter360CharacterViewer() {
   loadCharConfigFromStorage(state.selectedThrower);
   rebuildCharacterFromConfig();
 
-  // Hide all UI overlays and show ONLY the back button
   document.querySelector('header').style.display = 'none';
   $('selectPanel').style.display = 'none';
   $('ranking').style.display = 'none';
@@ -3949,7 +3807,7 @@ $('resetCharCfgBtn').addEventListener('click', e => {
   try {
     localStorage.removeItem(CHAR_STORAGE_PREFIX + state.selectedThrower);
   } catch (_) {}
-  deepMerge(CHAR_CONFIG, deepClone(THROWER_PRESETS[state.selectedThrower] || REINA_DEFAULT_CONFIG));
+  deepMerge(CHAR_CONFIG, deepClone(THROWER_PRESETS[state.selectedThrower] || THROWER_PRESETS[0]));
   rebuildCharacterFromConfig();
   renderDebugCategory(currentDebugCat);
 
@@ -3965,11 +3823,7 @@ $('copyCharCfgBtn').addEventListener('click', e => {
   sfx.init();
   sfx.playClick(760);
 
-  const hexKeys = new Set([
-    'irisColor', 'irisGradientSub', 'browColor', 'blushColor',
-    'color', 'highlightColor', 'hairpinColor',
-    'topColor', 'skirtColor', 'beltColor', 'bagColor', 'shoeColor'
-  ]);
+  const hexKeys = new Set(['eyeColor', 'color', 'topColor', 'bottomColor', 'accentColor']);
 
   function formatConfigObj(obj, indent = 2) {
     const pad = ' '.repeat(indent);
@@ -3978,8 +3832,6 @@ $('copyCharCfgBtn').addEventListener('click', e => {
     for (const [k, v] of Object.entries(obj)) {
       if (v && typeof v === 'object' && !Array.isArray(v)) {
         lines.push(`${pad}${k}: ${formatConfigObj(v, indent + 2)},`);
-      } else if (Array.isArray(v)) {
-        lines.push(`${pad}${k}: [${v.join(', ')}],`);
       } else if (typeof v === 'string') {
         lines.push(`${pad}${k}: '${v}',`);
       } else if (typeof v === 'number' && hexKeys.has(k)) {
@@ -4010,7 +3862,7 @@ $('copyCharCfgBtn').addEventListener('click', e => {
 });
 
 // ============================================================================
-// 10. INPUT EVENT BINDINGS
+// 11. INPUT EVENT BINDINGS
 // ============================================================================
 document.querySelectorAll('.mode-tab').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -4041,15 +3893,23 @@ $('startThrowerBtn').addEventListener('click', startSelectedMode);
 $('retryBtn').addEventListener('click', startSelectedMode);
 $('backTopBtn').addEventListener('click', backToSelect);
 $('resultBack').addEventListener('click', backToSelect);
-$('registerRankBtn').addEventListener('click', () => {
+$('scoreForm').addEventListener('submit', e => {
   sfx.init();
   sfx.playClick(760);
-  registerManualScore();
+  handleScoreFormSubmit(e);
 });
 $('shareXBtn').addEventListener('click', () => {
   sfx.init();
   sfx.playClick(720);
   shareResultOnX();
+});
+$('rankingBtn').addEventListener('click', () => {
+  sfx.init();
+  sfx.playClick(600);
+  const box = $('resultRanking');
+  const isHidden = box.classList.toggle('hidden');
+  $('rankingBtn').setAttribute('aria-expanded', String(!isHidden));
+  renderRanks();
 });
 
 $('openRankHudBtn').addEventListener('click', e => {
@@ -4155,6 +4015,7 @@ renderer.domElement.addEventListener('wheel', e => {
   e.preventDefault();
   state.viewerDist = Math.max(1.5, Math.min(5.5, state.viewerDist + e.deltaY * 0.002));
 }, { passive: false });
+
 window.addEventListener('keydown', e => {
   if (e.code === 'Space') {
     if (['READY_THROW', 'FLYING', 'POWER_GAUGE', 'RUNUP'].includes(state.phase)) {
@@ -4173,7 +4034,7 @@ window.addEventListener('resize', () => {
 });
 
 // ============================================================================
-// 11. MAIN 3D ANIMATION & PHYSICS LOOP
+// 12. MAIN 3D ANIMATION & PHYSICS LOOP
 // ============================================================================
 let lastTime = performance.now();
 
@@ -4247,8 +4108,8 @@ function animate(now) {
           state.camLook.lerp(new THREE.Vector3(cx, 1.32, cz), 0.14);
         }
       } else {
-        state.camPos.lerp(new THREE.Vector3(-1.35, 1.72, cz - 3.65), 0.08);
-        state.camLook.lerp(new THREE.Vector3(-0.55, 1.30, cz), 0.08);
+        state.camPos.lerp(new THREE.Vector3(cx + 0.55, 1.75, cz - 3.55), 0.08);
+        state.camLook.lerp(new THREE.Vector3(cx + 0.35, 1.25, cz), 0.08);
       }
     }
   } else if (state.phase === 'READY_THROW') {
@@ -4295,7 +4156,7 @@ function animate(now) {
 
     const progress = state.arcElapsed / state.impactTime;
     const s = stones[state.selectedStone];
-    const startSize = 206;
+    const startSize = 202;
     const targetSize = s.targetSize;
     const currentSize = Math.max(18, startSize - (startSize - targetSize) * progress);
 
@@ -4343,14 +4204,15 @@ function animate(now) {
     $('powerMarker').style.left = pct + '%';
 
     setCharacterPose('IDLE', 0);
-    state.camPos.lerp(new THREE.Vector3(3.1, 2.25, 14.2), 0.1);
-    state.camLook.lerp(new THREE.Vector3(0, 1.05, 8.5), 0.1);
+    state.camPos.lerp(new THREE.Vector3(1.6, 2.25, 11.8), 0.1);
+    state.camLook.lerp(new THREE.Vector3(charRig.position.x, 1.15, charRig.position.z - 2.0), 0.1);
   } else if (state.phase === 'RUNUP') {
     state.runElapsed += dt;
     const norm = state.runElapsed / state.runDuration;
 
     const clampedRun = Math.min(1, norm / 0.86);
-    charRig.position.z = 11.5 - clampedRun * 9.5;
+    // Run up from z=8.8 to the water's edge at z=2.2 (BANK_STAND_POS.z)
+    charRig.position.z = 8.8 - clampedRun * (8.8 - BANK_STAND_POS.z);
 
     if (norm < 0.78) {
       setCharacterPose('RUN', norm / 0.78);
@@ -4366,7 +4228,7 @@ function animate(now) {
     const t = throwers[state.selectedThrower];
     const targetNorm = 0.86;
     const ringProgress = norm / targetNorm;
-    const startSize = 206;
+    const startSize = 202;
     const targetSize = 78;
     const currentSize = Math.max(18, startSize - (startSize - targetSize) * ringProgress);
     $('moving').style.width = currentSize + 'px';
@@ -4384,8 +4246,8 @@ function animate(now) {
       timingEl.className = '';
     }
 
-    state.camPos.lerp(new THREE.Vector3(3.4, 2.05, charRig.position.z + 2.6), 0.22);
-    state.camLook.lerp(new THREE.Vector3(0, 0.95, charRig.position.z - 4.5), 0.22);
+    state.camPos.lerp(new THREE.Vector3(charRig.position.x + 3.2, 2.05, charRig.position.z + 2.4), 0.22);
+    state.camLook.lerp(new THREE.Vector3(charRig.position.x + 0.4, 0.95, charRig.position.z - 4.5), 0.22);
 
     if (norm >= 1.08 && !state.releaseAttempted) {
       resolveThrowerRelease(true);
@@ -4436,8 +4298,8 @@ function animate(now) {
     const shakeY = (Math.random() - 0.5) * state.shake;
     state.shake *= 0.86;
 
-    state.camPos.lerp(new THREE.Vector3(shakeX + 1.4, Math.max(1.75, state.pos.y * 0.5 + 2.2) + shakeY, state.pos.z + 6.8 + speedRatio * 2.0), 0.24);
-    state.camLook.lerp(new THREE.Vector3(0, 0.1, state.pos.z - 18), 0.26);
+    state.camPos.lerp(new THREE.Vector3(shakeX + 1.2, Math.max(1.75, state.pos.y * 0.5 + 2.2) + shakeY, state.pos.z + 6.8 + speedRatio * 2.0), 0.24);
+    state.camLook.lerp(new THREE.Vector3(state.pos.x, 0.1, state.pos.z - 18), 0.26);
     camera.fov += (54 + speedRatio * 13 - camera.fov) * 0.12;
     camera.updateProjectionMatrix();
   } else if (state.phase === 'SINKING') {
@@ -4447,8 +4309,8 @@ function animate(now) {
       stoneMesh.rotation.x += 2.2 * dt;
       stoneMesh.rotation.z += 1.5 * dt;
     }
-    state.camPos.lerp(new THREE.Vector3(0, 3.2, state.pos.z + 8.5), 0.1);
-    state.camLook.lerp(new THREE.Vector3(0, WATER_Y, state.pos.z - 6), 0.12);
+    state.camPos.lerp(new THREE.Vector3(state.pos.x, 3.2, state.pos.z + 8.5), 0.1);
+    state.camLook.lerp(new THREE.Vector3(state.pos.x, WATER_Y, state.pos.z - 6), 0.12);
   }
 
   for (let i = trailParticles.length - 1; i >= 0; i--) {
@@ -4494,10 +4356,10 @@ function animate(now) {
 }
 
 chooseStone(0);
-chooseThrower(3);
+chooseThrower(0);
 renderRanks();
 initOnlineLeaderboard();
 requestAnimationFrame(animate);
 </script>
 </body>
-</html>
+  </html>
