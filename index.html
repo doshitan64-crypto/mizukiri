@@ -811,7 +811,7 @@ button {
   text-shadow: 0 2px 8px #000;
 }
 
-/* Result Modal (Yasai Taopaipai Style Registration & Expandable TOP10) */
+/* Result Modal */
 #result {
   display: none;
   position: fixed;
@@ -1154,9 +1154,9 @@ ol.top-list li b.r-score {
   <div class="dbg-toast" id="dbgSaveStatus">💾 端末に自動保存済み</div>
   <div class="dbg-toast" id="dbgCopyToast" style="display:none;">コピー完了！コード上部の CHAR_CONFIG に貼り付けできます。</div>
   <div class="dbg-cat-tabs" id="dbgCatTabs">
-    <button type="button" class="dbg-cat-tab active" data-cat="body">体型</button>
+    <button type="button" class="dbg-cat-tab active" data-cat="body">体型・胸</button>
     <button type="button" class="dbg-cat-tab" data-cat="face">顔・目</button>
-    <button type="button" class="dbg-cat-tab" data-cat="hair">髪</button>
+    <button type="button" class="dbg-cat-tab" data-cat="hair">髪・ポニテ</button>
     <button type="button" class="dbg-cat-tab" data-cat="outfit">服・衣装</button>
     <button type="button" class="dbg-cat-tab" data-cat="throwMotion">投擲</button>
   </div>
@@ -1208,7 +1208,7 @@ ol.top-list li b.r-score {
         </button>
         <button type="button" class="thrower-card" data-thrower="1">
           <div class="thrower-role">剛腕パワー型</div>
-          <div class="thrower-name">元メジャーリーガー 剛田</div>
+          <div class="thrower-name">ベテラン職人 剛田</div>
           <div class="thrower-desc">圧倒的な腕力で豪快な剛速球を放つパワー自慢</div>
         </button>
         <button type="button" class="thrower-card" data-thrower="2">
@@ -1217,8 +1217,8 @@ ol.top-list li b.r-score {
           <div class="thrower-desc">極限まで研ぎ澄ました回転数で水面を滑るように跳ねる</div>
         </button>
         <button type="button" class="thrower-card" data-thrower="3">
-          <div class="thrower-role">神速スプリンター</div>
-          <div class="thrower-name">陸上部 彩葉</div>
+          <div class="thrower-role">神速スプリンター（最強）</div>
+          <div class="thrower-name">陸上部 レイナ</div>
           <div class="thrower-desc">最高初速×超回転×広めの判定で圧倒的記録を狙える最強型</div>
         </button>
       </div>
@@ -1299,7 +1299,7 @@ ol.top-list li b.r-score {
     </div>
   </div>
 
-  <!-- Result Modal (Yasai Taopaipai Style Registration & Expandable Ranking) -->
+  <!-- Result Modal -->
   <div id="result">
     <div class="result-card">
       <div class="eyebrow" id="resultEyebrow">RUN COMPLETE</div>
@@ -1323,7 +1323,7 @@ ol.top-list li b.r-score {
 
       <section id="resultRanking" class="ranking-inline hidden">
         <h2>飛距離ランキング TOP10</h2>
-        <p class="ranking-note">1端末・同じなまえのベスト記録</p>
+        <p class="ranking-note">1端末・同じなまえのベスト記録（重複なし）</p>
         <ol id="resultTop" class="top-list" aria-live="polite"></ol>
       </section>
 
@@ -1341,8 +1341,22 @@ ol.top-list li b.r-score {
 <script type="module">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js';
+import { getAnalytics, isSupported as isAnalyticsSupported } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js';
 import { getAuth, signInAnonymously, signInWithCustomToken } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js';
 import { getFirestore, collection, doc, setDoc, onSnapshot } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
+
+// ============================================================================
+// FIREBASE CONFIGURATION (PROJECT: infinite-skip)
+// ============================================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyB8aPYE0oe9JwUFB9q7rEmOTxX4E1uAQDU",
+  authDomain: "infinite-skip.firebaseapp.com",
+  projectId: "infinite-skip",
+  storageBucket: "infinite-skip.firebasestorage.app",
+  messagingSenderId: "876167716443",
+  appId: "1:876167716443:web:f3ba2aacd1ad6f3d5ca97e",
+  measurementId: "G-QMQD4SKYTZ"
+};
 
 // ============================================================================
 // 1. CHARACTER CONFIGURATION (EXACT ORIGINAL 4 THROWERS + LOCALSTORAGE)
@@ -1415,11 +1429,6 @@ function deepMerge(target, patch) {
 
 const BASE_DEFAULT_CONFIG = deepClone(CHAR_CONFIG);
 
-// Exact Original 4 Characters:
-// 0: 海辺の少年 ユウト
-// 1: ベテラン職人 剛田
-// 2: 水切り仙人 無心斎
-// 3: 陸上部 レイナ (Cute girl with ponytail, pleated skirt, front bust on -Z, strongest stats)
 const THROWER_PRESETS = {
   0: deepMerge(deepClone(BASE_DEFAULT_CONFIG), {
     body: {
@@ -1793,7 +1802,7 @@ const throwers = [
     skinColor: 0xecc4a8
   },
   {
-    name: '元メジャーリーガー 剛田', shortName: '剛田', role: '剛腕パワー型',
+    name: 'ベテラン職人 剛田', shortName: '剛田', role: '剛腕パワー型',
     powerStars: 5, spinStars: 2, powerGaugeSpeed: 2.25,
     runDuration: 0.94, releaseWindowMult: 0.92, baseVel: 50, spinBonus: 1.05,
     trait: '剛腕パワー型：ゲージは速いが圧倒的な腕力で豪快な剛速球を放つ',
@@ -1807,7 +1816,7 @@ const throwers = [
     skinColor: 0xe2b89b
   },
   {
-    name: '陸上部 彩葉', shortName: '彩葉', role: '神速スプリンター',
+    name: '陸上部 レイナ', shortName: 'レイナ', role: '神速スプリンター（最強）',
     powerStars: 5, spinStars: 5, powerGaugeSpeed: 1.55,
     runDuration: 0.90, releaseWindowMult: 1.50, baseVel: 54, spinBonus: 1.75,
     trait: '神速スプリンター：最高初速×超回転×広めの判定で圧倒的記録を狙える最強型',
@@ -1911,7 +1920,7 @@ water.receiveShadow = true;
 scene.add(water);
 const baseWaterPos = waterGeo.attributes.position.array.slice();
 
-// Scenic River Bank (Left/Foreground bank at z >= 0.4 so character stands firmly at x=-1.4, y=0, z=2.2)
+// Scenic River Bank
 const bankGroup = new THREE.Group();
 const bankGround = new THREE.Mesh(
   new THREE.BoxGeometry(34, 0.85, 18),
@@ -1929,7 +1938,6 @@ grassStrip.position.set(0, 0.02, 12.2);
 grassStrip.receiveShadow = true;
 bankGroup.add(grassStrip);
 
-// Decorative riverside rocks and trees on the bank
 const rockMat = new THREE.MeshStandardMaterial({ color: 0x7b878c, roughness: 0.88 });
 const trunkMat = new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 0.9 });
 const leafMat = new THREE.MeshStandardMaterial({ color: 0x3b7a47, roughness: 0.82 });
@@ -2083,10 +2091,7 @@ function setArmPose(phase, progress) {
   }
 }
 
-// ============================================================================
 // Mode 2: Full-Body Articulated 3D Humanoid Driven by CHAR_CONFIG
-// Stands on the riverside bank at (x: -1.4, y: 0, z: 2.2) facing -Z (toward water)
-// ============================================================================
 const charRig = new THREE.Group();
 charRig.position.set(BANK_STAND_POS.x, BANK_STAND_POS.y, BANK_STAND_POS.z);
 charRig.visible = false;
@@ -2155,13 +2160,11 @@ function rebuildCharacterFromConfig() {
   hipMesh.castShadow = true;
   pelvis.add(hipMesh);
 
-  // Waistband / Sash / Belt
   const belt = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.52, 0.08, 20), accentMat);
   belt.scale.set(b.waistWidth, 1, b.chestDepth * 0.92);
   belt.position.set(0, 0.15, 0);
   pelvis.add(belt);
 
-  // Bottoms / Pleated Skirt / Hakama / Work Pants
   const skirtGroup = charNodes.skirtGroup;
   skirtGroup.position.set(0, 0.13, 0);
   pelvis.add(skirtGroup);
@@ -2219,9 +2222,7 @@ function rebuildCharacterFromConfig() {
   upperTorso.castShadow = true;
   torsoPivot.add(upperTorso);
 
-  // Outfit-specific details
   if (o.topStyle === 'athletic') {
-    // Sailor / athletic collar & ribbon
     const collar = new THREE.Mesh(new THREE.BoxGeometry(b.shoulderWidth * 0.72, 0.06, b.chestDepth * 0.96), bottomMat);
     collar.position.set(0, torsoH * 0.95, 0.02);
     torsoPivot.add(collar);
@@ -2230,19 +2231,17 @@ function rebuildCharacterFromConfig() {
     chestRibbon.position.set(0, torsoH * 0.82, -b.chestDepth * 0.48);
     torsoPivot.add(chestRibbon);
   } else if (o.topStyle === 'robe') {
-    // Traditional robe lapel
     const lapel = new THREE.Mesh(new THREE.BoxGeometry(0.08, torsoH * 0.7, 0.04), accentMat);
     lapel.position.set(0, torsoH * 0.55, -b.chestDepth * 0.47);
     lapel.rotation.z = 0.22;
     torsoPivot.add(lapel);
   } else if (o.topStyle === 'workwear') {
-    // Happi coat front trim
     const trim = new THREE.Mesh(new THREE.BoxGeometry(0.10, torsoH * 0.9, 0.04), accentMat);
     trim.position.set(0, torsoH * 0.5, -b.chestDepth * 0.48);
     torsoPivot.add(trim);
   }
 
-  // Bust (Properly attached on the FRONT -Z chest side)
+  // Bust
   const bustZ = -(b.chestDepth * 0.46 + 0.05 * b.bustSize);
   const bustY = torsoH * 0.5 + b.bustHeight;
   charNodes.bustLeft.position.set(-b.bustSpread, bustY, bustZ);
@@ -2274,13 +2273,11 @@ function rebuildCharacterFromConfig() {
   headPivot.scale.setScalar(b.headScale);
   torsoPivot.add(headPivot);
 
-  // Cranium (Character faces -Z toward the river)
   const cranium = new THREE.Mesh(new THREE.SphereGeometry(0.45, 24, 20), skinMat);
   cranium.scale.set(1.04, 1.0, 0.96);
   cranium.castShadow = true;
   headPivot.add(cranium);
 
-  // Headband for Gota (index 1)
   if (o.topStyle === 'workwear') {
     const hachimaki = new THREE.Mesh(new THREE.TorusGeometry(0.455, 0.032, 8, 24), accentMat);
     hachimaki.rotation.x = Math.PI * 0.5;
@@ -2288,7 +2285,6 @@ function rebuildCharacterFromConfig() {
     headPivot.add(hachimaki);
   }
 
-  // White beard for Mushinsai (index 2)
   if (o.topStyle === 'robe') {
     const beard = new THREE.Mesh(new THREE.ConeGeometry(0.18, 0.48, 12), hairMat);
     beard.position.set(0, -0.34, -0.34);
@@ -2296,7 +2292,6 @@ function rebuildCharacterFromConfig() {
     headPivot.add(beard);
   }
 
-  // Eyes (facing -Z)
   [-1, 1].forEach(side => {
     const eyeGrp = new THREE.Group();
     eyeGrp.position.set(side * f.eyeSpacing, f.eyeHeight, -0.43);
@@ -2332,7 +2327,6 @@ function rebuildCharacterFromConfig() {
     hi.position.set(-f.eyeSize * 0.22, f.eyeSize * 0.24, -f.eyeSize * 0.40);
     eyeGrp.add(hi);
 
-    // Eyebrow
     const brow = new THREE.Mesh(
       new THREE.BoxGeometry(f.eyeSize * 1.55, 0.022, 0.025),
       new THREE.MeshBasicMaterial({ color: h.color })
@@ -2341,7 +2335,6 @@ function rebuildCharacterFromConfig() {
     brow.rotation.z = side * 0.05;
     headPivot.add(brow);
 
-    // Blush
     if (f.blushOpacity > 0.02) {
       const blush = new THREE.Mesh(
         new THREE.CircleGeometry(0.08, 16),
@@ -2359,7 +2352,6 @@ function rebuildCharacterFromConfig() {
     }
   });
 
-  // Mouth
   const mouth = new THREE.Mesh(
     new THREE.TorusGeometry(f.mouthWidth * 0.55, 0.013, 8, 16, Math.PI),
     new THREE.MeshBasicMaterial({ color: 0xd97384 })
@@ -2368,7 +2360,6 @@ function rebuildCharacterFromConfig() {
   mouth.rotation.z = Math.PI;
   headPivot.add(mouth);
 
-  // Hair Cap
   const hairCap = new THREE.Mesh(
     new THREE.SphereGeometry(0.48 * h.volume, 22, 18, 0, Math.PI * 2, 0, Math.PI * 0.62),
     hairMat
@@ -2377,7 +2368,6 @@ function rebuildCharacterFromConfig() {
   hairCap.rotation.x = -0.18;
   headPivot.add(hairCap);
 
-  // Bangs (on front -Z)
   const bangCount = 7;
   for (let i = 0; i < bangCount; i++) {
     const norm = (i / (bangCount - 1)) * 2 - 1;
@@ -2390,7 +2380,6 @@ function rebuildCharacterFromConfig() {
     headPivot.add(strand);
   }
 
-  // Back Hair / Ponytail / Bun (on back +Z)
   charNodes.hairBackPivot.position.set(0, 0.24, 0.42);
   headPivot.add(charNodes.hairBackPivot);
 
@@ -2405,7 +2394,6 @@ function rebuildCharacterFromConfig() {
     tail.castShadow = true;
     charNodes.hairBackPivot.add(tail);
 
-    // Side locks for cute ponytail framing
     [-1, 1].forEach(side => {
       const sLock = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.09, 0.65, 10), hairMat);
       sLock.position.set(side * 0.43 * h.volume, -0.18, -0.05);
@@ -3062,7 +3050,6 @@ function startSelectedMode() {
     throwArmRig.visible = false;
     bankGroup.visible = true;
     charRig.visible = true;
-    // Start run-up further back on the bank at x = -1.4, z = 8.8 facing -Z
     charRig.position.set(BANK_STAND_POS.x, BANK_STAND_POS.y, 8.8);
     loadCharConfigFromStorage(state.selectedThrower);
     rebuildCharacterFromConfig();
@@ -3147,7 +3134,6 @@ function switchGameMode(mode) {
     throwArmRig.visible = false;
     bankGroup.visible = true;
     charRig.visible = true;
-    // Original river bank placement at (x: -1.4, y: 0, z: 2.2) facing -Z toward the water
     charRig.position.set(BANK_STAND_POS.x, BANK_STAND_POS.y, BANK_STAND_POS.z);
     loadCharConfigFromStorage(state.selectedThrower);
     rebuildCharacterFromConfig();
@@ -3195,19 +3181,21 @@ function chooseThrower(idx) {
 }
 
 // ============================================================================
-// 9. GLOBAL ONLINE RANKING (YASAI TAOPAIPAI STYLE: SINGLE SLOT PER DEVICE & NAME)
+// 9. GLOBAL ONLINE RANKING (FIREBASE FIRESTORE & ANALYTICS)
 // ============================================================================
 const GAME_SHARE_URL = 'https://doshitan64-crypto.github.io/mizukiri';
 const onlineScores = {
   STONE_VIEW: [],
   THROWER_VIEW: []
 };
+let firebaseApp = null;
 let db = null;
 let authInstance = null;
+let analyticsInstance = null;
 let currentUser = null;
 let isOnlineReady = false;
+let isInitializingFirebase = false;
 let modalRankMode = 'STONE_VIEW';
-const appId = typeof __app_id !== 'undefined' ? __app_id : 'infinite-skip-mizukiri';
 
 function getDeviceId() {
   try {
@@ -3248,39 +3236,55 @@ function deduplicateBestEntries(rawList) {
 }
 
 async function initOnlineLeaderboard() {
+  if (isOnlineReady || isInitializingFirebase) return;
+  isInitializingFirebase = true;
+
   try {
-    if (typeof __firebase_config === 'undefined' || !__firebase_config) {
-      updateOnlineStatusBadge(false);
-      return;
-    }
-    const firebaseConfig = typeof __firebase_config === 'string'
-      ? JSON.parse(__firebase_config)
-      : __firebase_config;
-    const app = initializeApp(firebaseConfig);
-    authInstance = getAuth(app);
-    db = getFirestore(app);
-
-    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-      const cred = await signInWithCustomToken(authInstance, __initial_auth_token);
-      currentUser = cred.user;
-    } else {
-      const cred = await signInAnonymously(authInstance);
-      currentUser = cred.user;
+    if (!firebaseApp) {
+      firebaseApp = initializeApp(firebaseConfig);
     }
 
-    if (!currentUser) {
-      updateOnlineStatusBadge(false);
-      return;
+    // Safely initialize Analytics only when supported (avoids iframe/sandbox IndexedDB errors)
+    isAnalyticsSupported()
+      .then(supported => {
+        if (supported && !analyticsInstance) {
+          try {
+            analyticsInstance = getAnalytics(firebaseApp);
+          } catch (analyticsErr) {
+            console.warn('[Firebase Analytics] skipped:', analyticsErr?.message || analyticsErr);
+          }
+        }
+      })
+      .catch(() => {});
+
+    if (!authInstance) {
+      authInstance = getAuth(firebaseApp);
+    }
+    if (!db) {
+      db = getFirestore(firebaseApp);
     }
 
-    isOnlineReady = true;
-    updateOnlineStatusBadge(true);
+    // Attempt anonymous authentication if enabled, but continue gracefully if disabled
+    try {
+      if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+        const cred = await signInWithCustomToken(authInstance, __initial_auth_token);
+        currentUser = cred.user;
+      } else {
+        const cred = await signInAnonymously(authInstance);
+        currentUser = cred.user;
+      }
+    } catch (authErr) {
+      console.warn('[Firebase Auth] continuing without anonymous auth:', authErr?.code || authErr);
+      currentUser = { uid: getDeviceId() };
+    }
 
     ['STONE_VIEW', 'THROWER_VIEW'].forEach(modeKey => {
-      const colRef = collection(db, 'artifacts', appId, 'public', 'data', `mizukiri_ranking_${modeKey}`);
+      const colRef = collection(db, `mizukiri_ranking_${modeKey}`);
       onSnapshot(
         colRef,
         snap => {
+          isOnlineReady = true;
+          updateOnlineStatusBadge(true);
           const allDocs = [];
           snap.forEach(docSnap => {
             const d = docSnap.data();
@@ -3300,13 +3304,19 @@ async function initOnlineLeaderboard() {
           onlineScores[modeKey] = deduplicateBestEntries(allDocs);
           renderRanks();
         },
-        () => {
+        err => {
+          console.warn(`[Firestore onSnapshot:${modeKey}]`, err?.code || err);
+          isOnlineReady = false;
           updateOnlineStatusBadge(false);
         }
       );
     });
-  } catch (_) {
+  } catch (err) {
+    console.warn('[Firebase Init] falling back to local storage:', err);
+    isOnlineReady = false;
     updateOnlineStatusBadge(false);
+  } finally {
+    isInitializingFirebase = false;
   }
 }
 
@@ -3365,6 +3375,7 @@ async function handleScoreFormSubmit(e) {
   if (btnEl) btnEl.disabled = true;
   if (msgEl) msgEl.textContent = '登録中…';
 
+  // Always save to localStorage first as a reliable backup
   const localRaw = (() => {
     try { return JSON.parse(localStorage.getItem(getStorageKey(mode)) || '[]'); } catch (_) { return []; }
   })();
@@ -3389,18 +3400,19 @@ async function handleScoreFormSubmit(e) {
     localStorage.setItem(getStorageKey(mode), JSON.stringify(deduplicateBestEntries(updatedLocal)));
   } catch (_) {}
 
-  if (!isOnlineReady) {
+  if (!db) {
     await initOnlineLeaderboard();
   }
 
   let savedOnline = false;
-  if (isOnlineReady && db && currentUser) {
+  if (db) {
     try {
       const existing = (onlineScores[mode] || []).find(
         r => r.deviceId === deviceId || r.id === deviceId || normalizePlayerKey(r.rawName) === normalizePlayerKey(rawName)
       );
       const docId = existing ? (existing.id || deviceId) : deviceId;
-      const docRef = doc(db, 'artifacts', appId, 'public', 'data', `mizukiri_ranking_${mode}`, docId);
+      const docRef = doc(db, `mizukiri_ranking_${mode}`, docId);
+      const uidVal = currentUser ? currentUser.uid : deviceId;
 
       if (existing && existing.distance > distInt) {
         await setDoc(docRef, {
@@ -3410,10 +3422,12 @@ async function handleScoreFormSubmit(e) {
           distance: existing.distance,
           skips: existing.skips,
           deviceId,
-          uid: currentUser.uid,
+          uid: uidVal,
           createdAt: Date.now()
-        });
+        }, { merge: true });
         savedOnline = true;
+        isOnlineReady = true;
+        updateOnlineStatusBadge(true);
         if (msgEl) msgEl.textContent = `自己ベスト（${existing.distance} m）を保持してなまえを更新しました！`;
       } else {
         await setDoc(docRef, {
@@ -3423,19 +3437,22 @@ async function handleScoreFormSubmit(e) {
           distance: distInt,
           skips: state.skips,
           deviceId,
-          uid: currentUser.uid,
+          uid: uidVal,
           createdAt: Date.now()
-        });
+        }, { merge: true });
         savedOnline = true;
+        isOnlineReady = true;
+        updateOnlineStatusBadge(true);
         if (msgEl) msgEl.textContent = `🏆 全世界ランキングに「${distInt} m」を登録しました！`;
       }
-    } catch (_) {
+    } catch (writeErr) {
+      console.warn('[Firestore setDoc]', writeErr?.code || writeErr);
       savedOnline = false;
     }
   }
 
   if (!savedOnline && msgEl) {
-    msgEl.textContent = `ランキングに「${bestLocalDist} m」を登録しました！`;
+    msgEl.textContent = `ランキングに「${bestLocalDist} m」を保存しました！`;
   }
 
   state.scoreRegisteredThisRun = true;
@@ -4211,7 +4228,6 @@ function animate(now) {
     const norm = state.runElapsed / state.runDuration;
 
     const clampedRun = Math.min(1, norm / 0.86);
-    // Run up from z=8.8 to the water's edge at z=2.2 (BANK_STAND_POS.z)
     charRig.position.z = 8.8 - clampedRun * (8.8 - BANK_STAND_POS.z);
 
     if (norm < 0.78) {
@@ -4362,4 +4378,4 @@ initOnlineLeaderboard();
 requestAnimationFrame(animate);
 </script>
 </body>
-  </html>
+</html>
